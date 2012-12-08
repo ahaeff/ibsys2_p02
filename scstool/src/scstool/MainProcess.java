@@ -1,6 +1,6 @@
 package scstool;
 
-import scstool.gui.MainWindow;
+import scstool.gui.GuiManager;
 
 public class MainProcess {
 
@@ -9,8 +9,7 @@ public class MainProcess {
 	 */
 	public static void main(String[] args) {
 
-		new MainWindow();
-
+		GuiManager.getInstance();
 		
 	}
 
