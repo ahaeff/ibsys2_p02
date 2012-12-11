@@ -22,6 +22,12 @@ public class ImportXMLDialog extends JFileChooser{
 	}
 	
 	
+	/**
+	 * 
+	 * Filterklasse für den "Datei oeffnen" Dialog
+	 * @author haeff
+	 *
+	 */
 	private class myFileFilter extends FileFilter
 	{
 
