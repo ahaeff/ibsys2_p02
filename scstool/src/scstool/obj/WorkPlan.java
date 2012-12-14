@@ -3,6 +3,8 @@
  */
 package scstool.obj;
 
+import java.util.List;
+
 /**
  * @author reinhold
  *
@@ -21,6 +23,8 @@ public class WorkPlan {
 	 * the prodcution time
 	 */
 	private Integer productionTime;
+	
+	private List<BillOfMaterial> billsOfMaterial;
 	/**
 	 * @return the id
 	 */

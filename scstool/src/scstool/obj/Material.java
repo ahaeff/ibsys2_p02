@@ -1,5 +1,6 @@
 package scstool.obj;
 
+import java.security.InvalidParameterException;
 import java.util.List;
 
 public class Material {
@@ -100,10 +101,17 @@ public class Material {
 		return partType;
 	}
 	/**
-	 * @param partType the partType to set
+	 * @param partType a String with value p, e or k
 	 */
-	public void setPartType(PartTypes partType) {
-		this.partType = partType;
+	public void setPartType(String partType) {
+		if(partType.length() > 1) throw new InvalidParameterException("Parameter must be p, e or k");
+		if(partType.toLowerCase().equals(PartTypes.PRODUCT.getMark())){
+			this.partType = PartTypes.PRODUCT;
+		} else if(partType.toLowerCase().equals(PartTypes.PURCHASE.getMark())){
+			this.partType = PartTypes.PURCHASE;
+		}else if(partType.toLowerCase().equals(PartTypes.SUBASSEMBLY.getMark())){
+			this.partType = PartTypes.SUBASSEMBLY;
+		}
 	}
 	/**
 	 * @return the deliveryTime

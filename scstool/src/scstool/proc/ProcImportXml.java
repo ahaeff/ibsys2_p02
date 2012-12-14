@@ -1,5 +1,14 @@
 package scstool.proc;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.XMLReaderFactory;
+
 import scstool.gui.GuiManager;
 import scstool.gui.ImportXMLDialog;
 
@@ -21,6 +30,7 @@ public class ProcImportXml
 		ImportXMLDialog dia = new ImportXMLDialog();
 		
 		dia.showOpenDialog(gm.getMainWindow()); 
+	    
 	}
 	
 }

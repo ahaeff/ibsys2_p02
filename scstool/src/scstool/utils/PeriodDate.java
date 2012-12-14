@@ -3,12 +3,16 @@
  */
 package scstool.utils;
 
+import java.math.BigDecimal;
+import java.security.InvalidParameterException;
+
 /**
  * @author reinhold
  *
  */
 public class PeriodDate {
 
+	private static final int WORKDAYS = 5;
 	/**
 	 * the period
 	 */
@@ -27,6 +31,14 @@ public class PeriodDate {
 		this.period = period;
 		this.day = day;
 	}
+	
+	public PeriodDate(Double period){
+		super();
+		this.setPeriod((int) MyMath.round(period,0,BigDecimal.ROUND_DOWN));
+		int day2 = (int) MyMath.round(WORKDAYS*(period-this.period),2,BigDecimal.ROUND_HALF_UP);
+		this.setDay(day2);
+	}
+	
 	/**
 	 * @return the period
 	 */
@@ -49,7 +61,41 @@ public class PeriodDate {
 	 * @param day the day to set
 	 */
 	public void setDay(Integer day) {
+		if(day < 1 || day > 5) throw new InvalidParameterException("Must between 1 and 5");
 		this.day = day;
+	}
+
+	/**
+	 * Einem Datum ein anderes hinzufügen
+	 * 
+	 * @param toAdd
+	 * @return
+	 */
+	public PeriodDate add(PeriodDate toAdd){
+		int period = this.period+toAdd.period;
+		int day = this.day+toAdd.day;
+		return new PeriodDate(period, day);
+	}
+	
+	/**
+	 * Einem Datum ein anderes abziehen
+	 * 
+	 * @param toSub
+	 * @return
+	 */
+	public PeriodDate sub(PeriodDate toSub){
+		int period = this.period-toSub.period;
+		int day = this.day-toSub.day;
+		return new PeriodDate(period, day);
+	}
+	
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return  period + "-" + day + "-0";
 	}
 	
 }
