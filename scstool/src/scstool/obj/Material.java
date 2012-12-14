@@ -34,6 +34,33 @@ public class Material {
 		}
 	}
 	
+	public enum UsedIn{
+		KINDER("K"),
+		HERREN("H"),
+		DAMEN("D"),
+		ALLE("KDH");
+		
+		
+		/**
+		 * the letter in the simulation to categorize the material
+		 */
+		private String mark;
+		
+		/**
+		 * Constructor
+		 * @param letter
+		 */
+		UsedIn(String letter){
+			this.mark = letter;
+		}
+		/**
+		 * @return the mark
+		 */
+		public String getMark() {
+			return mark;
+		}
+	}
+	
 	/**
 	 * the unique id
 	 */
@@ -63,9 +90,9 @@ public class Material {
 	 */
 	private Integer discountAmount;
 	/**
-	 * TODO wie soll das gelšst werden?
+	 * the marker where the material is used
 	 */
-	private String usedIn;
+	private UsedIn usedIn;
 	/**
 	 * the material history to check the amount in the stock
 	 */
@@ -111,6 +138,8 @@ public class Material {
 			this.partType = PartTypes.PURCHASE;
 		}else if(partType.toLowerCase().equals(PartTypes.SUBASSEMBLY.getMark())){
 			this.partType = PartTypes.SUBASSEMBLY;
+		} else{
+			throw new InvalidParameterException("Parameter must be p, e or k");
 		}
 	}
 	/**
@@ -164,14 +193,24 @@ public class Material {
 	/**
 	 * @return the used
 	 */
-	public String getUsed() {
+	public UsedIn getUsedIn() {
 		return usedIn;
 	}
 	/**
 	 * @param used the used to set
 	 */
-	public void setUsed(String used) {
-		this.usedIn = used;
+	public void setUsedIn(String used) {
+		if(used.toUpperCase().equals(UsedIn.ALLE.getMark())){
+			this.usedIn = UsedIn.ALLE;
+		} else if(used.toUpperCase().equals(UsedIn.DAMEN.getMark())){
+			this.usedIn = UsedIn.DAMEN;
+		}else if(used.toUpperCase().equals(UsedIn.HERREN.getMark())){
+			this.usedIn =UsedIn.HERREN;
+		}else if(used.toUpperCase().equals(UsedIn.KINDER.getMark())){
+			this.usedIn =UsedIn.KINDER;
+		} else{
+			throw new InvalidParameterException("Parameter must be  k, d, h or kdh");
+		}
 	}
 	/**
 	 * @return the materialHistory
