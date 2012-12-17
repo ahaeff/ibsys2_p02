@@ -3,6 +3,8 @@
  */
 package scstool.obj;
 
+import java.security.InvalidParameterException;
+
 import scstool.utils.PeriodDate;
 
 /**
@@ -10,6 +12,30 @@ import scstool.utils.PeriodDate;
  *
  */
 public class Order {
+
+	public enum Mode{
+		NORMAL(5),
+		EIL(4);
+		
+		/**
+		 * the letter in the simulation to categorize the ordermode
+		 */
+		private Integer mark;
+		
+		/**
+		 * Constructor
+		 * @param letter
+		 */
+		Mode(Integer letter){
+			this.mark = letter;
+		}
+		/**
+		 * @return the mark
+		 */
+		public Integer getMark() {
+			return mark;
+		}
+	}
 
 	/**
 	 * the unique id
@@ -35,6 +61,15 @@ public class Order {
 	 * the material ordered
 	 */
 	private Material material;
+	
+	private Double ordercosts;
+	
+	private Double piececosts;
+	
+	private Double entirecosts;
+	
+	private Mode mode;
+	
 	/**
 	 * @return the id
 	 */
@@ -107,4 +142,71 @@ public class Order {
 	public void setFinished(boolean finished) {
 		this.finished = finished;
 	}
+	public Double getOrdercosts() {
+		return ordercosts;
+	}
+	public void setOrdercosts(Double ordercosts) {
+		this.ordercosts = ordercosts;
+	}
+	public Double getPiececosts() {
+		return piececosts;
+	}
+	public void setPiececosts(Double piececosts) {
+		this.piececosts = piececosts;
+	}
+	public Double getEntirecosts() {
+		return entirecosts;
+	}
+	public void setEntirecosts(Double entirecosts) {
+		this.entirecosts = entirecosts;
+	}
+	
+	/**
+	 * @param name the name to set
+	 */	
+	public void setMode(Integer mode) {
+		//if(mode.length() > 1) throw new InvalidParameterException("Parameter must be p, e or k");
+		if(mode.equals(Mode.NORMAL.getMark())){
+			this.mode = Mode.NORMAL;
+		} else if(mode.equals(Mode.EIL.getMark())){
+			this.mode = Mode.EIL;
+		} else{
+			throw new InvalidParameterException("Parameter must be 4 or 5");
+		}
+	}
+	
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", amount=" + amount + ", finished="
+				+ finished + ", mode=" + mode + ", ordercosts="
+				+ ordercosts + ", piececosts=" + piececosts + ", entirecosts="
+				+ entirecosts + ", material=" + material + "]";
+	}
+	/**
+	 * @return the partType
+	*/
+	public Mode getMode() {
+		return mode;
+	}
+	/**
+	 *  orderperiod (in welcher Periode kommt der Artikel)
+	 *  mode (bestelltyp, Eil/Normal)
+	 *  article (material)
+	 *  amount (menge)
+	 *  time	(zeitstempel --> Wochentag) -->Lieferdatum
+	 *  materialcosts (kosten f�r das Material)
+	 *  ordercosts (bestellkosten)
+	 *  entirecosts (bestellkosten gesamt)
+	 *  piececosts (st�ckkosten)
+	 *  -----------------------------------------------------
+	 *  Lieferdatum 		--> time
+	 *  bestelldatum		--> not
+	 *  menge				--> amount
+	 *  beendet				--> not
+	 *  bestellart			--> mode
+	 *  Artikel_ID			--> article
+	 *  
+	 */
+
+	
 }

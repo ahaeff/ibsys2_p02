@@ -6,7 +6,7 @@ package scstool.utils;
 import java.math.BigDecimal;
 
 /**
- * Container fŸr mathematische Funktionen.
+ * Container fï¿½r mathematische Funktionen.
  * Nur static erlaubt :D
  * 
  * @author reinhold

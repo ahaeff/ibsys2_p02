@@ -58,5 +58,11 @@ public class Salary {
 		this.amount = amount;
 	}
 	
+	@Override
+	public String toString() {
+		return "Salary [id=" + id + ", description=" + description
+				+ ", amount=" + amount + "]";
+	}
+	
 
 }

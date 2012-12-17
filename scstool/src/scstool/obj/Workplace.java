@@ -3,6 +3,11 @@
  */
 package scstool.obj;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import scstool.obj.WorkPlan;
+
 /**
  * @author reinhold
  *
@@ -25,6 +30,9 @@ public class Workplace {
 	 * the fixed machine costs
 	 */
 	private Double fixMachineCosts;
+	
+	private List<WorkPlan> workplan = new ArrayList<WorkPlan>();
+
 	/**
 	 * @return the id
 	 */
@@ -72,6 +80,21 @@ public class Workplace {
 	 */
 	public void setFixMachineCosts(Double fixMachineCosts) {
 		this.fixMachineCosts = fixMachineCosts;
+	}
+	public List<WorkPlan> getWorkplan() {
+		return workplan;
+	}
+	public void setWorkplan(ArrayList<WorkPlan> workplan) {
+		this.workplan = workplan;
+	}
+	
+	public void addWorkplan(WorkPlan workplan) {
+		this.workplan.add(workplan);
+	}
+	
+	@Override
+	public String toString() {
+		return "Workplace [id=" + id + ", workplan=" + workplan + "]";
 	}
 
 }
