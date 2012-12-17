@@ -110,7 +110,6 @@ public class InputContentHandler implements ContentHandler {
         System.out.println(salary);
       }
   
-    
     if (localName.equals("workplace")) {
         allePlaetze.add(workplace);
         System.out.println(workplace);
