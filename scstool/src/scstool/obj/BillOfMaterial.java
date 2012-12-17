@@ -3,6 +3,7 @@
  */
 package scstool.obj;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,18 +53,43 @@ public class BillOfMaterial {
 		public void setAmount(Integer amount) {
 			this.amount = amount;
 		}
+		
+		@Override
+		public String toString() {
+			return "MaterialAmount [amount=" + amount + ", assembly="
+					+ assembly + ", material=" + material + "]";
+		}
+		
 	}
-	
+
+	/**
+	 * the unique id
+	 */
+	private Integer id;
+
 	/**
 	 * the materials and the amount of them to create an other material
 	 * you know minecraft ;) 
 	 */
-	private List<MaterialAmount> materials;
+	private List<MaterialAmount> materials = new ArrayList<>();
 	/**
 	 * the material to create
 	 */
-	private Material toCreate;
+	private Material component;
 	
+	/**
+	 * @return the id
+	 */
+	public Integer getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	/**
 	 * @return the materials
 	 */
@@ -76,17 +102,41 @@ public class BillOfMaterial {
 	public void setMaterials(List<MaterialAmount> materials) {
 		this.materials = materials;
 	}
+	
+	public void addMaterials(MaterialAmount materialAmount){
+        this.materials.add(materialAmount);
+	}
+	
+	public MaterialAmount createMaterialAmount(Integer amount, Boolean assembly,
+			Material materialMaterial) {
+		
+		MaterialAmount ma = new MaterialAmount();
+		
+		ma.amount = amount;
+		ma.assembly = assembly;
+		ma.material = materialMaterial;
+		
+        return ma;
+        
+	}
+
 	/**
 	 * @return the toCreate
 	 */
-	public Material getToCreate() {
-		return toCreate;
+	public Material getComponent() {
+		return component;
 	}
 	/**
 	 * @param toCreate the toCreate to set
 	 */
-	public void setToCreate(Material toCreate) {
-		this.toCreate = toCreate;
+	public void setComponent(Material component) {
+		this.component = component;
+	}
+	
+	@Override
+	public String toString() {
+		return "BillOfMaterial [id=" + id + ", materials=" + materials
+				+ ", component=" + component + "]";
 	}
 
 }
