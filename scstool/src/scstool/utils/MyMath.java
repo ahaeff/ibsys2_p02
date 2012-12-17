@@ -28,4 +28,19 @@ public class MyMath {
 	    BigDecimal rounded = bd.setScale(precision, roundingMode);
 	    return rounded.doubleValue();
 	}
+	
+	
+	/**
+	 * Macht aus einem Komma seperierten String eine Double.
+	 * 
+	 * @param value
+	 * @return
+	 */
+	public static double parseDouble(String value){
+		if(value.contains(",")){
+			value.replace(',', '.');
+		}
+		
+		return Double.parseDouble(value);
+	}
 }
