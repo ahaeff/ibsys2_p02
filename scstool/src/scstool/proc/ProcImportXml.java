@@ -22,6 +22,8 @@ import scstool.obj.Material;
  */
 public class ProcImportXml 
 {
+	
+	
 	/**
 	 * Startet den Datei oeffnen Dialog
 	 */
@@ -36,19 +38,20 @@ public class ProcImportXml
 	    try {
 	        // XMLReader erzeugen
 	        XMLReader xmlReader = XMLReaderFactory.createXMLReader();
-	        
-	        // Pfad zur XML Datei
-	        FileReader reader = new FileReader("C:\\wamp\\www\\SAX_Bsp\\personen.xml");
-	        InputSource inputSource = new InputSource(reader);
 
+	        // Pfad zur XML Datei
+	        
+	        FileReader reader = new FileReader(dia.getSelectedFile());
+//	        FileReader reader = new FileReader("C:\\wamp\\www\\SAX_Bsp\\personen.xml");
+	        InputSource inputSource = new InputSource(reader);
+	        
 	        // DTD kann optional �bergeben werden
 	        // inputSource.setSystemId("X:\\personen.dtd");
 
 	        // PersonenContentHandler wird �bergeben
 	        DatabaseContentHandler databaseContentHandler = new DatabaseContentHandler();
 	        xmlReader.setContentHandler(databaseContentHandler);
-	       
-	        
+	       	        
 	        // Parsen wird gestartet
 	        xmlReader.parse(inputSource);
 	        
