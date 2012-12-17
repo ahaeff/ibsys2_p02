@@ -13,7 +13,7 @@ import scstool.obj.Order;
 import scstool.obj.Salary;
 import scstool.obj.WorkPlan;
 import scstool.obj.Workplace;
-import scstool.utils.PeriodDate;
+import scstool.utils.MyMath;
 
 public class InputContentHandler implements ContentHandler {
 
@@ -58,8 +58,8 @@ public class InputContentHandler implements ContentHandler {
 		 material = findMaterial(Integer.parseInt(atts.getValue("id")));
 	
 		 material.setAmount(Integer.parseInt(atts.getValue("amount")));
-		 material.setPct(Double.parseDouble(atts.getValue("pct")));
-		 material.setPrice(Double.parseDouble(atts.getValue("price")));
+		 material.setPct(MyMath.parseDouble(atts.getValue("pct")));
+		 material.setPrice(MyMath.parseDouble(atts.getValue("price")));
 		 material.setStockvalue(Double.parseDouble(atts.getValue("stockvalue")));
 		
 		 warehousestock.calcWarehouseStock(material);
@@ -76,8 +76,8 @@ public class InputContentHandler implements ContentHandler {
 			//order.setOrderDate(orderDate) --> time
 	  // wann es gekommen ist, ist egal .. es ist nur von Bedeutung, DASS es gekommen ist (wenn �berhaupt)  	
 			//order.setDeliveryDate(new PeriodDate(Double.parseDouble(atts.getValue("deliveryTime"))));
-	    	order.setEntirecosts(Double.parseDouble(atts.getValue("entirecosts")));
-	    	order.setPiececosts(Double.parseDouble(atts.getValue("piececosts")));
+	    	order.setEntirecosts(MyMath.parseDouble(atts.getValue("entirecosts")));
+	    	order.setPiececosts(MyMath.parseDouble(atts.getValue("piececosts")));
 		}
 	    else
 	    {

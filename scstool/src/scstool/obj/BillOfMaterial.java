@@ -71,7 +71,7 @@ public class BillOfMaterial {
 	 * the materials and the amount of them to create an other material
 	 * you know minecraft ;) 
 	 */
-	private List<MaterialAmount> materials = new ArrayList<>();
+	private List<MaterialAmount> materials = new ArrayList<MaterialAmount>();
 	/**
 	 * the material to create
 	 */

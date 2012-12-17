@@ -13,6 +13,7 @@ import scstool.obj.Order;
 import scstool.obj.Salary;
 import scstool.obj.WorkPlan;
 import scstool.obj.Workplace;
+import scstool.utils.MyMath;
 import scstool.utils.PeriodDate;
 
 public class DatabaseContentHandler implements ContentHandler {
@@ -70,8 +71,8 @@ public class DatabaseContentHandler implements ContentHandler {
       material.setStartamount(Integer.parseInt(atts.getValue("startamount")));
       material.setName(atts.getValue("name"));
       material.setPartType(atts.getValue("partType"));
-      material.setDeliveryTime(new PeriodDate(Double.parseDouble(atts.getValue("deliveryTime"))));
-      material.setDeliveryAberation(new PeriodDate(Double.parseDouble(atts.getValue("deliveryAberation"))));
+      material.setDeliveryTime(new PeriodDate(MyMath.parseDouble(atts.getValue("deliveryTime"))));
+      material.setDeliveryAberation(new PeriodDate(MyMath.parseDouble(atts.getValue("deliveryAberation"))));
       material.setOrderCosts(Integer.parseInt(atts.getValue("orderCosts")));
       material.setDiscountAmount(Integer.parseInt(atts.getValue("discountAmount")));
       material.setUsedIn(atts.getValue("usedIn"));
@@ -87,7 +88,7 @@ public class DatabaseContentHandler implements ContentHandler {
       
       salary.setId(Integer.parseInt(atts.getValue("id")));
       salary.setDescription(atts.getValue("descripton"));
-      salary.setAmount(Double.parseDouble(atts.getValue("amount")));
+      salary.setAmount(MyMath.parseDouble(atts.getValue("amount")));
     }
     
     //---------------------------------------------------------
@@ -98,8 +99,8 @@ public class DatabaseContentHandler implements ContentHandler {
       
       workplace.setId(Integer.parseInt(atts.getValue("id")));
       workplace.setDescripton(atts.getValue("descripton"));
-      workplace.setFixMachineCosts(Double.parseDouble(atts.getValue("fixMachineCosts")));
-      workplace.setVarMachineCosts(Double.parseDouble(atts.getValue("varMachineCosts")));
+      workplace.setFixMachineCosts(MyMath.parseDouble(atts.getValue("fixMachineCosts")));
+      workplace.setVarMachineCosts(MyMath.parseDouble(atts.getValue("varMachineCosts")));
     }
     
     //---------------------------------------------------------
