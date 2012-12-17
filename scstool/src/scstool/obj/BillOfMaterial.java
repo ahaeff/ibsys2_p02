@@ -16,7 +16,7 @@ public class BillOfMaterial {
 	 * @author reinhold
 	 *
 	 */
-	class MaterialAmount{
+	public class MaterialAmount{
 		/**
 		 * the amount of the material used
 		 */

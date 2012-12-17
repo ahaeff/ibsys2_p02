@@ -279,6 +279,16 @@ public class Material {
 		this.materialHistory = materialHistory;
 	}
 	*/
-	
+	@Override
+	public String toString() {
+		return "Material [id=" + id + ", name=" + name + ", partType="
+				+ partType + ", deliveryTime=" + deliveryTime
+				+ ", deliveryAberation=" + deliveryAberation + ", orderCosts="
+				+ orderCosts + ", discountAmount=" + discountAmount
+				+ ", usedIn=" + usedIn + ", startamount=" + startamount
+				+ ", amount=" + amount + ", pct=" + pct + ", price=" + price
+				+ ", stockvalue=" + stockvalue + "]";
+	}
+
 	
 }

@@ -61,12 +61,12 @@ public class PeriodDate {
 	 * @param day the day to set
 	 */
 	public void setDay(Integer day) {
-		if(day < 1 || day > 5) throw new InvalidParameterException("Must between 1 and 5");
+		if(day < 0 || day > 5) throw new InvalidParameterException("Must between 0 and 5");
 		this.day = day;
 	}
 
 	/**
-	 * Einem Datum ein anderes hinzufŸgen
+	 * Einem Datum ein anderes hinzufï¿½gen
 	 * 
 	 * @param toAdd
 	 * @return
