@@ -3,6 +3,11 @@
  */
 package scstool.obj;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import scstool.obj.BillOfMaterial;
+
 /**
  * @author reinhold
  *
@@ -21,6 +26,8 @@ public class WorkPlan {
 	 * the prodcution time
 	 */
 	private Integer productionTime;
+	
+	private List<BillOfMaterial> billOfMaterial = new ArrayList<BillOfMaterial>();
 	/**
 	 * @return the id
 	 */
@@ -57,4 +64,21 @@ public class WorkPlan {
 	public void setProductionTime(Integer productionTime) {
 		this.productionTime = productionTime;
 	}
+	public List<BillOfMaterial> getBillOfMaterial() {
+		return billOfMaterial;
+	}
+	public void setBillsOfMaterial(ArrayList<BillOfMaterial> billOfMaterial) {
+		this.billOfMaterial = billOfMaterial;
+	}
+	
+	public void addBoM(BillOfMaterial billOfMaterial){
+		this.billOfMaterial.add(billOfMaterial);
+	}
+	@Override
+	public String toString() {
+		return "WorkPlan [id=" + id + ", setupTime=" + setupTime
+				+ ", productionTime=" + productionTime + ", billOfMaterial="
+				+ billOfMaterial + "]";
+	}
+	
 }

@@ -1,6 +1,8 @@
 package scstool.obj;
 
-import java.util.List;
+import java.security.InvalidParameterException;
+
+import scstool.utils.PeriodDate;
 
 public class Material {
 	
@@ -9,26 +11,52 @@ public class Material {
 	 *
 	 */
 	public enum PartTypes{
-		PRODUCT('p'),
-		SUBASSEMBLY('e'),
-		PURCHASE('k');
+		PRODUCT("P"),
+		SUBASSEMBLY("E"),
+		PURCHASE("K");
 		
 		/**
 		 * the letter in the simulation to categorize the material
 		 */
-		private char mark;
+		private String mark;
 		
 		/**
 		 * Constructor
 		 * @param letter
 		 */
-		PartTypes(char letter){
+		PartTypes(String letter){
 			this.mark = letter;
 		}
 		/**
 		 * @return the mark
 		 */
-		public char getMark() {
+		public String getMark() {
+			return mark;
+		}
+	}
+	
+	public enum UsedIn{
+		KINDER("K"),
+		HERREN("H"),
+		DAMEN("D"),
+		ALLE("KDH");
+
+		/**
+		 * the letter in the simulation to categorize the material
+		 */
+		private String mark;
+
+		/**
+		 * Constructor
+		 * @param letter
+		 */
+		UsedIn(String letter){
+			this.mark = letter;
+		}
+		/**
+		 * @return the mark
+		 */
+		public String getMark() {
 			return mark;
 		}
 	}
@@ -48,27 +76,47 @@ public class Material {
 	/**
 	 * the delivery time of the material
 	 */
-	private Double deliveryTime;
+	private PeriodDate deliveryTime;
 	/**
-	 * the abberation of the delivery time
+	 * the aberation of the delivery time
 	 */
-	private Double deliveryAbberation;
+	private PeriodDate deliveryAberation;
 	/**
 	 * the costs of one order
 	 */
-	private Double orderCosts;
+	private Integer orderCosts;
 	/**
 	 * the discount amount for orders
 	 */
 	private Integer discountAmount;
 	/**
-	 * TODO wie soll das gelšst werden?
+	 *  "TeileVerwendung"
 	 */
-	private String usedIn;
+	private UsedIn usedIn;
 	/**
-	 * the material history to check the amount in the stock
+	 * Menge im Lager bei Periode 0
 	 */
-	private List<MaterialHistory> materialHistory;
+	private Integer startamount;
+	
+	/**
+	 * Menge im Lager der aktuellen(eingelesenen) Periode
+	 */
+	private Integer amount;
+	
+	/**
+	 * Prozentuale Menge vom Startwert --> amount/startamount = pct
+	 */
+	private Double pct;
+	
+	/**
+	 * Preis der aktuellen (eingelesenen) Periode
+	 */
+	private Double price;
+	
+	/**
+	 * Preis der aktuellen (eingelesenen) Periode
+	 */
+	private Double stockvalue;
 	/**
 	 * @return the id
 	 */
@@ -100,45 +148,55 @@ public class Material {
 		return partType;
 	}
 	/**
-	 * @param partType the partType to set
+	 * @param partType a String with value p, e or k
 	 */
-	public void setPartType(PartTypes partType) {
-		this.partType = partType;
+	public void setPartType(String partType) {
+		if(partType.length() > 1) throw new InvalidParameterException("Parameter must be p, e or k");
+		if(partType.toUpperCase().equals(PartTypes.PRODUCT.getMark())){
+			this.partType = PartTypes.PRODUCT;
+		} else if(partType.toUpperCase().equals(PartTypes.PURCHASE.getMark())){
+			this.partType = PartTypes.PURCHASE;
+		}else if(partType.toUpperCase().equals(PartTypes.SUBASSEMBLY.getMark())){
+			this.partType = PartTypes.SUBASSEMBLY;
+		} else{
+			throw new InvalidParameterException("Parameter must be p, e or k");
+		}
 	}
+
 	/**
 	 * @return the deliveryTime
 	 */
-	public Double getDeliveryTime() {
+	public PeriodDate getDeliveryTime() {
 		return deliveryTime;
 	}
 	/**
 	 * @param deliveryTime the deliveryTime to set
 	 */
-	public void setDeliveryTime(Double deliveryTime) {
+	public void setDeliveryTime(PeriodDate deliveryTime) {
 		this.deliveryTime = deliveryTime;
 	}
 	/**
 	 * @return the deliveryAbberation
 	 */
-	public Double getDeliveryAbberation() {
-		return deliveryAbberation;
+	public PeriodDate getDeliveryAberation() {
+		return deliveryAberation;
 	}
 	/**
-	 * @param deliveryAbberation the deliveryAbberation to set
+	 * @param deliveryAberation the deliveryAberation to set
 	 */
-	public void setDeliveryAbberation(Double deliveryAbberation) {
-		this.deliveryAbberation = deliveryAbberation;
+	public void setDeliveryAberation(PeriodDate deliveryAberation) {
+		this.deliveryAberation = deliveryAberation;
 	}
 	/**
 	 * @return the orderCosts
 	 */
-	public Double getOrderCosts() {
+	public Integer getOrderCosts() {
 		return orderCosts;
 	}
 	/**
 	 * @param orderCosts the orderCosts to set
 	 */
-	public void setOrderCosts(Double orderCosts) {
+	public void setOrderCosts(Integer orderCosts) {
 		this.orderCosts = orderCosts;
 	}
 	/**
@@ -156,28 +214,81 @@ public class Material {
 	/**
 	 * @return the used
 	 */
-	public String getUsed() {
+	public UsedIn getUsedIn() {
 		return usedIn;
 	}
 	/**
 	 * @param used the used to set
 	 */
-	public void setUsed(String used) {
-		this.usedIn = used;
+	public void setUsedIn(String used) {
+		if(used.toUpperCase().equals(UsedIn.ALLE.getMark())){
+			this.usedIn = UsedIn.ALLE;
+		} else if(used.toUpperCase().equals(UsedIn.DAMEN.getMark())){
+			this.usedIn = UsedIn.DAMEN;
+		}else if(used.toUpperCase().equals(UsedIn.HERREN.getMark())){
+			this.usedIn =UsedIn.HERREN;
+		}else if(used.toUpperCase().equals(UsedIn.KINDER.getMark())){
+			this.usedIn =UsedIn.KINDER;
+		} else{
+			throw new InvalidParameterException("Parameter must be  k, d, h or kdh");
+		}
 	}
+	
+	public Integer getStartamount() {
+		return startamount;
+	}
+	public void setStartamount(Integer startamount) {
+		this.startamount = startamount;
+	}
+	public Integer getAmount() {
+		return amount;
+	}
+	public void setAmount(Integer amount) {
+		this.amount = amount;
+	}
+	public Double getPct() {
+		return pct;
+	}
+	public void setPct(Double pct) {
+		this.pct = pct;
+	}
+	public Double getPrice() {
+		return price;
+	}
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+	public Double getStockvalue() {
+		return stockvalue;
+	}
+	public void setStockvalue(Double stockvalue) {
+		this.stockvalue = stockvalue;
+	}
+
+	
 	/**
 	 * @return the materialHistory
-	 */
+	 
 	public List<MaterialHistory> getMaterialHistory() {
 		return materialHistory;
 	}
 	/**
 	 * @param materialHistory the materialHistory to set
-	 */
+	 
 	public void setMaterialHistory(List<MaterialHistory> materialHistory) {
 		this.materialHistory = materialHistory;
 	}
-	
-	
+	*/
+	@Override
+	public String toString() {
+		return "Material [id=" + id + ", name=" + name + ", partType="
+				+ partType + ", deliveryTime=" + deliveryTime
+				+ ", deliveryAberation=" + deliveryAberation + ", orderCosts="
+				+ orderCosts + ", discountAmount=" + discountAmount
+				+ ", usedIn=" + usedIn + ", startamount=" + startamount
+				+ ", amount=" + amount + ", pct=" + pct + ", price=" + price
+				+ ", stockvalue=" + stockvalue + "]";
+	}
+
 	
 }

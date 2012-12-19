@@ -76,7 +76,7 @@ public class GuiManager{
 			}
 			else if (e.getSource() == mainMenu.getMenuItem(MainMenu.MENU_IMPORTXML))
 			{
-				ProcImportXML proc = new ProcImportXML();
+				ProcImportXml proc = new ProcImportXml();
 				proc.openDialog();
 			}
 			else if(e.getSource() == mainMenu.getMenuItem(MainMenu.MENU_USER_INPUT))
