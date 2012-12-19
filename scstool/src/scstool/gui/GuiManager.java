@@ -1,7 +1,7 @@
 package scstool.gui;
 
 
-import scstool.proc.ProcImportXml;
+import scstool.proc.ProcImportXML;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
