@@ -9,7 +9,7 @@ import scstool.gui.ImportXMLDialog;
  * @author haeff
  *
  */
-public class ProcImportXml 
+public class ProcImportXML 
 {
 	/**
 	 * Startet den Datei oeffnen Dialog
