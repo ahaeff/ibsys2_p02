@@ -37,10 +37,11 @@ public class MyMath {
 	 * @return
 	 */
 	public static double parseDouble(String value){
+		String result = value;
 		if(value.contains(",")){
-			value.replace(',', '.');
+			result = value.replace(',', '.');
 		}
 		
-		return Double.parseDouble(value);
+		return Double.parseDouble(result);
 	}
 }

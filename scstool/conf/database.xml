@@ -1,0 +1,453 @@
+<?xml version="1.0"?>
+<database>	
+	<warehousestock>
+		<material id="1" startamount="100" name="Kinderfahrrad" partType="P" deliveryTime="0.0" deliveryAberation="0.0"  orderCosts="0" discountAmount="0" usedIn="K" />
+		<material id="2" startamount="100" name="Damenfahrrad" partType="P" deliveryTime="0.0" deliveryAberation="0.0"  orderCosts="0" discountAmount="0" usedIn="D" />
+		<material id="3" startamount="100" name="Herrenfahrrad" partType="P" deliveryTime="0.0" deliveryAberation="0.0" orderCosts="0" discountAmount="0" usedIn="H" />
+		<material id="4" startamount="100" name="Hinterradgruppe" partType="E" deliveryTime="0.0" deliveryAberation="0.0" orderCosts="0" discountAmount="0" usedIn="K"  />
+		<material id="5" startamount="100" name="Hinterradgruppe" partType="E" deliveryTime="0.0" deliveryAberation="0.0" orderCosts="0" discountAmount="0" usedIn="D"  />
+		<material id="6" startamount="100" name="Hinterradgruppe" partType="E" deliveryTime="0.0" deliveryAberation="0.0" orderCosts="0" discountAmount="0" usedIn="H"  />
+		<material id="7" startamount="100" name="Vorderradgruppe" partType="E" deliveryTime="0.0" deliveryAberation="0.0" orderCosts="0" discountAmount="0" usedIn="K"  />
+		<material id="8" startamount="100"  name="Vorderradgruppe" partType="E" deliveryTime="0.0" deliveryAberation="0.0" orderCosts="0" discountAmount="0" usedIn="D" />
+		<material id="9" startamount="100"  name="Vorderradgruppe" partType="E" deliveryTime="0.0" deliveryAberation="0.0" orderCosts="0" discountAmount="0" usedIn="H" />
+		<material id="10" startamount="100" name="Schutzblech h." partType="E" deliveryTime="0.0" deliveryAberation="0.0" orderCosts="0" discountAmount="0" usedIn="K"  />
+		<material id="11" startamount="100" name="Schutzblech h." partType="E" deliveryTime="0.0" deliveryAberation="0.0" orderCosts="0" discountAmount="0" usedIn="D"  />
+		<material id="12" startamount="100" name="Schutzblech h." partType="E" deliveryTime="0.0" deliveryAberation="0.0" orderCosts="0" discountAmount="0" usedIn="H"  />
+		<material id="13" startamount="100" name="Schutzblech v." partType="E" deliveryTime="0.0" deliveryAberation="0.0" orderCosts="0" discountAmount="0" usedIn="K"  />
+		<material id="14" startamount="100" name="Schutzblech v." partType="E" deliveryTime="0.0" deliveryAberation="0.0" orderCosts="0" discountAmount="0" usedIn="D"  />
+		<material id="15" startamount="100" name="Schutzblech v." partType="E" deliveryTime="0.0" deliveryAberation="0.0" orderCosts="0" discountAmount="0" usedIn="H"  />
+		<material id="16" startamount="300" name="lenker cpl." partType="E" deliveryTime="0.0" deliveryAberation="0.0" orderCosts="0" discountAmount="0" usedIn="KDH"  />
+		<material id="17" startamount="300" name="Sattel cpl." partType="E" deliveryTime="0.0" deliveryAberation="0.0" orderCosts="0" discountAmount="0" usedIn="KDH"  />
+		<material id="18" startamount="100" name="Rahmen" partType="E" deliveryTime="0.0" deliveryAberation="0.0" orderCosts="0" discountAmount="0" usedIn="K"  />
+		<material id="19" startamount="100" name="Rahmen" partType="E" deliveryTime="0.0" deliveryAberation="0.0" orderCosts="0" discountAmount="0" usedIn="D"  />
+		<material id="20" startamount="100" name="Rahmen" partType="E" deliveryTime="0.0" deliveryAberation="0.0" orderCosts="0" discountAmount="0" usedIn="H"  />
+		<material id="21" startamount="300" name="Kette" partType="K" deliveryTime="1.8" deliveryAberation="0.4" orderCosts="50" discountAmount="300" usedIn="K"  />
+		<material id="22" startamount="300" name="Kette" partType="K" deliveryTime="1.7" deliveryAberation="0.4" orderCosts="50" discountAmount="300" usedIn="D"  />
+		<material id="23" startamount="300" name="Kette" partType="K" deliveryTime="1.2" deliveryAberation="0.2" orderCosts="50" discountAmount="300" usedIn="H"  />
+		<material id="24" startamount="6100" name="Mutter 3/8“" partType="K" deliveryTime="3.2" deliveryAberation="0.3" orderCosts="100" discountAmount="6100" usedIn="K"  />
+		<material id="25" startamount="3600" name="Scheibe 3/8“" partType="K" deliveryTime="0.9" deliveryAberation="0.2" orderCosts="50" discountAmount="3600" usedIn="D"  />
+		<material id="26" startamount="300" name="Pedal cpl." partType="E" deliveryTime="0.0" deliveryAberation="0.0" orderCosts="0" discountAmount="0" usedIn="H"  />
+		<material id="27" startamount="1800" name="Schraube 3/8“" partType="K" deliveryTime="0.9" deliveryAberation="0.2" orderCosts="75" discountAmount="1800" usedIn="KDH"  />
+		<material id="28" startamount="4500" name="Rohr 3/4“" partType="K" deliveryTime="1.7" deliveryAberation="0.4" orderCosts="50" discountAmount="4500" usedIn="KDH"  />
+		<material id="29" startamount="100" name="Vorderrad mont." partType="E" deliveryTime="0.0" deliveryAberation="0.0" orderCosts="0" discountAmount="0" usedIn="H"  />
+		<material id="30" startamount="100" name="Rahmen u. Räder" partType="E" deliveryTime="0.0" deliveryAberation="0.0" orderCosts="0" discountAmount="0" usedIn="H"  />
+		<material id="31" startamount="100" name="Fahrrad o. Ped." partType="E" deliveryTime="0.0" deliveryAberation="0.0" orderCosts="0" discountAmount="0" usedIn="H"  />
+		<material id="32" startamount="2700" name="Farbe" partType="K" deliveryTime="2.1" deliveryAberation="0.5" orderCosts="50" discountAmount="2700" usedIn="KDH"  />
+		<material id="33" startamount="900" name="Felge cpl." partType="K" deliveryTime="1.3" deliveryAberation="0.5" orderCosts="75" discountAmount="900" usedIn="H"  />
+		<material id="34" startamount="22000" name="Speiche" partType="K" deliveryTime="1.6" deliveryAberation="0.3" orderCosts="50" discountAmount="22000" usedIn="H"  />
+		<material id="35" startamount="3600" name="Konus" partType="K" deliveryTime="2.2" deliveryAberation="0.4" orderCosts="75" discountAmount="3600" usedIn="KDH"  />
+		<material id="36" startamount="900" name="Freilauf" partType="K" deliveryTime="1.2" deliveryAberation="0.1" orderCosts="100" discountAmount="900" usedIn="KDH"  />
+		<material id="37" startamount="900" name="Gabel" partType="K" deliveryTime="0.0" deliveryAberation="0.0" orderCosts="50" discountAmount="900" usedIn="KDH"  />
+		<material id="38" startamount="300" name="Welle" partType="K" deliveryTime="1.7" deliveryAberation="0.4" orderCosts="50" discountAmount="300" usedIn="KDH"  />
+		<material id="39" startamount="900" name="Blech" partType="K" deliveryTime="1.5" deliveryAberation="0.3" orderCosts="75" discountAmount="1800" usedIn="KDH"  />
+		<material id="40" startamount="900" name="Lenker" partType="K" deliveryTime="1.7" deliveryAberation="0.2" orderCosts="50" discountAmount="900" usedIn="KDH"  />
+		<material id="41" startamount="900" name="Mutter 3/4“" partType="K" deliveryTime="0.9" deliveryAberation="0.2" orderCosts="50" discountAmount="900" usedIn="KDH"  />
+		<material id="42" startamount="1800" name="Griff" partType="K" deliveryTime="1.2" deliveryAberation="0.3" orderCosts="50" discountAmount="1800" usedIn="KDH"  />
+		<material id="43" startamount="1900" name="Sattel" partType="K" deliveryTime="2.0" deliveryAberation="0.5" orderCosts="75" discountAmount="2700" usedIn="KDH"  />
+		<material id="44" startamount="2700" name="Stange 1/2“" partType="K" deliveryTime="1.0" deliveryAberation="0.2" orderCosts="50" discountAmount="900" usedIn="KDH"  />
+		<material id="45" startamount="900" name="Mutter 1/4“" partType="K" deliveryTime="1.7" deliveryAberation="0.3" orderCosts="50" discountAmount="900" usedIn="KDH"  />
+		<material id="46" startamount="900" name="Schraube 1/4“" partType="K" deliveryTime="0.9" deliveryAberation="0.3" orderCosts="50" discountAmount="900" usedIn="KDH" />
+		<material id="47" startamount="900" name="Zahnkranz" partType="K" deliveryTime="1.1" deliveryAberation="0.1" orderCosts="50" discountAmount="900" usedIn="KDH"  />
+		<material id="48" startamount="1800" name="Pedal" partType="K" deliveryTime="1.0" deliveryAberation="0.2" orderCosts="75" discountAmount="1800" usedIn="KDH"  />
+		<material id="49" startamount="100" name="Vorderrad cpl." partType="E" deliveryTime="0.0" deliveryAberation="0.0" orderCosts="0" discountAmount="0" usedIn="K"  />
+		<material id="50" startamount="100" name="Rahmen u. Räder" partType="E" deliveryTime="0.0" deliveryAberation="0.0" orderCosts="0" discountAmount="0" usedIn="K"  />
+		<material id="51" startamount="100" name="Fahrrad o. Pedal" partType="E" deliveryTime="0.0" deliveryAberation="0.0" orderCosts="0" discountAmount="0" usedIn="K"  />
+		<material id="52" startamount="600" name="Felge cpl." partType="K" deliveryTime="1.6" deliveryAberation="0.4" orderCosts="50" discountAmount="600" usedIn="K"  />
+		<material id="53" startamount="22000" name="Speiche" partType="K" deliveryTime="1.6" deliveryAberation="0.2" orderCosts="50" discountAmount="22000" usedIn="K"  />
+		<material id="54" startamount="100" name="Vorderrad cpl." partType="E" deliveryTime="0.0" deliveryAberation="0.0" orderCosts="0" discountAmount="0" usedIn="D"  />
+		<material id="55" startamount="100" name="Rahmen u. Räder" partType="E" deliveryTime="0.0" deliveryAberation="0.0" orderCosts="0" discountAmount="0" usedIn="D"  />
+		<material id="56" startamount="100" name="Fahrrad o. Pedal" partType="E" deliveryTime="0.0" deliveryAberation="0.0" orderCosts="0" discountAmount="0" usedIn="D"  />
+		<material id="57" startamount="600" name="Felge cpl." partType="K" deliveryTime="1.7" deliveryAberation="0.3" orderCosts="50" discountAmount="600" usedIn="D"  />
+		<material id="58" startamount="22000" name="Speiche" partType="K" deliveryTime="1.6" deliveryAberation="0.5" orderCosts="50" discountAmount="22000" usedIn="D"  />
+		<material id="59" startamount="1800" name="Schweißdraht" partType="K" deliveryTime="0.7" deliveryAberation="0.2" orderCosts="50" discountAmount="1800" usedIn="KDH"  />
+	</warehousestock>
+	<salaries>
+		<salary id="1" descripton="1. Schicht" amount="0.45" />
+		<salary id="2" descripton="2. Schicht" amount="0.55" />
+		<salary id="3" descripton="3. Schicht" amount="0.70" />
+		<salary id="4" descripton="Überstunden" amount="0.90" />
+	</salaries>
+
+	<workplaces>
+		<workplace id="1" descripton="Vorderrad-Montage" varMachineCosts="0.05" fixMachineCosts="0.01" >
+			<workplan id="1" setupTime="20" productionTime="6" usedIn="K" >
+				<billofmaterial id="1" amount="1" assembly="true" material="13" component="49" />
+				<billofmaterial id="2" amount="1" assembly="true" material="18" component="49"  />
+				<billofmaterial id="3" amount="1" assembly="true" material="7" component="49"  />
+				<billofmaterial id="4" amount="2" assembly="false" material="24" component="49"  />
+				<billofmaterial id="5" amount="2" assembly="false" material="25" component="49"  />
+			</workplan>
+			<workplan id="2" setupTime="20" productionTime="6" usedIn="D" >
+				<billofmaterial id="6" amount="1" assembly="true" material="14" component="54" />
+				<billofmaterial id="7" amount="1" assembly="true" material="19" component="54" />
+				<billofmaterial id="8" amount="1" assembly="true" material="8" component="54" />
+				<billofmaterial id="9" amount="2" assembly="false" material="24" component="54" />
+				<billofmaterial id="10" amount="2" assembly="false" material="25" component="54" />
+			</workplan>
+			<workplan id="3" setupTime="20" productionTime="6" usedIn="H" >
+				<billofmaterial id="11" amount="1" assembly="true" material="15" component="29" />
+				<billofmaterial id="12" amount="1" assembly="true" material="20" component="29" />
+				<billofmaterial id="13" amount="1" assembly="true" material="9" component="29" />
+				<billofmaterial id="14" amount="2" assembly="false" material="24" component="29" />
+				<billofmaterial id="15" amount="2" assembly="false" material="25" component="29" />
+			</workplan>
+		</workplace>
+		
+		<workplace id="2" descripton="Hinterrad-Montage" varMachineCosts="0.05" fixMachineCosts="0.01" >
+			<workplan id="4" setupTime="30" productionTime="5" usedIn="K" >
+				<billofmaterial id="16" amount="1" assembly="true" material="49" component="50" />
+				<billofmaterial id="17" amount="1" assembly="true" material="4" component="50" />
+				<billofmaterial id="18" amount="1" assembly="true" material="10" component="50" />
+				<billofmaterial id="19" amount="2" assembly="false" material="24" component="50" />
+				<billofmaterial id="20" amount="2" assembly="false" material="25" component="50" />
+			</workplan>
+			<workplan id="5" setupTime="30" productionTime="5" usedIn="D" >
+				<billofmaterial id="21" amount="1" assembly="true" material="54" component="55" />
+				<billofmaterial id="22" amount="1" assembly="true" material="5" component="55" />
+				<billofmaterial id="23" amount="1" assembly="true" material="11" component="55" />
+				<billofmaterial id="24" amount="2" assembly="false" material="24" component="55" />
+				<billofmaterial id="25" amount="2" assembly="false" material="25" component="55" />
+			</workplan>
+			<workplan id="6" setupTime="30" productionTime="5" usedIn="H" >
+				<billofmaterial id="26" amount="1" assembly="true" material="29" component="30" />
+				<billofmaterial id="27" amount="1" assembly="true" material="6" component="30" />
+				<billofmaterial id="28" amount="1" assembly="true" material="12" component="30" />
+				<billofmaterial id="29" amount="2" assembly="false" material="24" component="30" />
+				<billofmaterial id="30" amount="2" assembly="false" material="25" component="30" />
+			</workplan>
+		</workplace>
+		
+		<workplace id="3" descripton="Montage" varMachineCosts="0.05" fixMachineCosts="0.01" >
+			<workplan id="7" setupTime="20" productionTime="5" usedIn="K" >
+				<billofmaterial id="31" amount="1" assembly="true" material="17" component="51" />
+				<billofmaterial id="32" amount="1" assembly="true" material="16" component="51" />
+				<billofmaterial id="33" amount="1" assembly="true" material="50" component="51" />
+				<billofmaterial id="34" amount="1" assembly="false" material="24" component="51" />
+				<billofmaterial id="35" amount="1" assembly="false" material="27" component="51" />
+			</workplan>
+			<workplan id="8" setupTime="20" productionTime="6" usedIn="D" >
+				<billofmaterial id="36" amount="1" assembly="true" material="17" component="56" />
+				<billofmaterial id="37" amount="1" assembly="true" material="16" component="56" />
+				<billofmaterial id="38" amount="1" assembly="true" material="55" component="56" />
+				<billofmaterial id="39" amount="1" assembly="false" material="24" component="56" />
+				<billofmaterial id="40" amount="1" assembly="false" material="27" component="56" />
+			</workplan>
+			<workplan id="9" setupTime="20" productionTime="6" usedIn="H" >
+				<billofmaterial id="41" amount="1" assembly="true" material="17" component="31" />
+				<billofmaterial id="42" amount="1" assembly="true" material="16" component="31" />
+				<billofmaterial id="43" amount="1" assembly="true" material="30" component="31" />
+				<billofmaterial id="44" amount="1" assembly="false" material="24" component="31" />
+				<billofmaterial id="45" amount="1" assembly="false" material="27" component="31" />
+			</workplan>
+		</workplace>
+		
+		<workplace id="4" descripton="End-Montage" varMachineCosts="0.05" fixMachineCosts="0.01" >
+			<workplan id="10" setupTime="30" productionTime="6" usedIn="K" >
+				<billofmaterial id="46" amount="1" assembly="true" material="51" component="1" />
+				<billofmaterial id="47" amount="1" assembly="true" material="26" component="1" />
+				<billofmaterial id="48" amount="1" assembly="false" material="21" component="1" />
+				<billofmaterial id="49" amount="1" assembly="false" material="24" component="1" />
+				<billofmaterial id="50" amount="1" assembly="false" material="27" component="1" />
+			</workplan>
+			<workplan id="11" setupTime="20" productionTime="7" usedIn="D" >
+				<billofmaterial id="51" amount="1" assembly="true" material="56" component="2" />
+				<billofmaterial id="52" amount="1" assembly="true" material="26" component="2" />
+				<billofmaterial id="53" amount="1" assembly="false" material="22" component="2" />
+				<billofmaterial id="54" amount="1" assembly="false" material="24" component="2" />
+				<billofmaterial id="55" amount="1" assembly="false" material="27" component="2" />
+			</workplan>
+			<workplan id="12" setupTime="30" productionTime="7" usedIn="H" >
+				<billofmaterial id="56" amount="1" assembly="true" material="31" component="3" />
+				<billofmaterial id="57" amount="1" assembly="true" material="26" component="3" />
+				<billofmaterial id="58" amount="1" assembly="false" material="23" component="3" />
+				<billofmaterial id="59" amount="1" assembly="false" material="24" component="3" />
+				<billofmaterial id="60" amount="1" assembly="false" material="27" component="3" />
+			</workplan>
+		</workplace>
+		
+		<workplace id="6" descripton="Rohr-Biege-Maschine" varMachineCosts="0.30" fixMachineCosts="0.10" >
+			<workplan id="13" setupTime="15" productionTime="3" usedIn="K" >
+				<billofmaterial id="61" amount="3" assembly="true" material="28" component="18" />
+			</workplan>
+			<workplan id="14" setupTime="15" productionTime="3" usedIn="D" >
+				<billofmaterial id="62" amount="4" assembly="true" material="28" component="19" />
+			</workplan>
+			<workplan id="15" setupTime="15" productionTime="3" usedIn="H" >
+				<billofmaterial id="63" amount="5" assembly="true" material="28" component="20" />
+			</workplan>
+		</workplace>
+		
+		<workplace id="7" descripton="Schweißplatz" varMachineCosts="0.30" fixMachineCosts="0.10" >
+			<workplan id="16" setupTime="20" productionTime="2" usedIn="K" >
+				<billofmaterial id="64" amount="1" assembly="false" material="39" component="13" />
+			</workplan>
+			<workplan id="17" setupTime="20" productionTime="2" usedIn="K" >
+				<billofmaterial id="65" amount="3" assembly="false" material="28" component="18" />
+				<billofmaterial id="66" amount="2" assembly="false" material="59" component="18" />
+			</workplan>
+			<workplan id="18" setupTime="20" productionTime="2" usedIn="K" >
+				<billofmaterial id="67" amount="1" assembly="false" material="39" component="10" />
+			</workplan>
+			<workplan id="19" setupTime="30" productionTime="2" usedIn="K" >
+				<billofmaterial id="68" amount="2" assembly="false" material="48" component="26" />
+				<billofmaterial id="69" amount="2" assembly="false" material="44" component="26" />
+			</workplan>
+		
+			<workplan id="20" setupTime="20" productionTime="2" usedIn="D" >
+				<billofmaterial id="70" amount="1" assembly="false" material="39" component="14" />
+			</workplan>
+			<workplan id="21" setupTime="20" productionTime="2" usedIn="D" >
+				<billofmaterial id="71" amount="4" assembly="false" material="28" component="19" />
+				<billofmaterial id="72" amount="2" assembly="false" material="59" component="19" />
+			</workplan>
+			<workplan id="22" setupTime="20" productionTime="2" usedIn="D" >
+				<billofmaterial id="73" amount="1" assembly="false" material="39" component="11" />
+			</workplan>
+			<workplan id="23" setupTime="30" productionTime="2" usedIn="D" >
+				<billofmaterial id="74" amount="2" assembly="false" material="48" component="26" />
+				<billofmaterial id="75" amount="2" assembly="false" material="44" component="26" />
+			</workplan>
+			
+			<workplan id="24" setupTime="20" productionTime="2" usedIn="H" >
+				<billofmaterial id="76" amount="1" assembly="false" material="39" component="15" />
+			</workplan>
+			<workplan id="25" setupTime="20" productionTime="2" usedIn="H" >
+				<billofmaterial id="77" amount="5" assembly="false" material="28" component="20" />
+				<billofmaterial id="78" amount="2" assembly="false" material="59" component="20" />
+			</workplan>
+			<workplan id="26" setupTime="20" productionTime="2" usedIn="H" >
+				<billofmaterial id="79" amount="1" assembly="false" material="39" component="12" />
+			</workplan>
+			<workplan id="27" setupTime="30" productionTime="2" usedIn="H" >
+				<billofmaterial id="80" amount="2" assembly="false" material="48" component="26" />
+				<billofmaterial id="81" amount="2" assembly="false" material="44" component="26" />
+			</workplan>
+		</workplace>
+		
+		<workplace id="8" descripton="Stanze" varMachineCosts="0.30" fixMachineCosts="0.10" >
+			<workplan id="28" setupTime="15" productionTime="1" usedIn="K" >
+				<billofmaterial id="82" amount="1" assembly="false" material="39" component="13" />
+			</workplan>
+			<workplan id="29" setupTime="20" productionTime="3" usedIn="K" >
+				<billofmaterial id="83" amount="3" assembly="false" material="28" component="18" />
+			</workplan>
+			<workplan id="30" setupTime="15" productionTime="1" usedIn="K" >
+				<billofmaterial id="84" amount="1" assembly="false" material="39" component="10" />
+			</workplan>
+			<workplan id="31" setupTime="15" productionTime="2" usedIn="D" >
+				<billofmaterial id="85" amount="1" assembly="false" material="39" component="14" />
+			</workplan>
+			<workplan id="32" setupTime="25" productionTime="3" usedIn="D" >
+				<billofmaterial id="86" amount="4" assembly="false" material="28" component="19" />
+			</workplan>
+			<workplan id="33" setupTime="15" productionTime="2" usedIn="D" >
+				<billofmaterial id="87" amount="1" assembly="false" material="39" component="11" />
+			</workplan>
+			<workplan id="34" setupTime="15" productionTime="2" usedIn="H" >
+				<billofmaterial id="88" amount="1" assembly="false" material="39" component="15" />
+			</workplan>
+			<workplan id="35" setupTime="20" productionTime="3" usedIn="H" >
+				<billofmaterial id="89" amount="3" assembly="false" material="28" component="20" />
+			</workplan>
+			<workplan id="36" setupTime="15" productionTime="2" usedIn="H" >
+				<billofmaterial id="90" amount="1" assembly="false" material="39" component="12" />
+			</workplan>
+		</workplace>
+		
+		<workplace id="9" descripton="Lackierplatz" varMachineCosts="0.80" fixMachineCosts="0.25" >
+			<workplan id="37" setupTime="15" productionTime="3" usedIn="K" >
+				<billofmaterial id="91" amount="1" assembly="false" material="39" component="13" />
+				<billofmaterial id="92" amount="1" assembly="false" material="32" component="13" />
+			</workplan>
+			<workplan id="38" setupTime="15" productionTime="2" usedIn="K" >
+				<billofmaterial id="93" amount="3" assembly="false" material="28" component="18" />
+				<billofmaterial id="94" amount="1" assembly="false" material="32" component="18" />
+			</workplan>
+			<workplan id="39" setupTime="15" productionTime="3" usedIn="K" >
+				<billofmaterial id="95" amount="1" assembly="false" material="39" component="10" />
+				<billofmaterial id="96" amount="1" assembly="false" material="32" component="10" />
+			</workplan>
+			<workplan id="40" setupTime="15" productionTime="3" usedIn="D" >
+				<billofmaterial id="97" amount="1" assembly="false" material="39" component="14" />
+				<billofmaterial id="98" amount="1" assembly="false" material="32" component="14" />
+			</workplan>
+			<workplan id="41" setupTime="20" productionTime="2" usedIn="D" >
+				<billofmaterial id="99" amount="4" assembly="false" material="28" component="19" />
+				<billofmaterial id="100" amount="1" assembly="false" material="32" component="19" />
+			</workplan>
+			<workplan id="42" setupTime="15" productionTime="3" usedIn="D" >
+				<billofmaterial id="101" amount="1" assembly="false" material="39" component="11" />
+				<billofmaterial id="102" amount="1" assembly="false" material="32" component="11" />
+			</workplan>
+			<workplan id="43" setupTime="15" productionTime="3" usedIn="H" >
+				<billofmaterial id="103" amount="1" assembly="false" material="39" component="15" />
+				<billofmaterial id="104" amount="1" assembly="false" material="32" component="15" />
+			</workplan>
+			<workplan id="44" setupTime="15" productionTime="2" usedIn="H" >
+				<billofmaterial id="105" amount="5" assembly="false" material="28" component="20" />
+				<billofmaterial id="106" amount="1" assembly="false" material="32" component="20" />
+			</workplan>
+			<workplan id="45" setupTime="15" productionTime="3" usedIn="H" >
+				<billofmaterial id="107" amount="1" assembly="false" material="39" component="12" />
+				<billofmaterial id="108" amount="1" assembly="false" material="32" component="12" />
+			</workplan>
+		</workplace>
+		
+		<workplace id="10" descripton="Rad-Montage" varMachineCosts="0.30" fixMachineCosts="0.10" >
+			<workplan id="46" setupTime="20" productionTime="4" usedIn="K" >
+				<billofmaterial id="109" amount="1" assembly="false" material="52" component="7" />
+				<billofmaterial id="110" amount="36" assembly="false" material="53" component="7" />
+			</workplan>
+			<workplan id="47" setupTime="20" productionTime="4" usedIn="K" >
+				<billofmaterial id="111" amount="1" assembly="false" material="52" component="4" />
+				<billofmaterial id="112" amount="36" assembly="false" material="53" component="4" />
+			</workplan>
+			<workplan id="48" setupTime="20" productionTime="4" usedIn="D" >
+				<billofmaterial id="113" amount="1" assembly="false" material="57" component="8" />
+				<billofmaterial id="114" amount="36" assembly="false" material="58" component="8" />
+			</workplan>
+			<workplan id="49" setupTime="20" productionTime="4" usedIn="D" >
+				<billofmaterial id="115" amount="1" assembly="false" material="57" component="5" />
+				<billofmaterial id="116" amount="36" assembly="false" material="58" component="5" />
+			</workplan>
+			<workplan id="50" setupTime="20" productionTime="4" usedIn="H" >
+				<billofmaterial id="117" amount="1" assembly="false" material="33" component="9" />
+				<billofmaterial id="118" amount="36" assembly="false" material="34" component="9" />
+			</workplan>
+			<workplan id="51" setupTime="20" productionTime="4" usedIn="H" >
+				<billofmaterial id="119" amount="1" assembly="false" material="33" component="6" />
+				<billofmaterial id="120" amount="36" assembly="false" material="34" component="6" />
+			</workplan>
+		</workplace>
+		
+		<workplace id="11" descripton="Naben-Montage" varMachineCosts="0.30" fixMachineCosts="0.10" >
+			<workplan id="52" setupTime="20" productionTime="3" usedIn="K" >
+				<billofmaterial id="121" amount="1" assembly="false" material="52" component="7" />
+				<billofmaterial id="122" amount="36" assembly="false" material="53" component="7" />
+				<billofmaterial id="123" amount="2" assembly="false" material="35" component="7" />
+				<billofmaterial id="124" amount="1" assembly="false" material="37" component="7" />
+				<billofmaterial id="125" amount="1" assembly="false" material="38" component="7" />
+			</workplan>
+			<workplan id="53" setupTime="10" productionTime="3" usedIn="K" >
+				<billofmaterial id="126" amount="1" assembly="false" material="52" component="4" />
+				<billofmaterial id="127" amount="36" assembly="false" material="53" component="4" />
+				<billofmaterial id="128" amount="2" assembly="false" material="35" component="4" />
+				<billofmaterial id="129" amount="1" assembly="false" material="36" component="4" />
+			</workplan>
+			<workplan id="54" setupTime="20" productionTime="3" usedIn="D" >
+				<billofmaterial id="130" amount="1" assembly="false" material="57" component="8" />
+				<billofmaterial id="131" amount="36" assembly="false" material="58" component="8" />
+				<billofmaterial id="132" amount="2" assembly="false" material="35" component="8" />
+				<billofmaterial id="133" amount="1" assembly="false" material="37" component="8" />
+				<billofmaterial id="134" amount="1" assembly="false" material="38" component="8" />
+			</workplan>
+			<workplan id="55" setupTime="10" productionTime="3" usedIn="D" >
+				<billofmaterial id="135" amount="1" assembly="false" material="57" component="5" />
+				<billofmaterial id="136" amount="36" assembly="false" material="58" component="5" />
+				<billofmaterial id="137" amount="2" assembly="false" material="35" component="5" />
+				<billofmaterial id="138" amount="1" assembly="false" material="36" component="5" />
+			</workplan>
+			<workplan id="56" setupTime="20" productionTime="3" usedIn="H" >
+				<billofmaterial id="139" amount="1" assembly="false" material="33" component="9" />
+				<billofmaterial id="140" amount="36" assembly="false" material="34" component="9" />
+				<billofmaterial id="141" amount="2" assembly="false" material="35" component="9" />
+				<billofmaterial id="142" amount="1" assembly="false" material="37" component="9" />
+				<billofmaterial id="143" amount="1" assembly="false" material="38" component="9" />
+			</workplan>
+			<workplan id="57" setupTime="20" productionTime="3" usedIn="H" >
+				<billofmaterial id="144" amount="1" assembly="false" material="33" component="6" />
+				<billofmaterial id="145" amount="36" assembly="false" material="34" component="6" />
+				<billofmaterial id="146" amount="2" assembly="false" material="35" component="6" />
+				<billofmaterial id="147" amount="1" assembly="false" material="36" component="6" />
+			</workplan>
+		</workplace>
+		
+		<workplace id="12" descripton="Blech Biegemaschine" varMachineCosts="0.30" fixMachineCosts="0.10" >
+			<workplan id="58" setupTime="0" productionTime="3" usedIn="K" >
+				<billofmaterial id="148" amount="1" assembly="false" material="39" component="13" />
+			</workplan>
+			<workplan id="59" setupTime="0" productionTime="3" usedIn="D" >
+				<billofmaterial id="149" amount="1" assembly="false" material="39" component="14" />
+			</workplan>
+			<workplan id="60" setupTime="0" productionTime="3" usedIn="H" >
+				<billofmaterial id="150" amount="1" assembly="false" material="39" component="15" />
+			</workplan>
+			<workplan id="61" setupTime="0" productionTime="3" usedIn="K" >
+				<billofmaterial id="151" amount="1" assembly="false" material="39" component="10" />
+			</workplan>
+			<workplan id="62" setupTime="0" productionTime="3" usedIn="D" >
+				<billofmaterial id="152" amount="1" assembly="false" material="39" component="11" />
+			</workplan>
+			<workplan id="63" setupTime="0" productionTime="3" usedIn="H" >
+				<billofmaterial id="153" amount="1" assembly="false" material="39" component="12" />
+			</workplan>
+		</workplace>
+		
+		<workplace id="13" descripton="Blechschere" varMachineCosts="0.50" fixMachineCosts="0.15" >
+			<workplan id="64" setupTime="0" productionTime="2" usedIn="K" >
+				<billofmaterial id="154" amount="1" assembly="false" material="39" component="13" />
+			</workplan>
+			<workplan id="65" setupTime="0" productionTime="2" usedIn="D" >
+				<billofmaterial id="155" amount="1" assembly="false" material="39" component="14" />
+			</workplan>
+			<workplan id="66" setupTime="0" productionTime="2" usedIn="H" >
+				<billofmaterial id="156" amount="1" assembly="false" material="39" component="15" />
+			</workplan>
+			<workplan id="67" setupTime="0" productionTime="2" usedIn="K" >
+				<billofmaterial id="157" amount="1" assembly="false" material="39" component="10" />
+			</workplan>
+			<workplan id="68" setupTime="0" productionTime="2" usedIn="D" >
+				<billofmaterial id="158" amount="1" assembly="false" material="39" component="11" />
+			</workplan>
+			<workplan id="69" setupTime="0" productionTime="2" usedIn="H" >
+				<billofmaterial id="159" amount="1" assembly="false" material="39" component="12" />
+			</workplan>
+		</workplace>
+		
+		<workplace id="14" descripton="Lenker-Montage" varMachineCosts="0.05" fixMachineCosts="0.01" >
+			<workplan id="70" setupTime="0" productionTime="3" usedIn="K" >
+				<billofmaterial id="160" amount="1" assembly="false" material="28" component="16" />
+				<billofmaterial id="161" amount="1" assembly="false" material="24" component="16" />
+				<billofmaterial id="162" amount="1" assembly="false" material="40" component="16" />
+				<billofmaterial id="163" amount="1" assembly="false" material="41" component="16" />
+				<billofmaterial id="164" amount="2" assembly="false" material="42" component="16" />
+			</workplan>
+			<workplan id="71" setupTime="0" productionTime="3" usedIn="D" >
+				<billofmaterial id="165" amount="1" assembly="false" material="28" component="16" />
+				<billofmaterial id="166" amount="1" assembly="false" material="24" component="16" />
+				<billofmaterial id="167" amount="1" assembly="false" material="40" component="16" />
+				<billofmaterial id="168" amount="1" assembly="false" material="41" component="16" />
+				<billofmaterial id="169" amount="2" assembly="false" material="42" component="16" />
+			</workplan>
+			<workplan id="72" setupTime="0" productionTime="3" usedIn="H" >
+				<billofmaterial id="170" amount="1" assembly="false" material="28" component="16" />
+				<billofmaterial id="171" amount="1" assembly="false" material="24" component="16" />
+				<billofmaterial id="172" amount="1" assembly="false" material="40" component="16" />
+				<billofmaterial id="173" amount="1" assembly="false" material="41" component="16" />
+				<billofmaterial id="174" amount="2" assembly="false" material="42" component="16" />
+			</workplan>
+		</workplace>
+		
+		<workplace id="15" descripton="Montage" varMachineCosts="0.05" fixMachineCosts="0.01" >
+			<workplan id="73" setupTime="15" productionTime="3" usedIn="K" >
+				<billofmaterial id="175" amount="1" assembly="false" material="43" component="17" />
+				<billofmaterial id="176" amount="1" assembly="false" material="44" component="17" />
+				<billofmaterial id="177" amount="1" assembly="false" material="45" component="17" />
+				<billofmaterial id="178" amount="1" assembly="false" material="46" component="17" />
+			</workplan>
+			<workplan id="74" setupTime="15" productionTime="3" usedIn="D" >
+				<billofmaterial id="179" amount="1" assembly="false" material="43" component="17" />
+				<billofmaterial id="180" amount="1" assembly="false" material="44" component="17" />
+				<billofmaterial id="181" amount="1" assembly="false" material="45" component="17" />
+				<billofmaterial id="182" amount="1" assembly="false" material="46" component="17" />
+			</workplan>
+			<workplan id="75" setupTime="15" productionTime="3" usedIn="H" >
+				<billofmaterial id="183" amount="1" assembly="false" material="43" component="17" />
+				<billofmaterial id="184" amount="1" assembly="false" material="44" component="17" />
+				<billofmaterial id="185" amount="1" assembly="false" material="45" component="17" />
+				<billofmaterial id="186" amount="1" assembly="false" material="46" component="17" />
+			</workplan>
+		</workplace>
+	</workplaces>
+
+</database>
