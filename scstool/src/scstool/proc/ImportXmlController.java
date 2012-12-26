@@ -4,7 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.URL;
+
+import javax.swing.JFrame;
 
 import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
@@ -12,40 +13,36 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
-//import scstool.gui.GuiManager;
-import scstool.gui.ImportXMLDialog;
+import scstool.gui.ImportDialogView;
 
-/**
- * Diese Klasse beinhaltet die Funltionalitaet zum Import von XML Dateien und
- * deren Verarbeitung.
- * 
- * @author haeff
- * 
- */
-public class ProcImportXml {
 
-	private static final String DATABASEXML = "/database.xml";
 
-	public ProcImportXml(){
-		try {
-			URL url = this.getClass().getResource(DATABASEXML);
-			readXml(new File(url.getFile()), DatabaseContentHandler.get());
-		} catch (SAXException | IOException e) {
-			throw new RuntimeException("Can't find Database.xml.");
-		}
+public class ImportXmlController 
+{
+	private ImportDialogView view;
+	private JFrame parent;
+	
+	public ImportXmlController(JFrame j)
+	{
+		this.parent = j;
+		init();
 	}
 	
-	/**
-	 * Startet den Datei oeffnen Dialog
-	 */
-	public void openDialog() {
+	private void init()
+	{
+		
+	}
+	
+	public void openDialog()
+	{
+		//GuiManager gm = GuiManager.getInstance();
+		ImportDialogView dia = new ImportDialogView();
+		//ImportXMLDialog dia = new ImportXMLDialog();
 
-/*		GuiManager gm = GuiManager.getInstance();
-		ImportXMLDialog dia = new ImportXMLDialog();
-
-		int dialogResult = dia.showOpenDialog(gm.getMainWindow());
+		//int dialogResult = dia.showOpenDialog(gm.getMainWindow());
+		int dialogResult = dia.showOpenDialog(parent);
 		switch (dialogResult) {
-		case ImportXMLDialog.APPROVE_OPTION:
+		case ImportDialogView.APPROVE_OPTION:
 			try {
 				File selectedFile = dia.getSelectedFile();
 				InputContentHandler contentHandler = new InputContentHandler();
@@ -76,16 +73,16 @@ public class ProcImportXml {
 				e.printStackTrace();
 			}
 			break;
-		case ImportXMLDialog.CANCEL_OPTION:
+		case ImportDialogView.CANCEL_OPTION:
 			break;
-		case ImportXMLDialog.ERROR:
+		case ImportDialogView.ERROR:
 			break;
 		default:
 			break;
 		}
-*/
-	}
 
+	}
+	
 	/**
 	 * @param selectedFile
 	 * @param contentHandler
@@ -112,5 +109,5 @@ public class ProcImportXml {
 		// Parsen wird gestartet
 		xmlReader.parse(inputSource);
 	}
-
 }
+

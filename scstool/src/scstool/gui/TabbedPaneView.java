@@ -4,7 +4,7 @@ import javax.swing.JTabbedPane;
 
 import scstool.gui.tab.ProdProgram;
 
-public class TabbedPane extends JTabbedPane
+public class TabbedPaneView extends JTabbedPane
 {
 
 	/**
@@ -12,7 +12,7 @@ public class TabbedPane extends JTabbedPane
 	 */
 	private static final long serialVersionUID = 1L;
 
-		public TabbedPane()
+		public TabbedPaneView()
 		{
 			setTabPlacement(JTabbedPane.TOP);
 			setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);

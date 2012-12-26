@@ -3,7 +3,8 @@ package scstool;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import scstool.gui.GuiManager;
+
+import scstool.proc.GuiController;
 
 public class MainProcess {
 
@@ -23,7 +24,9 @@ public class MainProcess {
 			e.printStackTrace();
 		}
 		
-		GuiManager.getInstance();
+		//GuiManager.getInstance();
+		GuiController controller = new GuiController();
+		controller.showView();
 		
 	}
 
