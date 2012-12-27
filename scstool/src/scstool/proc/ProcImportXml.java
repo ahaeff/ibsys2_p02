@@ -12,7 +12,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
-import scstool.gui.GuiManager;
+//import scstool.gui.GuiManager;
 import scstool.gui.ImportXMLDialog;
 
 /**
@@ -40,7 +40,7 @@ public class ProcImportXml {
 	 */
 	public void openDialog() {
 
-		GuiManager gm = GuiManager.getInstance();
+/*		GuiManager gm = GuiManager.getInstance();
 		ImportXMLDialog dia = new ImportXMLDialog();
 
 		int dialogResult = dia.showOpenDialog(gm.getMainWindow());
@@ -83,7 +83,7 @@ public class ProcImportXml {
 		default:
 			break;
 		}
-
+*/
 	}
 
 	/**

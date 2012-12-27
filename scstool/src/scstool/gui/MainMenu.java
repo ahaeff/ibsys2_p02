@@ -1,8 +1,11 @@
 package scstool.gui;
 
+import java.awt.MenuItem;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -20,37 +23,36 @@ public class MainMenu extends JMenuBar{
 	private JMenu file;
     
     private Map<String,JMenuItem> menuitems;
-    private ActionListener lissi;
+    private ActionListener mnuListener;
     
     public static final String MENU_IMPORTXML = "IMPORTXML";
     public static final String MENU_EXIT = "EXIT";
     public static final String MENU_USER_INPUT = "USERINPUT";
     
-    public MainMenu(ActionListener lissi)
-	{
-		this.lissi = lissi;
-		init();
-		
-		add(file);
-		
-		
-	}
-	
+    public MainMenu()
+    {
+    	init();
+    	add(file);
+    }
 	
 	private void init()
 	{
 		menuitems = new HashMap<>();
 		
 		JMenuItem mitem = new  JMenuItem(Dic.getValue("menu.1.1","Import XML"));
-		mitem.addActionListener(lissi);
+		mitem.setActionCommand(MENU_IMPORTXML);
+		mitem.addActionListener(mnuListener);
 		menuitems.put(MENU_IMPORTXML, mitem);
 		
+
 		mitem = new  JMenuItem(Dic.getValue("menu.1.2","User Input"));
-		mitem.addActionListener(lissi);
+		mitem.setActionCommand(MENU_USER_INPUT);
+		mitem.addActionListener(mnuListener);
 		menuitems.put(MENU_USER_INPUT, mitem);
 		
 		mitem = new  JMenuItem(Dic.getValue("menu.1.5","Exit"));
-		mitem.addActionListener(lissi);
+		mitem.setActionCommand(MENU_EXIT);
+		mitem.addActionListener(mnuListener);
 		menuitems.put(MENU_EXIT, mitem);
 		
 		
@@ -71,6 +73,16 @@ public class MainMenu extends JMenuBar{
 			item = menuitems.get(key);
 		}
 		return item;
+	}
+	
+	public void setMenuListener(ActionListener l)
+	{
+		this.mnuListener = l;
+
+		for(String key : menuitems.keySet())
+		{
+			menuitems.get(key).addActionListener(l);	
+		}	
 	}
 	
 }
