@@ -10,7 +10,7 @@ import javax.swing.JPanel;
  * @author haeff
  *
  */
-public class ProdProgram extends JPanel 
+public class ProdProgrammTab extends JPanel 
 {
 
 	/**
@@ -18,8 +18,16 @@ public class ProdProgram extends JPanel
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public ProdProgram()
+	public ProdProgrammTab()
 	{
 		setBackground(Color.RED);
+	}
+	
+	private void init()
+	{
+		
+		
+		
+		
 	}
 }

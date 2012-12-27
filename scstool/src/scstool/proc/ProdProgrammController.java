@@ -9,6 +9,10 @@ public class ProdProgrammController
 {
 	private TabbedPaneView view;
 	
+	public static int VAR_PRODPROG = 1;
+	public static int VAR_CAPACITY = 2;
+	
+	
 	
 	public ProdProgrammController()
 	{
@@ -17,7 +21,7 @@ public class ProdProgrammController
 	
 	private void init()
 	{
-		this.view = new TabbedPaneView();
+		this.view = new TabbedPaneView(VAR_PRODPROG);
 		
 	}
 	public void showView() 
