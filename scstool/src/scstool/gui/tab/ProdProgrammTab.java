@@ -45,7 +45,7 @@ public class ProdProgrammTab extends JPanel
 	
 	private void init()
 	{
-		
+		//TODO fuer Andre: programm in Controller
 		//setBackground(Color.RED);
 		final Model model = new Model();
 		JTable table = new JTable( model );
