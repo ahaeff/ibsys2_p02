@@ -92,6 +92,8 @@ public class InputContentHandler implements ContentHandler {
 				// DASS es gekommen ist (wenn �berhaupt)
 				// order.setDeliveryDate(new
 				// PeriodDate(Double.parseDouble(atts.getValue("deliveryTime"))));
+				order.setOrdercosts(MyMath.parseDouble(atts
+						.getValue("ordercosts")));
 				order.setEntirecosts(MyMath.parseDouble(atts
 						.getValue("entirecosts")));
 				order.setPiececosts(MyMath.parseDouble(atts
