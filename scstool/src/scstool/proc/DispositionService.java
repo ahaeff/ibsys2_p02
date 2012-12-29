@@ -15,6 +15,7 @@ public class DispositionService {
 		 *  Lagerhandler initialisieren
 		 */
 		DatabaseContentHandler dbch = DatabaseContentHandler.get();
+		InputContentHandler ich = new InputContentHandler();
 		
 		/**
 		 *  Dispositionswerte P1 setzten
@@ -30,10 +31,10 @@ public class DispositionService {
 		disposition.setWarehousestockPassedPeriod(dbch.findMaterial(1).getAmount());
 		//TODO @Daniel Funktionen liefern
 		// Warteschlange (uebergeordnet)
-		disposition.setWaitingQueue2(0);
+		disposition.setWaitingQueue2(ich.getWaitingMaterialWert(1));
 		//TODO @Daniel Funktionen liefern
 		// Auftraege in Bearbeitung
-		disposition.setOrdersInProgress(0);
+		disposition.setOrdersInProgress(ich.getMaterialinWorkWert(1));
 		// Produktionsauftraege kommende Periode
 		disposition.setOrders(disposition.getSalesOrders() + disposition.getWaitingQueue1() + disposition.getSafetyWarehousestock() - disposition.getWarehousestockPassedPeriod() - disposition.getWaitingQueue2() - disposition.getOrdersInProgress());
 		

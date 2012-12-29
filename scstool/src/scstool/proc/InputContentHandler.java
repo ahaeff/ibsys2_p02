@@ -297,11 +297,27 @@ public class InputContentHandler implements ContentHandler {
 		}
 		return mat;
 	}
+	
+	/**
+	 * @return Material, dass noch in der Warteschlange ist (Aufträge in Bearbeitung im SCSim und im Excelsheet)
+	 */
+	public Integer getWaitingMaterialWert(Integer materialID){
+		
+		for(WaitingList wl : alleWLinWork) 
+		{
+			if (wl.getMaterial().getId().equals(materialID)){
+				materialID = wl.getAmount();	
+			}
+		}
+		return materialID;
+	}
+	
+
  //--------------------------------------
 	/**
 	 * @return Materialliste, dass noch in Bearbeitung ist (Aufträge in Bearbeitung im SCSim und im Excelsheet)
 	 */
-	public List<Material> getWaitingMaterialinWork(){
+	public List<Material> getMaterialinWork(){
 		
 		List<Material> waitingMaterial = new ArrayList<Material>();
 		
@@ -314,15 +330,15 @@ public class InputContentHandler implements ContentHandler {
 	}
 	
 	/**
-	 * @return Material, dass noch in der Warteschlange ist (Aufträge in Bearbeitung im SCSim und im Excelsheet)
+	 * @return Material, dass noch in Bearbeitung ist (Aufträge in Bearbeitung im SCSim und im Excelsheet)
 	 * @param 
 	 */
 
-	public Material findWaitingMaterialinWork(Integer id){
+	public Material findMaterialinWork(Integer id){
 		
-		List<Material> waitingMaterial = getWaitingMaterialinWork();
+		List<Material> waitingMaterial = getMaterialinWork();
 		Material mat = new Material();
-		
+				
 		for(Material m : waitingMaterial) 
 		{
 			if (m.getId().equals(id)){
@@ -330,6 +346,20 @@ public class InputContentHandler implements ContentHandler {
 			}
 		}
 		return mat;
+	}
+	/**
+	 * @return Integer der Menge, eines Artikels, dass noch in Bearbeitung ist (Aufträge in Bearbeitung im SCSim und im Excelsheet)
+	 */
+	public Integer getMaterialinWorkWert(Integer materialID){
+				
+		for(WaitingList wl : alleWLinWork) 
+		{
+			if (wl.getMaterial().getId().equals(materialID)){
+				materialID = wl.getAmount();	
+			}
+		}
+
+		return materialID;
 	}
 	
 }
