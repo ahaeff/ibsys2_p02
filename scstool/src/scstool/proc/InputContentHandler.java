@@ -59,6 +59,9 @@ public class InputContentHandler implements ContentHandler {
 	DatabaseContentHandler dbch = DatabaseContentHandler.get();
 	
 	private Workplace workplace;
+	private Workplace workplaceInWork; // Auftraege in Bearbeitung (Excelsheet und SCSim)
+	private WaitingList waitinglistInWork;
+	private List<WaitingList> alleWLinWork = new ArrayList<WaitingList>();
 
 	// Aktuelle Zeichen die gelesen werden, werden in eine Zwischenvariable
 	// gespeichert
@@ -84,15 +87,6 @@ public class InputContentHandler implements ContentHandler {
 					.getValue("stockvalue")));
 			
 		}
-		
-		if (localName.equals("workplace")) {
-			if (atts.getValue("batch") == null || atts.getValue("setupevents") == null || atts.getValue("ageidletimecosts") == null) {
-				workplace = dbch.findWorkplace(Integer.parseInt(atts.getValue("id")));
-				//System.out.println(atts.getValue("timeneed") + "+*Workplace*****");
-			}
-			System.out.println(atts.getValue("id") + "+*++waitinglist+-/-/" + atts.getValue("wagecosts"));
-
-		}
 
 		/*-------------------------------------*/
 
@@ -106,6 +100,29 @@ public class InputContentHandler implements ContentHandler {
 
 			workplace.addWaitingList(waitinglist);
 			alleWL.add(waitinglist);
+
+		}
+
+		/*--------------Aufträge in der Warteschlange-----------------------*/
+		
+		if (localName.equals("workplace")) {
+			if (atts.getValue("batch") == null || atts.getValue("setupevents") == null || atts.getValue("ageidletimecosts") == null) {
+				workplace = dbch.findWorkplace(Integer.parseInt(atts.getValue("id")));
+				//System.out.println(atts.getValue("timeneed") + "+*Workplace*****");
+			}
+			System.out.println(atts.getValue("id") + "+*++waitinglist+-/-/" + atts.getValue("wagecosts"));
+			/*------------------Aufträge in Bearbeitung-------------------*/
+
+			if (atts.getValue("id") != null && atts.getValue("period") != null && atts.getValue("order") != null && atts.getValue("batch") != null && atts.getValue("item") != null && atts.getValue("amount") != null && atts.getValue("timeneed") != null) {
+
+				waitinglistInWork = new WaitingList();
+	
+				waitinglistInWork.setMaterial(dbch.findMaterial(Integer.parseInt(atts.getValue("item"))));
+				waitinglistInWork.setAmount(Integer.parseInt(atts.getValue("amount")));
+				waitinglistInWork.setTimeneed(Integer.parseInt(atts.getValue("timeneed")));
+				System.out.println("#12345# " + waitinglistInWork);
+				alleWLinWork.add(waitinglistInWork);
+			}
 
 		}
 
@@ -247,7 +264,7 @@ public class InputContentHandler implements ContentHandler {
 	}
 	
 	/**
-	 * @return Material, dass noch in der Warteschlange ist (Warteliste Arbeitsplatz)
+	 * @return Materialliste, dass noch in der Warteschlange ist (Warteliste Arbeitsplatz)
 	 */
 	public List<Material> getWaitingMaterial(){
 		
@@ -260,6 +277,59 @@ public class InputContentHandler implements ContentHandler {
 		}
 
 		return waitingMaterial;
+	}
+	
+	/**
+	 * @return Material, dass noch in der Warteschlange ist (Warteliste Arbeitsplatz im SCSim) (Aufträge in der Warteschlange im Excelsheet)
+	 * @param 
+	 */
+
+	public Material findWaitingMaterial(Integer id){
+		
+		List<Material> waitingMaterial = getWaitingMaterial();
+		Material mat = new Material();
+		
+		for(Material m : waitingMaterial) 
+		{
+			if (m.getId().equals(id)){
+				mat = m;	
+			}
+		}
+		return mat;
+	}
+ //--------------------------------------
+	/**
+	 * @return Materialliste, dass noch in Bearbeitung ist (Aufträge in Bearbeitung im SCSim und im Excelsheet)
+	 */
+	public List<Material> getWaitingMaterialinWork(){
+		
+		List<Material> waitingMaterial = new ArrayList<Material>();
+		
+		for(WaitingList wl : alleWLinWork) 
+		{
+			waitingMaterial.add(wl.getMaterial());
+		}
+
+		return waitingMaterial;
+	}
+	
+	/**
+	 * @return Material, dass noch in der Warteschlange ist (Aufträge in Bearbeitung im SCSim und im Excelsheet)
+	 * @param 
+	 */
+
+	public Material findWaitingMaterialinWork(Integer id){
+		
+		List<Material> waitingMaterial = getWaitingMaterialinWork();
+		Material mat = new Material();
+		
+		for(Material m : waitingMaterial) 
+		{
+			if (m.getId().equals(id)){
+				mat = m;	
+			}
+		}
+		return mat;
 	}
 	
 }
