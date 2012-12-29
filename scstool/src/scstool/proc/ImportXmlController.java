@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.swing.JFrame;
 
@@ -19,6 +20,8 @@ import scstool.gui.ImportDialogView;
 
 public class ImportXmlController 
 {
+	private static final String DATABASEXML = "/database.xml";
+
 	private ImportDialogView view;
 	private JFrame parent;
 	
@@ -30,7 +33,12 @@ public class ImportXmlController
 	
 	private void init()
 	{
-		
+		try {
+			URL url = this.getClass().getResource(DATABASEXML);
+			readXml(new File(url.getFile()), DatabaseContentHandler.get());
+		} catch (SAXException | IOException e) {
+			throw new RuntimeException("Can't find Database.xml.");
+		}
 	}
 	
 	public void openDialog()

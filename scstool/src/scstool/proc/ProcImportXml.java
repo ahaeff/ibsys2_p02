@@ -50,24 +50,6 @@ public class ProcImportXml {
 				File selectedFile = dia.getSelectedFile();
 				InputContentHandler contentHandler = new InputContentHandler();
 				readXml(selectedFile, contentHandler);
-
-				// List<Material> materialListe =
-				// contentHandler.getAllMaterial();
-				// System.out.println("Main: Material = " + materialListe);
-				//
-				// Material material = contentHandler.findMaterial(40);
-				// System.out.println("Main: Material ID 40 = " +
-				// material.getId());
-				//
-				//
-				// contentHandler.getWarehouseStock();
-				// System.out.println("Main: Warehousestock = " +
-				// contentHandler.getWarehouseStock());
-				//
-				// contentHandler.getAllWorkplaces();
-				// System.out.println("Main: Workplaces = " +
-				// contentHandler.getAllWorkplaces());
-
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
