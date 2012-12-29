@@ -6,19 +6,38 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 
-public class IntegerDocument extends PlainDocument
-{
-   public void insertString(int offset, String s, AttributeSet attributeSet) throws BadLocationException
-    {
-      try{
-             Integer.parseInt(s);
-         }
-         catch(Exception ex)   //only allow integer values
-         {
-            Toolkit.getDefaultToolkit().beep(); //macht ein DßT
-            //System.out.println("Keine Zahl!");
-            return ;
-         }
-      super.insertString(offset,s, attributeSet);
-    }
+/**
+ * @author haeff
+ * Filter fuer Numerische Eigabefelder
+ *
+ */
+public class IntegerDocument extends PlainDocument {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int maxCharacters = 4;
+	
+	public IntegerDocument(int maxc) 
+	{
+		maxCharacters = maxc;
+	}
+	public void insertString(int offset, String s, AttributeSet attributeSet)
+			throws BadLocationException {
+		int len = getLength() + s.length();
+		try {
+			if(len <= maxCharacters)
+			{
+				Integer.parseInt(s);
+				super.insertString(offset, s, attributeSet);
+			}
+		} 
+		catch (Exception ex)
+		{
+			Toolkit.getDefaultToolkit().beep();
+			// System.out.println("Keine Zahl!");
+			return;
+		}
+		
+	}
 }
