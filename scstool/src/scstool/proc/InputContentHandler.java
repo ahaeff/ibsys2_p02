@@ -43,30 +43,15 @@ public class InputContentHandler implements ContentHandler {
 		"profitperunit",
 		"contractpenalty"
 	};
+	private Map<String, List<String>> kpiValues = new HashMap<String, List<String>>();
 	
 	private String currentValue;
-	private WarehouseService warehousestock = new WarehouseService();
-
+	
 	private List<Material> allesMaterial = new ArrayList<Material>();
-	private Material material;
-
-	private List<Salary> alleLoehne = new ArrayList<Salary>();
-	private Salary salary;
-
-	private Workplace workplace;
-	private List<Workplace> allePlaetze = new ArrayList<Workplace>();
-
-	private WorkPlan workplan;
-	private List<WorkPlan> workplanList;
-	private List<WorkPlan> allePlaene = new ArrayList<WorkPlan>();
-
-	private BillOfMaterial billofmaterial;
-	private List<BillOfMaterial> alleBOM = new ArrayList<BillOfMaterial>();
 
 	private Order order;
 	private List<Order> alleOrder = new ArrayList<Order>();
 	
-	private Map<String, List<String>> kpiValues = new HashMap<String, List<String>>();
 
 	// Aktuelle Zeichen die gelesen werden, werden in eine Zwischenvariable
 	// gespeichert
@@ -81,21 +66,23 @@ public class InputContentHandler implements ContentHandler {
 
 		/*-------------- Das ist die einzulesende Datei  -------------------------------------------*/
 
+		
 		if (localName.equals("article")) {
-			material = DatabaseContentHandler.get().findMaterial(Integer.parseInt(atts.getValue("id")));
+			Material material = DatabaseContentHandler.get().findMaterial(Integer.parseInt(atts.getValue("id")));
 
 			material.setAmount(Integer.parseInt(atts.getValue("amount")));
 			material.setPct(MyMath.parseDouble(atts.getValue("pct")));
 			material.setPrice(MyMath.parseDouble(atts.getValue("price")));
-			material.setStockvalue(Double.parseDouble(atts
+			material.setStockvalue(MyMath.parseDouble(atts
 					.getValue("stockvalue")));
-
-			warehousestock.calcWarehouseStock(material);
+			
 		}
 
 		/*-------------------------------------*/
 
 		if (localName.equals("order")) {
+			try{
+			Integer amount = Integer.parseInt(atts.getValue("amount"));
 			order = new Order();
 
 			if (atts.getValue("time") != null) {
@@ -114,10 +101,12 @@ public class InputContentHandler implements ContentHandler {
 			}
 
 			order.setId(Integer.parseInt(atts.getValue("id")));
-			order.setAmount(Integer.parseInt(atts.getValue("amount")));
+			order.setAmount(amount);
 			order.setMaterial(DatabaseContentHandler.get().findMaterial(Integer.parseInt(atts
 					.getValue("article"))));
 			order.setMode(Integer.parseInt(atts.getValue("mode")));
+		} catch(NumberFormatException ex){
+			
 		}
 
 		if (isKPI(localName)) {
@@ -126,7 +115,7 @@ public class InputContentHandler implements ContentHandler {
 			values.add(atts.getValue("average"));
 			values.add(atts.getValue("all"));
 			kpiValues.put(localName, values);
-		}
+		}}
 
 	}
 
@@ -147,31 +136,6 @@ public class InputContentHandler implements ContentHandler {
 
 		// Person in Personenliste abspeichern falls Person End-Tag erreicht
 		// wurde.
-		if (localName.equals("material")) {
-			allesMaterial.add(material);
-			System.out.println(material);
-		}
-
-		if (localName.equals("salary")) {
-			alleLoehne.add(salary);
-			System.out.println(salary);
-		}
-
-		if (localName.equals("workplace")) {
-			allePlaetze.add(workplace);
-			System.out.println(workplace);
-		}
-
-		if (localName.equals("workplan")) {
-			allePlaene.add(workplan);
-			System.out.println(workplan);
-		}
-
-		if (localName.equals("billofmaterial")) {
-			alleBOM.add(billofmaterial);
-			System.out.println(billofmaterial);
-		}
-
 		if (localName.equals("order")) {
 			alleOrder.add(order);
 			System.out.println(order);
@@ -205,18 +169,5 @@ public class InputContentHandler implements ContentHandler {
 	public void startPrefixMapping(String prefix, String uri)
 			throws SAXException {
 	}
-
-	public Double getWarehouseStock() {
-		return warehousestock.getWarehouseStock();
-	}
-
-	public List<Workplace> getAllWorkplaces() {
-		return allePlaetze;
-	}
-
-	public List<Material> getAllMaterial() {
-		return allesMaterial;
-	}
-
 
 }
