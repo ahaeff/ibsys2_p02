@@ -17,6 +17,7 @@ import scstool.obj.BillOfMaterial;
 import scstool.obj.Material;
 import scstool.obj.Order;
 import scstool.obj.Salary;
+import scstool.obj.WaitingList;
 import scstool.obj.WorkPlan;
 import scstool.obj.Workplace;
 import scstool.utils.MyMath;
@@ -52,6 +53,12 @@ public class InputContentHandler implements ContentHandler {
 	private Order order;
 	private List<Order> alleOrder = new ArrayList<Order>();
 	
+	private WaitingList waitinglist;
+	private List<WaitingList> alleWL = new ArrayList<WaitingList>();
+
+	DatabaseContentHandler dbch = DatabaseContentHandler.get();
+	
+	private Workplace workplace;
 
 	// Aktuelle Zeichen die gelesen werden, werden in eine Zwischenvariable
 	// gespeichert
@@ -77,48 +84,80 @@ public class InputContentHandler implements ContentHandler {
 					.getValue("stockvalue")));
 			
 		}
+		
+		if (localName.equals("workplace")) {
+			if (atts.getValue("batch") == null || atts.getValue("setupevents") == null || atts.getValue("ageidletimecosts") == null) {
+				workplace = dbch.findWorkplace(Integer.parseInt(atts.getValue("id")));
+				//System.out.println(atts.getValue("timeneed") + "+*Workplace*****");
+			}
+			System.out.println(atts.getValue("id") + "+*++waitinglist+-/-/" + atts.getValue("wagecosts"));
+
+		}
+
+		/*-------------------------------------*/
+
+		if (localName.equals("waitinglist")) {
+
+			waitinglist = new WaitingList();
+
+			waitinglist.setMaterial(dbch.findMaterial(Integer.parseInt(atts.getValue("item"))));
+			waitinglist.setAmount(Integer.parseInt(atts.getValue("amount")));
+			waitinglist.setTimeneed(Integer.parseInt(atts.getValue("timeneed")));
+
+			workplace.addWaitingList(waitinglist);
+			alleWL.add(waitinglist);
+
+		}
 
 		/*-------------------------------------*/
 
 		if (localName.equals("order")) {
-			try{
-			Integer amount = Integer.parseInt(atts.getValue("amount"));
-			order = new Order();
+							
+			if (atts.getValue("averageunitcosts") == null || atts.getValue("cycletimefactor") == null) {
 
-			if (atts.getValue("time") != null) {
-				order.setFinished(true);
-				// order.setOrderDate(orderDate) --> time
-				// wann es gekommen ist, ist egal .. es ist nur von Bedeutung,
-				// DASS es gekommen ist (wenn �berhaupt)
-				// order.setDeliveryDate(new
-				// PeriodDate(Double.parseDouble(atts.getValue("deliveryTime"))));
-				order.setOrdercosts(MyMath.parseDouble(atts
-						.getValue("ordercosts")));
-				order.setEntirecosts(MyMath.parseDouble(atts
-						.getValue("entirecosts")));
-				order.setPiececosts(MyMath.parseDouble(atts
-						.getValue("piececosts")));
-			} else {
-				order.setFinished(false);
+				try{
+				Integer amount = Integer.parseInt(atts.getValue("amount"));
+				order = new Order();
+	
+				if (atts.getValue("time") != null) {
+					order.setFinished(true);
+					// order.setOrderDate(orderDate) --> time
+					// wann es gekommen ist, ist egal .. es ist nur von Bedeutung,
+					// DASS es gekommen ist (wenn �berhaupt)
+					// order.setDeliveryDate(new
+					// PeriodDate(Double.parseDouble(atts.getValue("deliveryTime"))));
+					order.setOrdercosts(MyMath.parseDouble(atts
+							.getValue("ordercosts")));
+					order.setEntirecosts(MyMath.parseDouble(atts
+							.getValue("entirecosts")));
+					order.setPiececosts(MyMath.parseDouble(atts
+							.getValue("piececosts")));
+				} else {
+					order.setFinished(false);
+				}
+	
+				order.setId(Integer.parseInt(atts.getValue("id")));
+				order.setAmount(amount);
+				order.setMaterial(DatabaseContentHandler.get().findMaterial(Integer.parseInt(atts
+						.getValue("article"))));
+				order.setMode(Integer.parseInt(atts.getValue("mode")));
+				alleOrder.add(order);
+
+			} catch(NumberFormatException ex){
+			}
+			}
+				else{
 			}
 
-			order.setId(Integer.parseInt(atts.getValue("id")));
-			order.setAmount(amount);
-			order.setMaterial(DatabaseContentHandler.get().findMaterial(Integer.parseInt(atts
-					.getValue("article"))));
-			order.setMode(Integer.parseInt(atts.getValue("mode")));
-		} catch(NumberFormatException ex){
+			if (isKPI(localName)) {
+				List<String> values = new ArrayList<>();
+				values.add(atts.getValue("current"));
+				values.add(atts.getValue("average"));
+				values.add(atts.getValue("all"));
+				kpiValues.put(localName, values);
+			}
 			
 		}
-
-		if (isKPI(localName)) {
-			List<String> values = new ArrayList<>();
-			values.add(atts.getValue("current"));
-			values.add(atts.getValue("average"));
-			values.add(atts.getValue("all"));
-			kpiValues.put(localName, values);
-		}}
-
 	}
 
 	/**
@@ -138,10 +177,15 @@ public class InputContentHandler implements ContentHandler {
 
 		// Person in Personenliste abspeichern falls Person End-Tag erreicht
 		// wurde.
-		if (localName.equals("order")) {
-			alleOrder.add(order);
-			System.out.println(order);
-		}
+//		if (localName.equals("order")) {
+//			alleOrder.add(order);
+//			System.out.println("#++++++#" + order);
+//		}
+//		
+//		if (localName.equals("waitinglist")) {
+//			alleWL.add(waitinglist);
+//			System.out.println("#!!!!!!#" + workplace);
+//		}
 
 	}
 
@@ -171,5 +215,51 @@ public class InputContentHandler implements ContentHandler {
 	public void startPrefixMapping(String prefix, String uri)
 			throws SAXException {
 	}
+	
+	public List<Order> getAllOrders() {
+		return alleOrder;
+	}
 
+	public List<Order> getFutureInwardStockMovement(){
+		
+		List<Order> allFISM = new ArrayList<Order>();
+		
+		for( int i = 0, n = alleOrder.size(); i<n; i++ ){
+			if(getAllOrders().get(i).getOrdercosts().equals(null)){
+				allFISM.add(getAllOrders().get(i));
+			}
+		}
+
+		return allFISM;
+	}
+
+	public List<Order> getInwardStockMovement(){
+		
+		List<Order> allFISM = new ArrayList<Order>();
+		
+		for( int i = 0, n = alleOrder.size(); i<n; i++ ){
+			if(!getAllOrders().get(i).getOrdercosts().equals(null)){
+				allFISM.add(getAllOrders().get(i));
+			}
+		}
+
+		return allFISM;
+	}
+	
+	/**
+	 * @return Material, dass noch in der Warteschlange ist (Warteliste Arbeitsplatz)
+	 */
+	public List<Material> getWaitingMaterial(){
+		
+		List<Material> waitingMaterial = new ArrayList<Material>();
+		
+		
+		for(WaitingList wl : alleWL) 
+		{
+			waitingMaterial.add(wl.getMaterial());
+		}
+
+		return waitingMaterial;
+	}
+	
 }

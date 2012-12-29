@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package scstool.obj;
 
 import java.util.ArrayList;
@@ -32,6 +30,11 @@ public class Workplace {
 	private Double fixMachineCosts;
 	
 	private List<WorkPlan> workplan = new ArrayList<WorkPlan>();
+	
+	/**
+	 * WaitingList Workplace (last period)
+	 */
+	private List<WaitingList> waitingList = new ArrayList<WaitingList>();
 
 	/**
 	 * @return the id
@@ -92,9 +95,20 @@ public class Workplace {
 		this.workplan.add(workplan);
 	}
 	
+	public List<WaitingList> getWaitingList() {
+		return waitingList;
+	}
+	public void setWaitingList(List<WaitingList> wl) {
+		this.waitingList = wl;
+	}
+	
+	public void addWaitingList(WaitingList wl) {
+		this.waitingList.add(wl);
+	}
+
 	@Override
 	public String toString() {
-		return "Workplace [id=" + id + ", workplan=" + workplan + "]";
+		return "Workplace [id=" + id + ", workplan=" + workplan + ", Waitinglist=" + waitingList + "]";
 	}
 
 }
