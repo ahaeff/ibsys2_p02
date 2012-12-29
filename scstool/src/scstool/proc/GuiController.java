@@ -2,17 +2,24 @@ package scstool.proc;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import javax.swing.JComponent;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 
 import scstool.gui.MainMenu;
 import scstool.gui.MainView;
+import scstool.obj.ProductionProg;
 import scstool.utils.IController;
+import scstool.utils.Repository;
 
 public class GuiController implements IController
 {
 
 	private MainView view;
+	private Vector<ProductionProg> prog;
+	private Repository repo;
 	
 	public GuiController()
 	{
@@ -23,6 +30,10 @@ public class GuiController implements IController
 	{
 		view = new MainView();
 		view.setMenuListener(new MenuListener());
+		
+		//int data containers
+		repo = Repository.getInstance();
+	
 	}
 	
 	
@@ -50,6 +61,8 @@ public class GuiController implements IController
 	}
 	
 	
+	
+	
 	public void addContent(JComponent c)
 	{
 		view.add(c);
@@ -57,8 +70,6 @@ public class GuiController implements IController
 		view.validate();
 	}
 	
-	
-
 	class MenuListener implements ActionListener
 	{
 
@@ -82,5 +93,6 @@ public class GuiController implements IController
 		}
 		
 	}
+
 
 }
