@@ -170,32 +170,32 @@ public class DatabaseContentHandler implements ContentHandler {
 		// wurde.
 		if (localName.equals("material")) {
 			allesMaterial.add(material);
-			System.out.println(material);
+//			System.out.println(material);
 		}
 
 		if (localName.equals("salary")) {
 			alleLoehne.add(salary);
-			System.out.println(salary);
+//			System.out.println(salary);
 		}
 
 		if (localName.equals("workplace")) {
 			allePlaetze.add(workplace);
-			System.out.println(workplace);
+//			System.out.println(workplace);
 		}
 
 		if (localName.equals("workplan")) {
 			allePlaene.add(workplan);
-			System.out.println(workplan);
+//			System.out.println(workplan);
 		}
 
 		if (localName.equals("billofmaterial")) {
 			alleBOM.add(billofmaterial);
-			System.out.println(billofmaterial);
+//			System.out.println(billofmaterial);
 		}
 
 		if (localName.equals("order")) {
 			alleOrder.add(order);
-			System.out.println(order);
+//			System.out.println(order);
 		}
 
 	}
@@ -246,6 +246,32 @@ public class DatabaseContentHandler implements ContentHandler {
 
 		return material;
 	}
+
+	public Workplace findWorkplace(Integer id) {
+
+		Workplace wp = new Workplace();
+		
+		for(Workplace w : allePlaetze) 
+		{
+			if (w.getId() == id){
+				wp = w;
+			}
+		}
+		return wp;
+	}
+
+	public List<BillOfMaterial> getAllBoM() {
+		return alleBOM;
+	}
+	
+	public Salary findSalary(int id) {
+
+		int xmlID = id - 1;
+		salary = alleLoehne.get(xmlID);
+
+		return salary;
+	}
+	
 	
 	/**
 	 * @return alle Kaufteile in einer Liste
@@ -257,8 +283,7 @@ public class DatabaseContentHandler implements ContentHandler {
 			if("PURCHASE".equals(m.getPartType().toString()))
 				kteile.add(m);	
 		}
-		
-		
+
 		return kteile;
 	}
 	
@@ -267,8 +292,6 @@ public class DatabaseContentHandler implements ContentHandler {
 		for(Material m: allesMaterial){
 				kteile.add(m.getPartType().toString());	
 		}
-		
-		
 		return kteile;
 	}
 	
