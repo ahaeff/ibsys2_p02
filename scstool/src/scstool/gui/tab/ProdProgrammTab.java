@@ -1,23 +1,23 @@
 package scstool.gui.tab;
 
-
-import java.awt.Component;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Vector;
-
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableModel;
+import javax.swing.JTextField;
 
+import scstool.gui.comp.NTextField;
 import scstool.obj.ProductionProg;
 import scstool.utils.Repository;
+
+
+
 
 /**
  * Eingabe des Produktionsprogramms, Prognosen und Direktverkaeufe
@@ -29,10 +29,13 @@ public class ProdProgrammTab extends JPanel
 {
 	
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
-
 	private Vector<ProductionProg> prog;
-	private Vector<TableModelListener> listeners = new Vector<TableModelListener> ();
+
+	
 	
 	public ProdProgrammTab()
 	{
@@ -42,218 +45,94 @@ public class ProdProgrammTab extends JPanel
 	
 	private void init()
 	{
-		Repository repo = Repository.getInstance();
-		prog = repo.getProdProg();
 		
-		//setBackground(Color.RED);
-		final Model model = new Model();
-		model.addTableModelListener(new TableListener());
-		JTable table = new JTable( model );
-
 		
-		model.addProdprogramm();
-		JScrollPane pane = new JScrollPane(table);
 		
-		add(pane);
+		prog = Repository.getInstance().getProdProg();
+		setLayout(new GridBagLayout());
+		addComponents();
 	}
 	
+	private void addComponents()
+	{  	
+		GridBagConstraints c = new GridBagConstraints();
+		ChangeListener l = new ChangeListener();
+		c.insets = new Insets(10, 10, 0, 10);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.ipadx = 10;
+		
+		NTextField txt;
+		
+		//1. Zeile
+		c.gridy = 0;
+		c.gridx = 0;
+		add(new  JLabel(""),c);
+		
 	
-	/**
-	 * @author haeff
-	 *
-	 * eigenes tablemodel fuer die Darstellung und Handhabung der Tabelle
-	 */
-	class Model implements TableModel
-	{
-
-	
-		public void addProdprogramm()
-		{
-			int index = prog.size();
-			
-	        // Zuerst ein Event, "neue Row an der Stelle index" herstellen
-	        TableModelEvent e = new TableModelEvent( this, index, index, 
-	                TableModelEvent.ALL_COLUMNS, TableModelEvent.INSERT );
-	        
-	        // Nun das Event verschicken
-	        for( int i = 0, n = listeners.size(); i<n; i++ ){
-	            ((TableModelListener)listeners.get( i )).tableChanged( e );
-	        }
-			
-		}
+		c.gridx=1;
+		add(new  JLabel("Aufträge"),c);
+		
+		c.gridx=2;
+		add(new  JLabel("Prognose 1"),c);
+		
+		c.gridx=3;
+		add(new  JLabel("Prognose 2"),c);
+		
+		c.gridx=4;
+		add(new  JLabel("Prognose 3"),c);
 		
 		
-		@Override
-		public void addTableModelListener(TableModelListener l) 
+		//2. Zeile
+		c.gridy = 1;
+		c.gridx = 0;
+		add(new  JLabel("P1"),c);
+		
+		c.gridx = 1;
+		txt = new NTextField();
+		txt.addActionListener(l);
+		add(txt,c);
+		
+		c.gridx = 2;
+		txt = new NTextField();
+		txt.addActionListener(l);
+		add(txt,c);
+		
+		c.gridx = 3;
+		txt = new NTextField();
+		txt.addActionListener(l);
+		add(txt,c);
+		
+		c.gridx = 4;
+		txt = new NTextField();
+		txt.addActionListener(l);
+		add(txt,c);
+		
+		
+/*		for(int y=1;y<=3;y++)
 		{
-			listeners.add( l );		
-		}
-
-		@Override
-		public Class<?> getColumnClass(int columnIndex) 
-		{
-	        switch( columnIndex )
-	        {
-	            case 0: 
-	            	return Integer.class;
-	            case 1: 
-	            	return Integer.class;
-	            case 2: 
-	            	return Integer.class;
-	            case 3: 
-	            	return Integer.class;
-	            case 4: 
-	            	return Integer.class; 
-	            default: 
-	            	return null;
-		        }
-		}
-
-		@Override
-		public int getColumnCount() 
-		{
-			return 5;
-		}
-
-		@Override
-		public String getColumnName(int column) 
-		{
-			switch(column)
+			c.gridy++;
+			c.gridx=0;
+			add(new JLabel("P"+y),c);
+			for(int x=1; x<= 4;x++ )
 			{
-				case 0:
-					return "Periode";	
-				case 1:
-					return "n";	
-				case 2:
-					return "n+1";				
-				case 3:
-					return "n+2";			
-				case 4:
-					return "n+3";			
-				default:
-					return null;
+				c.gridx=x;
+				add(t,c);
 			}
-			
-		}
-
-		@Override
-		public int getRowCount() 
-		{
-			return prog.size();
-		}
-
-		@Override
-		public Object getValueAt(int rowIndex, int columnIndex) 
-		{
-			ProductionProg p = (ProductionProg)prog.get( rowIndex );
-	        switch( columnIndex )
-	        {
-	            case 0: 
-	            	return "11";
-	            case 1: 
-	            	return new Integer( p.getN());
-	            case 2: 
-	            	return new Integer( p.getN1());
-	            case 3: 
-	            	return new Integer( p.getN2());
-	            case 4: 
-	            	return new Integer( p.getN3());
-	            default: 
-	            	return null;
-	        }
-		}
-
-		@Override
-		public boolean isCellEditable(int rowIndex, int columnIndex) 
-		{
-			switch (columnIndex) 
-			{
-				case 0:
-					return false;
-				case 1:
-					return true;
-				case 2:
-					return true;
-				case 3:
-					return true;
-				case 4:
-					return true;
-				default:
-					return false;
-			}
-		}
-
-		@Override
-		public void removeTableModelListener(TableModelListener l) 
-		{
-			prog.remove( l );
-		}
-
-		@Override
-		public void setValueAt(Object aValue, int rowIndex, int columnIndex) 
-		{
-			ProductionProg p = prog.get(rowIndex);
-			switch (columnIndex) {
-			case 1:
-				p.setN((Integer)aValue);
-				break;
-			case 2:
-				p.setN1((Integer)aValue);
-				break;
-			case 3:
-				p.setN2((Integer)aValue);
-				break;
-			case 4:
-				p.setN3((Integer)aValue);
-				break;
-			}
-			
-			TableModelEvent event = new TableModelEvent(this, rowIndex, rowIndex,
-					columnIndex, TableModelEvent.UPDATE);
-			for (TableModelListener listener : listeners) {
-				listener.tableChanged(event);
-			}
-			
-		}
-		
+		}*/
 	}
 	
-	class HeaderRenderer extends JLabel implements TableCellRenderer
+	
+
+	
+	class ChangeListener implements ActionListener
 	{
 
-		private static final long serialVersionUID = 1L;
-
-		public HeaderRenderer()
-		{
-			super();
-			this.setHorizontalAlignment(SwingConstants.LEFT);
-			setEnabled(true);
-			setBorder(UIManager.getBorder("TableHeader.cellBorder"));
-			setOpaque(true);
-		}
-
 		@Override
-		public Component getTableCellRendererComponent(JTable table,
-				Object value, boolean isSelected, boolean hasFocus, int row,
-				int column) {
-			//Border paddingBaorder = BorderFactory.createEmptyBorder(0, 5, 0, 0);
-			setHorizontalAlignment(SwingConstants.LEFT);
-			setText(" "+value.toString());
-			return this;
-		}
-		
-		
-	}
-	public class TableListener implements TableModelListener 
-	{
-
-		//Bei jedem aendern einer Zelle wird dieses Element ausgeloest
-		@Override
-		public void tableChanged(TableModelEvent e) 
+		public void actionPerformed(ActionEvent e) 
 		{
+			System.out.println("tttttt");
 			
-			System.out.println("test");
 		}
-
+		
 	}
 }

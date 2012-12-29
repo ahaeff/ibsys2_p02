@@ -246,6 +246,32 @@ public class DatabaseContentHandler implements ContentHandler {
 
 		return material;
 	}
+	
+	/**
+	 * @return alle Kaufteile in einer Liste
+	 */
+
+	public  List<Material> getKTeile(){
+		List<Material> kteile = new ArrayList<Material>();
+		for(Material m: allesMaterial){
+			if("PURCHASE".equals(m.getPartType().toString()))
+				kteile.add(m);	
+		}
+		
+		
+		return kteile;
+	}
+	
+	public  List<String> getKTeileTEST(){
+		List<String> kteile = new ArrayList<String>();
+		for(Material m: allesMaterial){
+				kteile.add(m.getPartType().toString());	
+		}
+		
+		
+		return kteile;
+	}
+	
 
 	/**
 	 * Singleton Klasse 
