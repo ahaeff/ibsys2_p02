@@ -176,14 +176,125 @@ public class DispositionService {
 		 */
 		DatabaseContentHandler dbch = DatabaseContentHandler.get();
 		
+		//Vertertriebswunsch
+				disposition.setSalesOrders(productionProg.getN());
+				// Aufträge in der Warteschlange (untergeordnet) immer fixer Wert für erste Position
+				disposition.setWaitingQueue1(0);
+				//TODO Input Sicherheitsbestand fehlt
+				//Lagerbestand geplant
+				disposition.setSafetyWarehousestock(30);
+				//Lagerbestand Vorperiode
+				disposition.setWarehousestockPassedPeriod(dbch.findMaterial(2).getAmount());
+				//TODO @Daniel Funktionen liefern
+				// Warteschlange (uebergeordnet)
+				disposition.setWaitingQueue2(0);
+				//TODO @Daniel Funktionen liefern
+				// Auftraege in Bearbeitung
+				disposition.setOrdersInProgress(0);
+				// Produktionsauftraege kommende Periode
+				disposition.setOrders(disposition.getSalesOrders() + disposition.getWaitingQueue1() + disposition.getSafetyWarehousestock() - disposition.getWarehousestockPassedPeriod() - disposition.getWaitingQueue2() - disposition.getOrdersInProgress());
+				
+				/**
+				 *  Dispositionswerte der Komponenten von P2 setzten
+				 */
+				setValueFirstPack(disposition, dbch, 0, 26);
+				setValueFirstPack(disposition, dbch, 1, 56);
+				
+				setValueOtherPack(disposition, dbch, 2, 16, 1);
+				setValueOtherPack(disposition, dbch, 3, 17, 1);
+				setValueOtherPack(disposition, dbch, 4, 55, 1);
+				
+				setValueOtherPack(disposition, dbch, 5,  5, 4);
+				setValueOtherPack(disposition, dbch, 6, 11, 4);
+				setValueOtherPack(disposition, dbch, 7, 54, 4);
+				
+				setValueOtherPack(disposition, dbch, 8,   8, 7);
+				setValueOtherPack(disposition, dbch, 9,  14, 7);
+				setValueOtherPack(disposition, dbch, 10, 19, 7);
+				
 	}
 	
 	public void QueueInput3(Disposition disposition, ProductionProg productionProg){
 		
+
 		/**
 		 *  Lagerhandler initialisieren
 		 */
 		DatabaseContentHandler dbch = DatabaseContentHandler.get();
+		
+		//Vertertriebswunsch
+				disposition.setSalesOrders(productionProg.getN());
+				// Aufträge in der Warteschlange (untergeordnet) immer fixer Wert für erste Position
+				disposition.setWaitingQueue1(0);
+				//TODO Input Sicherheitsbestand fehlt
+				//Lagerbestand geplant
+				disposition.setSafetyWarehousestock(30);
+				//Lagerbestand Vorperiode
+				disposition.setWarehousestockPassedPeriod(dbch.findMaterial(3).getAmount());
+				//TODO @Daniel Funktionen liefern
+				// Warteschlange (uebergeordnet)
+				disposition.setWaitingQueue2(0);
+				//TODO @Daniel Funktionen liefern
+				// Auftraege in Bearbeitung
+				disposition.setOrdersInProgress(0);
+				// Produktionsauftraege kommende Periode
+				disposition.setOrders(disposition.getSalesOrders() + disposition.getWaitingQueue1() + disposition.getSafetyWarehousestock() - disposition.getWarehousestockPassedPeriod() - disposition.getWaitingQueue2() - disposition.getOrdersInProgress());
+	
+				/**
+				 *  Dispositionswerte der Komponenten von P3 setzten
+				 */
+				setValueFirstPack(disposition, dbch, 0, 26);
+				setValueFirstPack(disposition, dbch, 1, 31);
+				
+				setValueOtherPack(disposition, dbch, 2, 16, 1);
+				setValueOtherPack(disposition, dbch, 3, 17, 1);
+				setValueOtherPack(disposition, dbch, 4, 30, 1);
+				
+				setValueOtherPack(disposition, dbch, 5,  6, 4);
+				setValueOtherPack(disposition, dbch, 6, 12, 4);
+				setValueOtherPack(disposition, dbch, 7, 29, 4);
+				
+				setValueOtherPack(disposition, dbch, 8,   9, 7);
+				setValueOtherPack(disposition, dbch, 9,  15, 7);
+				setValueOtherPack(disposition, dbch, 10, 20, 7);
 	}
+	
+
+	/**
+	 *  Dispositions Zuordnungsfunktion
+	 *  a=Listenindex b=Bauteilnummer
+	 */
+	public void setValueFirstPack(Disposition disposition, DatabaseContentHandler dbch, int a, int b) {
+		
+			disposition.getDispositionen().get(a).setSalesOrders(disposition.getOrders());
+			disposition.getDispositionen().get(a).setWaitingQueue1(disposition.getWaitingQueue2());
+			//TODO Input Sicherheitsbestand
+			disposition.getDispositionen().get(a).setSafetyWarehousestock(50);
+			disposition.getDispositionen().get(a).setWarehousestockPassedPeriod(dbch.findMaterial(b).getAmount());			
+			//TODO @Daniel Funktionen liefern
+			disposition.getDispositionen().get(a).setWaitingQueue2(0);			
+			//TODO @Daniel Funktionen liefern
+			disposition.getDispositionen().get(a).setOrdersInProgress(0);						
+			disposition.getDispositionen().get(a).setOrders(disposition.getDispositionen().get(a).getSalesOrders() + disposition.getDispositionen().get(a).getWaitingQueue1() + disposition.getDispositionen().get(a).getSafetyWarehousestock() - disposition.getDispositionen().get(a).getWarehousestockPassedPeriod() - disposition.getDispositionen().get(a).getWaitingQueue2() - disposition.getDispositionen().get(a).getOrdersInProgress());	
+	}
+	
+	/**
+	 *  Dispositions Zuordnungsfunktion
+	 *  a=Listenindex b=Bauteilnummer c=IndexVorgaenger
+	 */
+	public void setValueOtherPack(Disposition disposition, DatabaseContentHandler dbch, int a, int b, int c) {
+		
+		disposition.getDispositionen().get(a).setSalesOrders(disposition.getDispositionen().get(c).getOrders());				
+		disposition.getDispositionen().get(a).setWaitingQueue1(disposition.getDispositionen().get(c).getWaitingQueue2());		
+		//TODO Input Sicherheitsbestand
+		disposition.getDispositionen().get(a).setSafetyWarehousestock(50);						
+		disposition.getDispositionen().get(a).setWarehousestockPassedPeriod(dbch.findMaterial(b).getAmount());				
+		//TODO @Daniel Funktionen liefern
+		disposition.getDispositionen().get(a).setWaitingQueue2(0);				
+		//TODO @Daniel Funktionen liefern
+		disposition.getDispositionen().get(a).setOrdersInProgress(0);			
+		disposition.getDispositionen().get(a).setOrders(disposition.getDispositionen().get(a).getSalesOrders() + disposition.getDispositionen().get(a).getWaitingQueue1() + disposition.getDispositionen().get(a).getSafetyWarehousestock() - disposition.getDispositionen().get(a).getWarehousestockPassedPeriod() - disposition.getDispositionen().get(a).getWaitingQueue2() - disposition.getDispositionen().get(a).getOrdersInProgress());
+	}
+		
 
 }
