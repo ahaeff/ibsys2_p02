@@ -29,9 +29,9 @@ public class Repository
 	private static void init()
 	{
 		prodProg = new Vector<ProductionProg>();
-		prodProg.add(new ProductionProg(0, 0, 0, 0));
-		prodProg.add(new ProductionProg(0, 0, 0, 0));
-		prodProg.add(new ProductionProg(0, 0, 0, 0));
+		prodProg.add(new ProductionProg(1, 0, 0, 0, 0));
+		prodProg.add(new ProductionProg(2, 0, 0, 0, 0));
+		prodProg.add(new ProductionProg(3, 0, 0, 0, 0));
 	}
 	
 	
