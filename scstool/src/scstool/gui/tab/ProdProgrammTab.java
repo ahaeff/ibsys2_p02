@@ -90,7 +90,7 @@ public class ProdProgrammTab extends JPanel
 
 	private void buildSouth()
 	{
-		add(new ButtonPane(3),BorderLayout.PAGE_END);
+		add(new ButtonPane(2),BorderLayout.PAGE_END);
 	}
 	private JPanel getProgComponents()
 	{  	
