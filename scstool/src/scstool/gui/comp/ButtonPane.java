@@ -12,9 +12,7 @@ import javax.swing.JPanel;
  * 
  * @author haeff
  * 
-
  */
-
 public class ButtonPane extends JPanel
 {
 

@@ -5,7 +5,9 @@ import java.awt.event.FocusListener;
 import javax.swing.JTabbedPane;
 
 
+import scstool.gui.comp.NTextField;
 import scstool.gui.tab.ProdProgrammTab;
+import scstool.utils.Repository;
 
 
 /**
@@ -18,7 +20,7 @@ public class TabbedPaneView extends JTabbedPane
 {
 
 	private static final long serialVersionUID = 1L;
-
+	private ProdProgrammTab tab01;
 	
 
 	public TabbedPaneView() 
@@ -33,9 +35,9 @@ public class TabbedPaneView extends JTabbedPane
 		setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 		
 		//Tab Produktions Programm
-		ProdProgrammTab tab01 = new ProdProgrammTab();
+		tab01 = new ProdProgrammTab();
 		tab01.addChangeListener(new ChangeListener());
-		add(tab01);
+		add("Produktionsprogramm",tab01);
 
 
 	}
@@ -50,16 +52,36 @@ public class TabbedPaneView extends JTabbedPane
 
 		@Override
 		public void focusGained(FocusEvent e) {
-			// TODO Auto-generated method stub
+			// not used
 			
 		}
 
 		@Override
 		public void focusLost(FocusEvent e) 
 		{
+			if(e.getSource() instanceof NTextField)
+			{
+				NTextField txt = (NTextField) e.getSource();
+				
+				String key = tab01.getNTextFieldKey(txt);
+				String[] arr = key.split("_");
+				
+				int product = Integer.valueOf(arr[0]);
+				int periode = Integer.valueOf(arr[1]);
+		
+				if(txt.getText().matches("[0-9]+"))
+				{
+					int value = Integer.parseInt(txt.getText());
+					Repository.getInstance().setProdProg(product, periode, value);
+				}
+
+				
+			}
 			System.out.println("Lost Focus");
 			
 		}
+		
+
 		
 	}
 }

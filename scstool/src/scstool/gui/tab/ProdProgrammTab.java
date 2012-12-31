@@ -5,8 +5,9 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.FocusListener;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
@@ -24,25 +25,21 @@ import scstool.gui.comp.TitlePane;
 public class ProdProgrammTab extends JPanel 
 {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
-	private List<NTextField> txtfields;
 		
+	private Map<NTextField, String> txtfields;
 	private FocusListener changeListener;
 	
 	
-	//ActionCommands
-	private final static String P1_PREFIX = "P1";
-	private final static String P2_PREFIX = "P2";
-	private final static String P3_PREFIX = "P3";
+	private final static String P1_PREFIX = "1";
+	private final static String P2_PREFIX = "2";
+	private final static String P3_PREFIX = "3";
 	
-	private final static String PERIOD_0 = "_N";
-	private final static String PERIOD_1 = "_N1";
-	private final static String PERIOD_2 = "_N2";
-	private final static String PERIOD_3 = "_N3";
+	private final static String PERIOD_0 = "_0";
+	private final static String PERIOD_1 = "_1";
+	private final static String PERIOD_2 = "_2";
+	private final static String PERIOD_3 = "_3";
 	
 	public ProdProgrammTab()
 	{
@@ -52,8 +49,7 @@ public class ProdProgrammTab extends JPanel
 	private void init()
 	{
 		setLayout(new BorderLayout());
-
-		txtfields = new ArrayList<NTextField>();
+		txtfields = new HashMap<NTextField,String>();
 		
 		buildNorth();
 		buildSouth();
@@ -69,9 +65,9 @@ public class ProdProgrammTab extends JPanel
 	{
 		if(this.changeListener != null)
 		{
-			for(NTextField txt : txtfields)
+			for(NTextField key : txtfields.keySet())
 			{
-				txt.addFocusListener(this.changeListener);
+				key.addFocusListener(this.changeListener);
 			}
 		}
 	}
@@ -137,26 +133,23 @@ public class ProdProgrammTab extends JPanel
 		
 		c.gridx = 1;
 		txt = new NTextField();
-		txt.setActionCommand(P1_PREFIX+PERIOD_0);
-		txtfields.add(txt);
+		txtfields.put(txt,P1_PREFIX+PERIOD_0);
 		pane.add(txt,c);
 		
 		c.gridx = 2;
 		txt = new NTextField();
-		txt.setActionCommand(P1_PREFIX+PERIOD_1);
-		txtfields.add(txt);		
+		
+		txtfields.put(txt,P1_PREFIX+PERIOD_1);		
 		pane.add(txt,c);
 		
 		c.gridx = 3;
 		txt = new NTextField();
-		txt.setActionCommand(P1_PREFIX+PERIOD_2);
-		txtfields.add(txt);
+		txtfields.put(txt,P1_PREFIX+PERIOD_2);
 		pane.add(txt,c);
 		
 		c.gridx = 4;
 		txt = new NTextField();
-		txt.setActionCommand(P1_PREFIX+PERIOD_3);
-		txtfields.add(txt);
+		txtfields.put(txt,P1_PREFIX+PERIOD_3);
 		pane.add(txt,c);
 		
 		//3. Zeile
@@ -166,26 +159,22 @@ public class ProdProgrammTab extends JPanel
 		
 		c.gridx = 1;
 		txt = new NTextField();
-		txt = new NTextField();
-		txt.setActionCommand(P2_PREFIX+PERIOD_0);
+		txtfields.put(txt,P2_PREFIX+PERIOD_0);
 		pane.add(txt,c);
 		
 		c.gridx = 2;
 		txt = new NTextField();
-		txt = new NTextField();
-		txt.setActionCommand(P2_PREFIX+PERIOD_1);
+		txtfields.put(txt,P2_PREFIX+PERIOD_1);
 		pane.add(txt,c);
 		
 		c.gridx = 3;
 		txt = new NTextField();
-		txt = new NTextField();
-		txt.setActionCommand(P2_PREFIX+PERIOD_2);
+		txtfields.put(txt,P2_PREFIX+PERIOD_2);
 		pane.add(txt,c);
 		
 		c.gridx = 4;
 		txt = new NTextField();
-		txt = new NTextField();
-		txt.setActionCommand(P2_PREFIX+PERIOD_3);
+		txtfields.put(txt,P2_PREFIX+PERIOD_3);
 		pane.add(txt,c);
 		
 		//4. Zeile
@@ -195,28 +184,30 @@ public class ProdProgrammTab extends JPanel
 		
 		c.gridx = 1;
 		txt = new NTextField();
-		txt = new NTextField();
-		txt.setActionCommand(P3_PREFIX+PERIOD_0);
+		txtfields.put(txt,P3_PREFIX+PERIOD_0);
 		pane.add(txt,c);
 		
 		c.gridx = 2;
 		txt = new NTextField();
-		txt = new NTextField();
-		txt.setActionCommand(P3_PREFIX+PERIOD_1);
+		txtfields.put(txt,P3_PREFIX+PERIOD_1);
 		pane.add(txt,c);
 		
 		c.gridx = 3;
 		txt = new NTextField();
-		txt = new NTextField();
-		txt.setActionCommand(P3_PREFIX+PERIOD_2);
+		txtfields.put(txt,P3_PREFIX+PERIOD_2);
 		pane.add(txt,c);
 		
 		c.gridx = 4;
 		txt = new NTextField();
-		txt = new NTextField();
-		txt.setActionCommand(P3_PREFIX+PERIOD_3);
+		txtfields.put(txt,P3_PREFIX+PERIOD_3);
 		pane.add(txt,c);
 		
 		return pane;
 	}
+	
+	public String getNTextFieldKey(NTextField txt)
+	{
+		return txtfields.get(txt);
+	}
+	
 }
