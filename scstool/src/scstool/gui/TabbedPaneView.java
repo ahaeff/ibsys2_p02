@@ -1,5 +1,7 @@
 package scstool.gui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.JTabbedPane;
@@ -20,7 +22,11 @@ public class TabbedPaneView extends JTabbedPane
 {
 
 	private static final long serialVersionUID = 1L;
+	
+	//1. Tab
 	private ProdProgrammTab tab01;
+	
+	//2. Tab
 	private SafetyStockTab tab02;
 
 	public TabbedPaneView() 
@@ -37,11 +43,13 @@ public class TabbedPaneView extends JTabbedPane
 		//Tab Produktions Programm
 		tab01 = new ProdProgrammTab();
 		tab01.addChangeListener(new ProdProgChangeListener());
+		tab01.addButtonListener(new ButtonListener());
 		add("Produktionsprogramm",tab01);
 
 		
 		//Sicherheitsbestand
 		tab02 = new SafetyStockTab();
+		tab02.addButtonListener(new ButtonListener());
 		add("Sicherheitsbestand",tab02);
 		
 	}
@@ -79,5 +87,34 @@ public class TabbedPaneView extends JTabbedPane
 				}	
 			}
 		}
+	}
+	
+	/**
+	 * ButtonListener für das Wechseln der Tabs über die Buttons
+	 * 
+	 * @author haeff
+	 *
+	 */
+	class ButtonListener implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent e) 
+		{
+			int index = getSelectedIndex();
+			switch(e.getActionCommand())
+			{
+				case "L":
+					index--;
+					break;
+				case "R":
+					index++;
+					break;
+					
+			}
+			setSelectedIndex(index);
+			
+		}
+		
 	}
 }

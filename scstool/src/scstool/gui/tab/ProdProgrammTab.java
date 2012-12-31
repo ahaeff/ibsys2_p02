@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusListener;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +32,6 @@ public class ProdProgrammTab extends JPanel
 	private Map<NTextField, String> txtfields;
 	private FocusListener changeListener;
 	
-	
 	private final static String P1_PREFIX = "1";
 	private final static String P2_PREFIX = "2";
 	private final static String P3_PREFIX = "3";
@@ -40,6 +40,9 @@ public class ProdProgrammTab extends JPanel
 	private final static String PERIOD_1 = "_1";
 	private final static String PERIOD_2 = "_2";
 	private final static String PERIOD_3 = "_3";
+	
+	//Button Panel
+	private ButtonPane bnt_pane;
 	
 	public ProdProgrammTab()
 	{
@@ -55,12 +58,29 @@ public class ProdProgrammTab extends JPanel
 		buildSouth();
 	}
 	
+	/**
+	 * Gibt den Buttonlistener an das ButtonPanel weiter
+	 * @param l: Actionlistener
+	 */
+	public void addButtonListener(ActionListener l)
+	{
+		bnt_pane.addButtonListener(l);
+	}
+	
+	
+	/**
+	 * Registiert den Foculistener bei den Textfeldern
+	 * @param l: Focuslistener
+	 */
 	public void addChangeListener(FocusListener l)
 	{
 		this.changeListener = l;
 		registerChangeListener();
 	}
 	
+	/**
+	 * Alle textfelder erhlaten einen Actionlistener
+	 */
 	private void registerChangeListener()
 	{
 		if(this.changeListener != null)
@@ -71,6 +91,7 @@ public class ProdProgrammTab extends JPanel
 			}
 		}
 	}
+	
 	/**
 	 * Erzeugt den Teil des Contents der im Page_Start Bereich eingefuegt wird
 	 */
@@ -88,10 +109,19 @@ public class ProdProgrammTab extends JPanel
 		
 	}
 
+	/**
+	 * Erzeugt den Teil des Contents der im Page_End Bereich eingefuegt wird
+	 */
 	private void buildSouth()
 	{
-		add(new ButtonPane(2),BorderLayout.PAGE_END);
+		bnt_pane = new ButtonPane(2);
+		add(bnt_pane,BorderLayout.PAGE_END);
 	}
+	
+	
+	/**
+	 * Erstellt ein Panel mit den Eingabefeldern fuer das Produktionsprogramm
+	 */
 	private JPanel getProgComponents()
 	{  	
 		

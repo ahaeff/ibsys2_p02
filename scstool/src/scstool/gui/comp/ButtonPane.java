@@ -2,6 +2,7 @@ package scstool.gui.comp;
 
 import java.awt.BorderLayout;
 import java.awt.Image;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -50,11 +51,14 @@ public class ButtonPane extends JPanel
 		setLayout(new BorderLayout());
 		
 		ImageIcon icon = getButtonIcon(ICONPATH01);
+		
 		bnt_right = new JButton("",icon);
+		bnt_right.setActionCommand("R");
 		
 		icon = getButtonIcon(ICONPATH02);
 		bnt_left = new JButton("",icon);
-				
+		bnt_left.setActionCommand("L");
+		
 		switch(variant)
 		{
 			case 1:
@@ -83,6 +87,12 @@ public class ButtonPane extends JPanel
 		
 		//neu skalieren
 		return new ImageIcon( icon.getImage().getScaledInstance(icon_width, icon_height, Image.SCALE_SMOOTH));	
+	}
+	
+	public void addButtonListener(ActionListener l)
+	{
+		bnt_right.addActionListener(l);
+		bnt_left.addActionListener(l);
 	}
 	
 }

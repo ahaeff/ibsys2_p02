@@ -2,6 +2,12 @@ package scstool.proc;
 
 import scstool.gui.TabbedPaneView;
 
+/**
+ * Controller für die Steuerung der Benutzer Eingaben
+ * 
+ * @author haeff
+ *
+ */
 public class ProdProgrammController 
 {
 	private TabbedPaneView view;
