@@ -1,26 +1,19 @@
 package scstool.gui.tab;
 
-import java.awt.Color;
-import java.awt.Font;
+import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Vector;
-
-import javax.swing.JLabel;
+import java.awt.event.FocusListener;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
+import scstool.gui.comp.ButtonPane;
 import scstool.gui.comp.CustLabel;
 import scstool.gui.comp.NTextField;
-import scstool.obj.ProductionProg;
-import scstool.utils.Repository;
-
-
-
+import scstool.gui.comp.TitlePane;
 
 /**
  * Eingabe des Produktionsprogramms, Prognosen und Direktverkaeufe
@@ -30,60 +23,80 @@ import scstool.utils.Repository;
  */
 public class ProdProgrammTab extends JPanel 
 {
-	
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Vector<ProductionProg> prog;
 
-	GridBagConstraints gc = new GridBagConstraints();
+	private List<NTextField> txtfields;
+		
+	private FocusListener changeListener;
 	
+	
+	//ActionCommands
+	private final static String P1_PREFIX = "P1";
+	private final static String P2_PREFIX = "P2";
+	private final static String P3_PREFIX = "P3";
+	
+	private final static String PERIOD_0 = "_N";
+	private final static String PERIOD_1 = "_N1";
+	private final static String PERIOD_2 = "_N2";
+	private final static String PERIOD_3 = "_N3";
 	
 	public ProdProgrammTab()
 	{
-		
 		init();
 	}
 	
 	private void init()
 	{
+		setLayout(new BorderLayout());
+
+		txtfields = new ArrayList<NTextField>();
 		
-		gc.insets = new Insets(10, 10, 0, 10);
-		gc.fill = GridBagConstraints.NONE;
-		gc.anchor  = GridBagConstraints.NORTH;
-		//gc.ipadx = 10;
-		gc.gridy = 0;
-		gc.gridx = 0;
-		
-		setLayout(new GridBagLayout());
-		
-		prog = Repository.getInstance().getProdProg();
-		
-		
-		
-		addTitelPane("Verkaufswunsch und Prognosen eingeben");
-		addComponents();
+		buildNorth();
+		buildSouth();
 	}
 	
-	private void addTitelPane(String txt)
+	public void addChangeListener(FocusListener l)
 	{
-		int fontsize = 30;
-		String font ="Arial";
-		int fontweight = Font.BOLD;
-		
-		JPanel pane = new JPanel();
-		JLabel lbl = new JLabel(txt);
-		
-		Font font1 = new Font(font, fontweight, fontsize);
-		lbl.setFont(font1);
-		pane.add(lbl);
-		gc.gridy = 0;
-		add(pane,gc);
+		this.changeListener = l;
+		registerChangeListener();
 	}
 	
-	private void addComponents()
+	private void registerChangeListener()
+	{
+		if(this.changeListener != null)
+		{
+			for(NTextField txt : txtfields)
+			{
+				txt.addFocusListener(this.changeListener);
+			}
+		}
+	}
+	/**
+	 * Erzeugt den Teil des Contents der im Page_Start Bereich eingefuegt wird
+	 */
+	private void buildNorth()
+	{
+		JPanel pane = new JPanel();
+		pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
+		
+		//Titel
+		pane.add(new TitlePane("Verkaufswunsch und Prognosen eingeben"));
+		
+		//Content
+		pane.add(getProgComponents());
+		add(pane,BorderLayout.PAGE_START);
+		
+	}
+
+	private void buildSouth()
+	{
+		add(new ButtonPane(3),BorderLayout.PAGE_END);
+	}
+	private JPanel getProgComponents()
 	{  	
 		
 		JPanel pane = new JPanel();
@@ -91,7 +104,7 @@ public class ProdProgrammTab extends JPanel
 		
 		
 		GridBagConstraints c = new GridBagConstraints();
-		ChangeListener l = new ChangeListener();
+		
 		c.insets = new Insets(10, 10, 0, 10);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipadx = 10;
@@ -124,22 +137,26 @@ public class ProdProgrammTab extends JPanel
 		
 		c.gridx = 1;
 		txt = new NTextField();
-		txt.addActionListener(l);
+		txt.setActionCommand(P1_PREFIX+PERIOD_0);
+		txtfields.add(txt);
 		pane.add(txt,c);
 		
 		c.gridx = 2;
 		txt = new NTextField();
-		txt.addActionListener(l);
+		txt.setActionCommand(P1_PREFIX+PERIOD_1);
+		txtfields.add(txt);		
 		pane.add(txt,c);
 		
 		c.gridx = 3;
 		txt = new NTextField();
-		txt.addActionListener(l);
+		txt.setActionCommand(P1_PREFIX+PERIOD_2);
+		txtfields.add(txt);
 		pane.add(txt,c);
 		
 		c.gridx = 4;
 		txt = new NTextField();
-		txt.addActionListener(l);
+		txt.setActionCommand(P1_PREFIX+PERIOD_3);
+		txtfields.add(txt);
 		pane.add(txt,c);
 		
 		//3. Zeile
@@ -149,22 +166,26 @@ public class ProdProgrammTab extends JPanel
 		
 		c.gridx = 1;
 		txt = new NTextField();
-		txt.addActionListener(l);
+		txt = new NTextField();
+		txt.setActionCommand(P2_PREFIX+PERIOD_0);
 		pane.add(txt,c);
 		
 		c.gridx = 2;
 		txt = new NTextField();
-		txt.addActionListener(l);
+		txt = new NTextField();
+		txt.setActionCommand(P2_PREFIX+PERIOD_1);
 		pane.add(txt,c);
 		
 		c.gridx = 3;
 		txt = new NTextField();
-		txt.addActionListener(l);
+		txt = new NTextField();
+		txt.setActionCommand(P2_PREFIX+PERIOD_2);
 		pane.add(txt,c);
 		
 		c.gridx = 4;
 		txt = new NTextField();
-		txt.addActionListener(l);
+		txt = new NTextField();
+		txt.setActionCommand(P2_PREFIX+PERIOD_3);
 		pane.add(txt,c);
 		
 		//4. Zeile
@@ -174,41 +195,28 @@ public class ProdProgrammTab extends JPanel
 		
 		c.gridx = 1;
 		txt = new NTextField();
-		txt.addActionListener(l);
+		txt = new NTextField();
+		txt.setActionCommand(P3_PREFIX+PERIOD_0);
 		pane.add(txt,c);
 		
 		c.gridx = 2;
 		txt = new NTextField();
-		txt.addActionListener(l);
+		txt = new NTextField();
+		txt.setActionCommand(P3_PREFIX+PERIOD_1);
 		pane.add(txt,c);
 		
 		c.gridx = 3;
 		txt = new NTextField();
-		txt.addActionListener(l);
+		txt = new NTextField();
+		txt.setActionCommand(P3_PREFIX+PERIOD_2);
 		pane.add(txt,c);
 		
 		c.gridx = 4;
 		txt = new NTextField();
-		txt.addActionListener(l);
+		txt = new NTextField();
+		txt.setActionCommand(P3_PREFIX+PERIOD_3);
 		pane.add(txt,c);
 		
-		gc.gridy = 1;
-		add(pane,gc);
-
-	}
-	
-	
-
-	
-	class ChangeListener implements ActionListener
-	{
-
-		@Override
-		public void actionPerformed(ActionEvent e) 
-		{
-			System.out.println("tttttt");
-			
-		}
-		
+		return pane;
 	}
 }

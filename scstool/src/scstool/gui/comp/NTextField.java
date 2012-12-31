@@ -2,11 +2,8 @@ package scstool.gui.comp;
 
 import java.awt.Dimension;
 import java.awt.Font;
-import java.text.Format;
-import java.text.NumberFormat;
-
 import javax.swing.JFormattedTextField;
-import javax.swing.JTextField;
+
 
 /**
  * @author haeff
@@ -16,6 +13,9 @@ import javax.swing.JTextField;
  */
 public class NTextField extends JFormattedTextField
 {
+	
+	private static final long serialVersionUID = 1L;
+	
 	//Textfeld
 	private int width = 100;
 	private int height = 30;
@@ -25,10 +25,7 @@ public class NTextField extends JFormattedTextField
 	private String font ="Arial";
 	private int fontweight = Font.BOLD;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
 	
 	public NTextField() 
 	{

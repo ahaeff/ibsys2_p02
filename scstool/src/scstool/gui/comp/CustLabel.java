@@ -7,6 +7,9 @@ import javax.swing.JLabel;
 public class CustLabel extends JLabel
 {
 	
+
+	private static final long serialVersionUID = 1L;
+	
 	//Schrift
 	private int fontsize = 15;
 	private String font ="Arial";

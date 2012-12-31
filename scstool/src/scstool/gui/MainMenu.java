@@ -1,23 +1,17 @@
 package scstool.gui;
 
-import java.awt.MenuItem;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
-
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import scstool.utils.Dic;
 
-public class MainMenu extends JMenuBar{
+public class MainMenu extends JMenuBar
+{
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	private JMenu file;
