@@ -42,14 +42,15 @@ public class TabbedPaneView extends JTabbedPane
 		
 		//Tab Produktions Programm
 		tab01 = new ProdProgrammTab();
+		tab01.addButtonListener(new ButtonListener());		
 		tab01.addChangeListener(new ProdProgChangeListener());
-		tab01.addButtonListener(new ButtonListener());
 		add("Produktionsprogramm",tab01);
 
 		
 		//Sicherheitsbestand
 		tab02 = new SafetyStockTab();
 		tab02.addButtonListener(new ButtonListener());
+		tab02.addChangeListener(new SafetyStockChangeListener());
 		add("Sicherheitsbestand",tab02);
 		
 	}
@@ -86,6 +87,36 @@ public class TabbedPaneView extends JTabbedPane
 					Repository.getInstance().setProdProg(product, periode, value);
 				}	
 			}
+		}
+	}
+	
+	
+	class SafetyStockChangeListener implements FocusListener
+	{
+
+		@Override
+		public void focusGained(FocusEvent e) {
+			// not used
+			
+		}
+
+		@Override
+		public void focusLost(FocusEvent e) 
+		{
+			if(e.getSource() instanceof NTextField)
+			{
+				NTextField txt = (NTextField) e.getSource();
+				
+				String strkey = tab02.getNTextFieldKey(txt);
+				int key = Integer.parseInt(strkey.substring(1));
+				if(txt.getText().matches("[0-9]+"))
+				{
+					int value = Integer.parseInt(txt.getText());
+					Repository.getInstance().setSafetyStock(key, value);
+				}
+				System.out.println(Repository.getInstance().getStafetyStock());
+			}
+			
 		}
 	}
 	

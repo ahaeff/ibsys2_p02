@@ -32,6 +32,7 @@ public class ProdProgrammTab extends JPanel
 	private Map<NTextField, String> txtfields;
 	private FocusListener changeListener;
 	
+	//Keys die fur die Auswertung des Focuslistner benoetigt werden
 	private final static String P1_PREFIX = "1";
 	private final static String P2_PREFIX = "2";
 	private final static String P3_PREFIX = "3";
@@ -105,6 +106,8 @@ public class ProdProgrammTab extends JPanel
 		
 		//Content
 		pane.add(getProgComponents());
+		
+		
 		add(pane,BorderLayout.PAGE_START);
 		
 	}

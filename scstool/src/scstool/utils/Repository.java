@@ -17,7 +17,8 @@ public class Repository
 	
 	/** Produktionsprgramm und Prognosen*/
 	private static Map<Integer,ProductionProg> prodProg;
-
+	private static Map<Integer,Integer> safetyStock;
+	
 	public static Repository getInstance()
 	{
 		if(instance == null)
@@ -34,6 +35,8 @@ public class Repository
 		prodProg.put(1,new ProductionProg(1, 0, 0, 0, 0));
 		prodProg.put(2,new ProductionProg(2, 0, 0, 0, 0));
 		prodProg.put(3,new ProductionProg(3, 0, 0, 0, 0));
+		
+		safetyStock = new HashMap<Integer,Integer>();
 	}
 	
 	
@@ -42,10 +45,15 @@ public class Repository
 		return prodProg;
 	}
 
-/*	public void setProdProg(Vector<ProductionProg> p) 
+	public Map<Integer, Integer> getStafetyStock()
 	{
-		//prodProg = p;
-	}*/
+		return safetyStock;
+	}
+	
+	public void setSafetyStock(int key, int value)
+	{
+		safetyStock.put(key, value);
+	}
 	
 	public void setProdProg(int product, int periode, int value)
 	{
