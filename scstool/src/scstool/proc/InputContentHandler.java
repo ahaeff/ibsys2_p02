@@ -2,7 +2,6 @@ package scstool.proc;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -13,14 +12,12 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 
-import scstool.obj.BillOfMaterial;
 import scstool.obj.Material;
 import scstool.obj.Order;
-import scstool.obj.Salary;
 import scstool.obj.WaitingList;
-import scstool.obj.WorkPlan;
 import scstool.obj.Workplace;
 import scstool.utils.MyMath;
+import scstool.utils.PeriodDate;
 
 public class InputContentHandler implements ContentHandler {
 
@@ -103,7 +100,7 @@ public class InputContentHandler implements ContentHandler {
 
 		}
 
-		/*--------------Aufträge in der Warteschlange-----------------------*/
+		/*--------------Auftrï¿½ge in der Warteschlange-----------------------*/
 		
 		if (localName.equals("workplace")) {
 			if (atts.getValue("batch") == null || atts.getValue("setupevents") == null || atts.getValue("ageidletimecosts") == null) {
@@ -111,7 +108,7 @@ public class InputContentHandler implements ContentHandler {
 				//System.out.println(atts.getValue("timeneed") + "+*Workplace*****");
 			}
 			System.out.println(atts.getValue("id") + "+*++waitinglist+-/-/" + atts.getValue("wagecosts"));
-			/*------------------Aufträge in Bearbeitung-------------------*/
+			/*------------------Auftrï¿½ge in Bearbeitung-------------------*/
 
 			if (atts.getValue("id") != null && atts.getValue("period") != null && atts.getValue("order") != null && atts.getValue("batch") != null && atts.getValue("item") != null && atts.getValue("amount") != null && atts.getValue("timeneed") != null) {
 
@@ -135,7 +132,13 @@ public class InputContentHandler implements ContentHandler {
 				try{
 				Integer amount = Integer.parseInt(atts.getValue("amount"));
 				order = new Order();
-	
+				order.setId(Integer.parseInt(atts.getValue("id")));
+				order.setAmount(amount);
+				order.setMaterial(DatabaseContentHandler.get().findMaterial(Integer.parseInt(atts
+						.getValue("article"))));
+				order.setMode(Integer.parseInt(atts.getValue("mode")));
+				order.setOrderDate(new PeriodDate(Integer.parseInt(atts.getValue("orderperiod")),0));
+				
 				if (atts.getValue("time") != null) {
 					order.setFinished(true);
 					// order.setOrderDate(orderDate) --> time
@@ -151,13 +154,9 @@ public class InputContentHandler implements ContentHandler {
 							.getValue("piececosts")));
 				} else {
 					order.setFinished(false);
+					order.setDeliveryDate(order.calculateDeliveryDate());
 				}
-	
-				order.setId(Integer.parseInt(atts.getValue("id")));
-				order.setAmount(amount);
-				order.setMaterial(DatabaseContentHandler.get().findMaterial(Integer.parseInt(atts
-						.getValue("article"))));
-				order.setMode(Integer.parseInt(atts.getValue("mode")));
+				
 				alleOrder.add(order);
 
 			} catch(NumberFormatException ex){
@@ -176,7 +175,7 @@ public class InputContentHandler implements ContentHandler {
 			
 		}
 	}
-
+	
 	/**
 	 * Prï¿½ft ob es ein KPI ist.
 	 * 
@@ -280,7 +279,7 @@ public class InputContentHandler implements ContentHandler {
 	}
 	
 	/**
-	 * @return Material, dass noch in der Warteschlange ist (Warteliste Arbeitsplatz im SCSim) (Aufträge in der Warteschlange im Excelsheet)
+	 * @return Material, dass noch in der Warteschlange ist (Warteliste Arbeitsplatz im SCSim) (Auftrï¿½ge in der Warteschlange im Excelsheet)
 	 * @param 
 	 */
 
@@ -299,7 +298,7 @@ public class InputContentHandler implements ContentHandler {
 	}
 	
 	/**
-	 * @return Material, dass noch in der Warteschlange ist (Aufträge in Bearbeitung im SCSim und im Excelsheet)
+	 * @return Material, dass noch in der Warteschlange ist (Auftrï¿½ge in Bearbeitung im SCSim und im Excelsheet)
 	 */
 	public Integer getWaitingMaterialWert(Integer materialID){
 		
@@ -315,7 +314,7 @@ public class InputContentHandler implements ContentHandler {
 
  //--------------------------------------
 	/**
-	 * @return Materialliste, dass noch in Bearbeitung ist (Aufträge in Bearbeitung im SCSim und im Excelsheet)
+	 * @return Materialliste, dass noch in Bearbeitung ist (Auftrï¿½ge in Bearbeitung im SCSim und im Excelsheet)
 	 */
 	public List<Material> getMaterialinWork(){
 		
@@ -330,7 +329,7 @@ public class InputContentHandler implements ContentHandler {
 	}
 	
 	/**
-	 * @return Material, dass noch in Bearbeitung ist (Aufträge in Bearbeitung im SCSim und im Excelsheet)
+	 * @return Material, dass noch in Bearbeitung ist (Auftrï¿½ge in Bearbeitung im SCSim und im Excelsheet)
 	 * @param 
 	 */
 
@@ -348,7 +347,7 @@ public class InputContentHandler implements ContentHandler {
 		return mat;
 	}
 	/**
-	 * @return Integer der Menge, eines Artikels, dass noch in Bearbeitung ist (Aufträge in Bearbeitung im SCSim und im Excelsheet)
+	 * @return Integer der Menge, eines Artikels, dass noch in Bearbeitung ist (Auftrï¿½ge in Bearbeitung im SCSim und im Excelsheet)
 	 */
 	public Integer getMaterialinWorkWert(Integer materialID){
 				

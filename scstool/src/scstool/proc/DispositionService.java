@@ -3,7 +3,6 @@ package scstool.proc;
 import scstool.obj.Disposition;
 import scstool.obj.SellWish;
 import scstool.utils.Repository;
-
 /**
  * @Autor Alexander
  * 
@@ -27,7 +26,7 @@ public class DispositionService {
 		 */
 		//Vertertriebswunsch
 		disposition.setSalesOrders(sellWish.getN());
-		// Aufträge in der Warteschlange (untergeordnet) immer fixer Wert für erste Position
+		// Auftrï¿½ge in der Warteschlange (untergeordnet) immer fixer Wert fï¿½r erste Position
 		disposition.setWaitingQueue1(0);
 		//Lagerbestand geplant
 		disposition.setSafetyWarehousestock(repo.getStafetyStock(1));
@@ -174,7 +173,7 @@ public class DispositionService {
 		
 		//Vertertriebswunsch
 				disposition.setSalesOrders(sellWish.getN());
-				// Aufträge in der Warteschlange (untergeordnet) immer fixer Wert für erste Position
+				// Auftrï¿½ge in der Warteschlange (untergeordnet) immer fixer Wert fï¿½r erste Position
 				disposition.setWaitingQueue1(0);
 				//Lagerbestand geplant
 				disposition.setSafetyWarehousestock(repo.getStafetyStock(2));
@@ -221,7 +220,7 @@ public class DispositionService {
 		
 		//Vertertriebswunsch
 				disposition.setSalesOrders(sellWish.getN());
-				// Aufträge in der Warteschlange (untergeordnet) immer fixer Wert für erste Position
+				// Auftrï¿½ge in der Warteschlange (untergeordnet) immer fixer Wert fï¿½r erste Position
 				disposition.setWaitingQueue1(0);
 				//Lagerbestand geplant
 				disposition.setSafetyWarehousestock(repo.getStafetyStock(3));
@@ -285,6 +284,4 @@ public class DispositionService {
 		disposition.getDispositionen().get(a).setOrdersInProgress(ich.getMaterialinWorkWert(b));			
 		disposition.getDispositionen().get(a).setOrders(disposition.getDispositionen().get(a).getSalesOrders() + disposition.getDispositionen().get(a).getWaitingQueue1() + disposition.getDispositionen().get(a).getSafetyWarehousestock() - disposition.getDispositionen().get(a).getWarehousestockPassedPeriod() - disposition.getDispositionen().get(a).getWaitingQueue2() - disposition.getDispositionen().get(a).getOrdersInProgress());
 	}
-		
-
 }

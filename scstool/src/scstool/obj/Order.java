@@ -194,10 +194,10 @@ public class Order {
 	 *  article (material)
 	 *  amount (menge)
 	 *  time	(zeitstempel --> Wochentag) -->Lieferdatum
-	 *  materialcosts (kosten f�r das Material)
+	 *  materialcosts (kosten f���r das Material)
 	 *  ordercosts (bestellkosten)
 	 *  entirecosts (bestellkosten gesamt)
-	 *  piececosts (st�ckkosten)
+	 *  piececosts (st���ckkosten)
 	 *  -----------------------------------------------------
 	 *  Lieferdatum 		--> time
 	 *  bestelldatum		--> not
@@ -207,6 +207,20 @@ public class Order {
 	 *  Artikel_ID			--> article
 	 *  
 	 */
+	
+
+	/**
+	 * Berechnet den Lieferzeitpunkt
+	 * 
+	 * @return der Lieferzeitpunkt als PeriodDate
+	 */
+	public PeriodDate calculateDeliveryDate() {
+		// ordered material
+		Material mat = this.material;
+		// materiallieferzeit + abweichung
+		PeriodDate deliveryTime = mat.getDeliveryTime().add(mat.getDeliveryAberation());
+		return this.orderDate.add(deliveryTime);
+	}
 
 	
 }

@@ -1,8 +1,9 @@
 package scstool.utils;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
-
 
 import scstool.obj.SellWish;
 
@@ -12,13 +13,14 @@ import scstool.obj.SellWish;
  *	Dient als Repository aller Daten
  */
 public class Repository 
-{
+{	
 	private static Repository instance;
 	
 	/** Produktionsprgramm und Prognosen*/
 	private static Map<Integer,SellWish> sellwish;
 	//<matnr,menge>
 	private static Map<Integer,Integer> safetyStock;
+	private static List<Integer[]> productionProgram;
 	
 	
 	public static Repository getInstance()
@@ -39,6 +41,8 @@ public class Repository
 		sellwish.put(3,new SellWish(3, 0, 0, 0, 0));
 		
 		safetyStock = new HashMap<Integer,Integer>();
+		productionProgram = new LinkedList<>();
+
 	}
 	
 	/**
