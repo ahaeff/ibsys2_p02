@@ -43,10 +43,34 @@ public class OrderService {
 	private List<Double> averageNeeds = calculateAverageNeeds();
 	
 	/**
+	 * Reichweite
+	 */
+	private List<Double> Coverage = calculateCoverage();
+	
+
+	/**
 	 * Reichweitensicherung
 	 */
+	private List<Double> timeMaterialCoverage = calculateTimeMaterialCoverage();
+	
 	//TODO Bedarfsliste nötig
 	
+	public List<Double> getCoverage() {
+		return Coverage;
+	}
+	
+	public void setCoverage(List<Double> coverage) {
+		Coverage = coverage;
+	}
+	
+	public List<Double> getTimeMaterialCoverage() {
+		return timeMaterialCoverage;
+	}
+
+	public void setTimeMaterialCoverage(List<Double> timeMaterialCoverage) {
+		this.timeMaterialCoverage = timeMaterialCoverage;
+	}
+
 	public List<Double> getAverageNeeds() {
 		return averageNeeds;
 	}
@@ -181,9 +205,8 @@ public class OrderService {
 		return average;
 	}
 	
-	//TODO Reichweitensicherung berechnen
-	public List<Integer> calculateCoverage(){
-		List <Integer> coverage = new ArrayList<Integer>();
+	public List<Double> calculateCoverage(){
+		List <Double> coverage = new ArrayList<Double>();
 		
 		
 		
@@ -191,4 +214,9 @@ public class OrderService {
 		
 	}
 	
+	public List<Double> calculateTimeMaterialCoverage(){
+		List <Double> time = new ArrayList<Double>();
+		
+		return time;
+	}
 }
