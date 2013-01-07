@@ -35,7 +35,6 @@ public class GuiController implements IController
 		view = new MainView();
 		view.setMenuListener(new MenuListener());
 		
-		
 		try {
 			URL url = this.getClass().getResource(DATABASEXML);
 			ImportXmlController.readXml(new File(url.getFile()), DatabaseContentHandler.get());

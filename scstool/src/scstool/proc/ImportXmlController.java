@@ -14,27 +14,18 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
 import scstool.gui.ImportDialogView;
+import scstool.utils.Repository;
 
-
-
-public class ImportXmlController 
-{
+public class ImportXmlController {
+	private InputContentHandler contentHandler;
 	private ImportDialogView view;
 	private JFrame parent;
-	
-	public ImportXmlController(JFrame j)
-	{
-		this.parent = j;
-		init();
-	}
-	
-	private void init()
-	{
 
+	public ImportXmlController(JFrame j) {
+		this.parent = j;
 	}
-	
-	public void openDialog()
-	{
+
+	public void openDialog() {
 		ImportDialogView dia = new ImportDialogView();
 
 		int dialogResult = dia.showOpenDialog(parent);
@@ -42,7 +33,7 @@ public class ImportXmlController
 		case ImportDialogView.APPROVE_OPTION:
 			try {
 				File selectedFile = dia.getSelectedFile();
-				InputContentHandler contentHandler = new InputContentHandler();
+				contentHandler = new InputContentHandler();
 				readXml(selectedFile, contentHandler);
 
 			} catch (FileNotFoundException e) {
@@ -61,8 +52,10 @@ public class ImportXmlController
 			break;
 		}
 
+		Repository.getInstance().extractData(contentHandler);
+		
 	}
-	
+
 	/**
 	 * @param selectedFile
 	 * @param contentHandler
@@ -90,4 +83,3 @@ public class ImportXmlController
 		xmlReader.parse(inputSource);
 	}
 }
-

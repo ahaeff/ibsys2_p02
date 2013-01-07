@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import scstool.obj.SellWish;
+import scstool.proc.InputContentHandler;
 
 /**
  * @author haeff
@@ -20,6 +21,7 @@ public class Repository
 	private static Map<Integer,SellWish> sellwish;
 	//<matnr,menge>
 	private static Map<Integer,Integer> safetyStock;
+	// Integer[0] ist das Material und Integer[1] für die Menge
 	private static List<Integer[]> productionProgram;
 	
 	
@@ -128,5 +130,9 @@ public class Repository
 				p.setN3(value);
 				break;
 		}
+	}
+
+	public void extractData(InputContentHandler contentHandler) {
+		
 	}
 }

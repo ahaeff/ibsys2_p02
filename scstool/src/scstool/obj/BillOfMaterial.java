@@ -22,7 +22,7 @@ public class BillOfMaterial {
 		 */
 		private Integer amount;
 		/**
-		 * TODO was ist das? Baugruppe?
+		 * Baugruppe
 		 */
 		private boolean assembly;
 		/**
@@ -54,6 +54,18 @@ public class BillOfMaterial {
 			this.amount = amount;
 		}
 		
+		/**
+		 * @return the assembly
+		 */
+		public boolean isAssembly() {
+			return assembly;
+		}
+		/**
+		 * @param assembly the assembly to set
+		 */
+		public void setAssembly(boolean assembly) {
+			this.assembly = assembly;
+		}
 		@Override
 		public String toString() {
 			return "MaterialAmount [amount=" + amount + ", assembly="
@@ -138,5 +150,4 @@ public class BillOfMaterial {
 		return "BillOfMaterial [id=" + id + ", materials=" + materials
 				+ ", component=" + component + "]";
 	}
-
 }
