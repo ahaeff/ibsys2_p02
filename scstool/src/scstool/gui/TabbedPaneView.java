@@ -114,7 +114,6 @@ public class TabbedPaneView extends JTabbedPane
 					int value = Integer.parseInt(txt.getText());
 					Repository.getInstance().setSafetyStock(key, value);
 				}
-				System.out.println(Repository.getInstance().getStafetyStock());
 			}
 			
 		}
