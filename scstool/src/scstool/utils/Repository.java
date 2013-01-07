@@ -2,9 +2,9 @@ package scstool.utils;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Vector;
 
-import scstool.obj.ProductionProg;
+
+import scstool.obj.SellWish;
 
 /**
  * @author haeff
@@ -16,8 +16,10 @@ public class Repository
 	private static Repository instance;
 	
 	/** Produktionsprgramm und Prognosen*/
-	private static Map<Integer,ProductionProg> prodProg;
+	private static Map<Integer,SellWish> sellwish;
+	//<matnr,menge>
 	private static Map<Integer,Integer> safetyStock;
+	
 	
 	public static Repository getInstance()
 	{
@@ -31,20 +33,14 @@ public class Repository
 	
 	private static void init()
 	{
-		prodProg = new HashMap<Integer,ProductionProg>();
-		prodProg.put(1,new ProductionProg(1, 0, 0, 0, 0));
-		prodProg.put(2,new ProductionProg(2, 0, 0, 0, 0));
-		prodProg.put(3,new ProductionProg(3, 0, 0, 0, 0));
+		sellwish = new HashMap<Integer,SellWish>();
+		sellwish.put(1,new SellWish(1, 0, 0, 0, 0));
+		sellwish.put(2,new SellWish(2, 0, 0, 0, 0));
+		sellwish.put(3,new SellWish(3, 0, 0, 0, 0));
 		
 		safetyStock = new HashMap<Integer,Integer>();
 	}
 	
-	
-	public Map<Integer,ProductionProg> getProdProg() 
-	{
-		return prodProg;
-	}
-
 	public Map<Integer, Integer> getStafetyStock()
 	{
 		return safetyStock;
@@ -55,9 +51,16 @@ public class Repository
 		safetyStock.put(key, value);
 	}
 	
-	public void setProdProg(int product, int periode, int value)
+	public Map<Integer,SellWish> getSellWish() 
 	{
-		ProductionProg p = prodProg.get(product);
+		return sellwish;
+	}
+
+
+	
+	public void setSellWish(int product, int periode, int value)
+	{
+		SellWish p = sellwish.get(product);
 		switch(periode)
 		{
 			case 0:

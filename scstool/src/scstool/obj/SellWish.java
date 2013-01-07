@@ -6,7 +6,7 @@ package scstool.obj;
  * Stellt den Produktionswunsch und Prognose pro Produkt dar
  *
  */
-public class ProductionProg 
+public class SellWish 
 {
 	//Produkt 1,2 oder 3
 	private int p;
@@ -17,7 +17,7 @@ public class ProductionProg
 	private int n2;
 	private int n3;
 		
-	public ProductionProg(int p, int n, int n1, int n2, int n3) 
+	public SellWish(int p, int n, int n1, int n2, int n3) 
 	{
 		super();
 		this.p = p;

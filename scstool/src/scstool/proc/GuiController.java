@@ -11,7 +11,7 @@ import javax.swing.event.TableModelListener;
 
 import scstool.gui.MainMenu;
 import scstool.gui.MainView;
-import scstool.obj.ProductionProg;
+import scstool.obj.SellWish;
 import scstool.utils.IController;
 import scstool.utils.Repository;
 
@@ -19,7 +19,7 @@ public class GuiController implements IController
 {
 
 	private MainView view;
-	private Vector<ProductionProg> prog;
+	private Vector<SellWish> prog;
 	private Repository repo;
 	
 	public GuiController()

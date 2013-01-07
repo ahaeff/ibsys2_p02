@@ -7,7 +7,7 @@ import java.awt.event.FocusListener;
 import javax.swing.JTabbedPane;
 
 import scstool.gui.comp.NTextField;
-import scstool.gui.tab.ProdProgrammTab;
+import scstool.gui.tab.SellWishTab;
 import scstool.gui.tab.SafetyStockTab;
 import scstool.utils.Repository;
 
@@ -24,7 +24,7 @@ public class TabbedPaneView extends JTabbedPane
 	private static final long serialVersionUID = 1L;
 	
 	//1. Tab
-	private ProdProgrammTab tab01;
+	private SellWishTab tab01;
 	
 	//2. Tab
 	private SafetyStockTab tab02;
@@ -41,10 +41,10 @@ public class TabbedPaneView extends JTabbedPane
 		setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 		
 		//Tab Produktions Programm
-		tab01 = new ProdProgrammTab();
+		tab01 = new SellWishTab();
 		tab01.addButtonListener(new ButtonListener());		
 		tab01.addChangeListener(new ProdProgChangeListener());
-		add("Produktionsprogramm",tab01);
+		add("Vertriebswunsch",tab01);
 
 		
 		//Sicherheitsbestand
@@ -56,7 +56,7 @@ public class TabbedPaneView extends JTabbedPane
 	}
 
 	/**
-	 * Focus Listener für die Textfields
+	 * Focus Listener fï¿½r die Textfields
 	 * @author haeff
 	 *
 	 */
@@ -84,7 +84,7 @@ public class TabbedPaneView extends JTabbedPane
 				if(txt.getText().matches("[0-9]+"))
 				{
 					int value = Integer.parseInt(txt.getText());
-					Repository.getInstance().setProdProg(product, periode, value);
+					Repository.getInstance().setSellWish(product, periode, value);
 				}	
 			}
 		}
@@ -121,7 +121,7 @@ public class TabbedPaneView extends JTabbedPane
 	}
 	
 	/**
-	 * ButtonListener für das Wechseln der Tabs über die Buttons
+	 * ButtonListener fï¿½r das Wechseln der Tabs ï¿½ber die Buttons
 	 * 
 	 * @author haeff
 	 *

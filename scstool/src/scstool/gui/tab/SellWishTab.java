@@ -23,7 +23,7 @@ import scstool.gui.comp.TitlePane;
  * @author haeff
  *
  */
-public class ProdProgrammTab extends JPanel 
+public class SellWishTab extends JPanel 
 {
 
 	private static final long serialVersionUID = 1L;
@@ -45,7 +45,7 @@ public class ProdProgrammTab extends JPanel
 	//Button Panel
 	private ButtonPane bnt_pane;
 	
-	public ProdProgrammTab()
+	public SellWishTab()
 	{
 		init();
 	}
@@ -105,7 +105,7 @@ public class ProdProgrammTab extends JPanel
 		pane.add(new TitlePane("Verkaufswunsch und Prognosen eingeben"));
 		
 		//Content
-		pane.add(getProgComponents());
+		pane.add(getSellWishComponents());
 		
 		
 		add(pane,BorderLayout.PAGE_START);
@@ -125,7 +125,7 @@ public class ProdProgrammTab extends JPanel
 	/**
 	 * Erstellt ein Panel mit den Eingabefeldern fuer das Produktionsprogramm
 	 */
-	private JPanel getProgComponents()
+	private JPanel getSellWishComponents()
 	{  	
 		
 		JPanel pane = new JPanel();
@@ -147,7 +147,7 @@ public class ProdProgrammTab extends JPanel
 		
 	
 		c.gridx=1;
-		pane.add(new  CustLabel("Auftr‰ge"),c);
+		pane.add(new  CustLabel("Auftr√§ge"),c);
 		
 		c.gridx=2;
 		pane.add(new  CustLabel("Prognose 1"),c);
@@ -237,6 +237,12 @@ public class ProdProgrammTab extends JPanel
 		
 		return pane;
 	}
+	
+/*	private JPanel getSellWishComponents()
+	{  	
+		return null;
+	}*/
+	
 	
 	public String getNTextFieldKey(NTextField txt)
 	{
