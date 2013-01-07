@@ -41,9 +41,14 @@ public class Repository
 		safetyStock = new HashMap<Integer,Integer>();
 	}
 	
-	public Map<Integer, Integer> getStafetyStock()
+	public Map<Integer, Integer> getStafetyStockAll()
 	{
 		return safetyStock;
+	}
+	
+	public int getStafetyStock(int key)
+	{
+		return safetyStock.get(key);
 	}
 	
 	public void setSafetyStock(int key, int value)
@@ -51,12 +56,23 @@ public class Repository
 		safetyStock.put(key, value);
 	}
 	
-	public Map<Integer,SellWish> getSellWish() 
+	/**
+	 * Liefert ein Objekt Sellwish fuer ein Produkt zurueck
+	 * @param Produkt (1,2 oder 3)
+	 * @return
+	 */
+	public SellWish getSellWish(int key)
+	{
+		return  sellwish.get(key);
+	}
+	
+	
+	public Map<Integer,SellWish> getSellWishAll() 
 	{
 		return sellwish;
 	}
 
-
+	
 	
 	public void setSellWish(int product, int periode, int value)
 	{

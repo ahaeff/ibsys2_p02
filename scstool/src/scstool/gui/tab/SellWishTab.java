@@ -106,7 +106,7 @@ public class SellWishTab extends JPanel
 		
 		//Content
 		pane.add(getSellWishComponents());
-		
+		pane.add(getDirectSaleComponents());
 		
 		add(pane,BorderLayout.PAGE_START);
 		
@@ -238,10 +238,23 @@ public class SellWishTab extends JPanel
 		return pane;
 	}
 	
-/*	private JPanel getSellWishComponents()
+	private JPanel getDirectSaleComponents()
 	{  	
-		return null;
-	}*/
+		JPanel pane = new JPanel();
+		pane.setLayout(new GridBagLayout());
+		
+		
+		GridBagConstraints c = new GridBagConstraints();
+		
+		c.insets = new Insets(10, 10, 0, 10);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.ipadx = 10;
+		
+		
+		
+		
+		return pane;
+	}
 	
 	
 	public String getNTextFieldKey(NTextField txt)
