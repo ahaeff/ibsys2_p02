@@ -16,10 +16,11 @@ public class Repository
 {	
 	private static Repository instance;
 	
-	/** Produktionsprgramm und Prognosen*/
+	// Produktionsprgramm und Prognosen
 	private static Map<Integer,SellWish> sellwish;
-	//<matnr,menge>
+	//Sticherheitsbestand <matnr,menge>
 	private static Map<Integer,Integer> safetyStock;
+	//Produktionsprogramm
 	private static List<Integer[]> productionProgram;
 	
 	
