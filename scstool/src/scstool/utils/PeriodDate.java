@@ -8,7 +8,7 @@ import java.security.InvalidParameterException;
 
 /**
  * @author reinhold
- *
+ * 
  */
 public class PeriodDate {
 
@@ -18,84 +18,105 @@ public class PeriodDate {
 	 */
 	private Integer period;
 	/**
-	 * the day in the period
-	 * could be 1-5
+	 * the day in the period could be 1-5
 	 */
 	private Integer day;
+
 	/**
 	 * @param period
 	 * @param day
 	 */
 	public PeriodDate(Integer period, Integer day) {
 		super();
-		this.period = period;
-		this.day = day;
+		this.setPeriod(period);
+		this.setDay(day);
 	}
-	
-	public PeriodDate(Double period){
+
+	public PeriodDate(Double period) {
 		super();
-		this.setPeriod((int) MyMath.round(period,0,BigDecimal.ROUND_DOWN));
-		int day2 = (int) MyMath.round(WORKDAYS*(period-this.period),2,BigDecimal.ROUND_HALF_UP);
+		this.setPeriod((int) MyMath.round(period, 0, BigDecimal.ROUND_DOWN));
+		int day2 = (int) MyMath.round(WORKDAYS * (period - this.period), 2,
+				BigDecimal.ROUND_HALF_UP);
 		this.setDay(day2);
 	}
-	
+
 	/**
 	 * @return the period
 	 */
 	public Integer getPeriod() {
 		return period;
 	}
+
 	/**
-	 * @param period the period to set
+	 * @param period
+	 *            the period to set
 	 */
 	public void setPeriod(Integer period) {
 		this.period = period;
 	}
+
 	/**
 	 * @return the day
 	 */
 	public Integer getDay() {
 		return day;
 	}
+
 	/**
-	 * @param day the day to set
+	 * @param day
+	 *            the day to set
 	 */
 	public void setDay(Integer day) {
-		if(day < 0 || day > 5) throw new InvalidParameterException("Must between 0 and 5");
+		if (day < 0 || day > 5)
+			throw new InvalidParameterException("Must between 0 and 5");
 		this.day = day;
 	}
 
 	/**
-	 * Einem Datum ein anderes hinzuf�gen
+	 * Einem Datum ein anderes hinzuf���gen
 	 * 
 	 * @param toAdd
 	 * @return
 	 */
-	public PeriodDate add(PeriodDate toAdd){
-		int period = this.period+toAdd.period;
-		int day = this.day+toAdd.day;
+	public PeriodDate add(PeriodDate toAdd) {
+		int period = this.period + toAdd.period;
+		int day = this.day + toAdd.day;
+		while (day > 5) {
+			if (day > 5) {
+				period++;
+				day = day - 5;
+			}
+		}
 		return new PeriodDate(period, day);
 	}
-	
+
 	/**
 	 * Einem Datum ein anderes abziehen
 	 * 
 	 * @param toSub
 	 * @return
 	 */
-	public PeriodDate sub(PeriodDate toSub){
-		int period = this.period-toSub.period;
-		int day = this.day-toSub.day;
+	public PeriodDate sub(PeriodDate toSub) {
+		int period = this.period - toSub.period;
+		int day = this.day - toSub.day;
+		if(day<0){
+			period--;
+			day += 5;
+		}
+		if(period < 0){
+			throw new InvalidParameterException("result negativ");
+		}
 		return new PeriodDate(period, day);
 	}
-	
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return  period + "-" + day + "-0";
+		return period + "-" + day + "-0";
 	}
-	
+
 }

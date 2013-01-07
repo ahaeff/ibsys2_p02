@@ -1,4 +1,8 @@
 eclipse.preferences.version=1
+encoding//src/scstool/obj/Order.java=UTF-8
 encoding//src/scstool/obj/WaitingList.java=UTF-8
 encoding//src/scstool/proc/DatabaseContentHandler.java=UTF-8
+encoding//src/scstool/proc/DispositionService.java=UTF-8
+encoding//src/scstool/proc/ImportXmlController.java=UTF-8
 encoding//src/scstool/proc/InputContentHandler.java=UTF-8
+encoding//src/scstool/utils/PeriodDate.java=UTF-8
