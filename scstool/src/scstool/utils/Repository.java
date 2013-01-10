@@ -5,7 +5,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import scstool.obj.Order;
 import scstool.obj.SellWish;
+import scstool.obj.WaitingList;
 import scstool.proc.InputContentHandler;
 
 /**
@@ -23,6 +25,13 @@ public class Repository
 	private static Map<Integer,Integer> safetyStock;
 	// Integer[0] ist das Material und Integer[1] für die Menge
 	private static List<Integer[]> productionProgram;
+	// die angekommenen Bestellungen
+	private static List<Order> arrivals;
+	// die Bestellungen die noch ausstehen
+	private static List<Order> futureArrivals;
+	
+	private static List<WaitingList> inWork;
+	private static List<WaitingList> waiting;
 	
 	
 	public static Repository getInstance()
@@ -133,6 +142,39 @@ public class Repository
 	}
 
 	public void extractData(InputContentHandler contentHandler) {
+		arrivals = contentHandler.getInwardStockMovement();
+		futureArrivals = contentHandler.getFutureInwardStockMovement();
 		
+		inWork = contentHandler.getAlleWLinWork();
+		waiting = contentHandler.getAlleWL();
+	}
+	
+	/**
+	 * @return Integer der Menge, eines Artikels, dass noch in Bearbeitung ist (Auftr�ge in Bearbeitung im SCSim und im Excelsheet)
+	 */
+	public Integer getAmountOfMaterialInWork(Integer materialID){
+				
+		for(WaitingList wl : inWork) 
+		{
+			if (wl.getMaterial().getId().equals(materialID)){
+				materialID = wl.getAmount();	
+			}
+		}
+
+		return materialID;
+	}
+	
+	/**
+	 * @return Material, dass noch in der Warteschlange ist (Auftr�ge in Bearbeitung im SCSim und im Excelsheet)
+	 */
+	public Integer getAmountOfWaitingMaterial(Integer materialID){
+		
+		for(WaitingList wl : waiting) 
+		{
+			if (wl.getMaterial().getId().equals(materialID)){
+				materialID = wl.getAmount();	
+			}
+		}
+		return materialID;
 	}
 }

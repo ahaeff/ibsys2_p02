@@ -105,9 +105,7 @@ public class InputContentHandler implements ContentHandler {
 		if (localName.equals("workplace")) {
 			if (atts.getValue("batch") == null || atts.getValue("setupevents") == null || atts.getValue("ageidletimecosts") == null) {
 				workplace = dbch.findWorkplace(Integer.parseInt(atts.getValue("id")));
-				//System.out.println(atts.getValue("timeneed") + "+*Workplace*****");
 			}
-			System.out.println(atts.getValue("id") + "+*++waitinglist+-/-/" + atts.getValue("wagecosts"));
 			/*------------------Auftr�ge in Bearbeitung-------------------*/
 
 			if (atts.getValue("id") != null && atts.getValue("period") != null && atts.getValue("order") != null && atts.getValue("batch") != null && atts.getValue("item") != null && atts.getValue("amount") != null && atts.getValue("timeneed") != null) {
@@ -117,7 +115,6 @@ public class InputContentHandler implements ContentHandler {
 				waitinglistInWork.setMaterial(dbch.findMaterial(Integer.parseInt(atts.getValue("item"))));
 				waitinglistInWork.setAmount(Integer.parseInt(atts.getValue("amount")));
 				waitinglistInWork.setTimeneed(Integer.parseInt(atts.getValue("timeneed")));
-				System.out.println("#12345# " + waitinglistInWork);
 				alleWLinWork.add(waitinglistInWork);
 			}
 
@@ -241,7 +238,7 @@ public class InputContentHandler implements ContentHandler {
 		List<Order> allFISM = new ArrayList<Order>();
 		
 		for( int i = 0, n = alleOrder.size(); i<n; i++ ){
-			if(getAllOrders().get(i).getOrdercosts().equals(null)){
+			if(!getAllOrders().get(i).isFinished()){
 				allFISM.add(getAllOrders().get(i));
 			}
 		}
@@ -254,7 +251,7 @@ public class InputContentHandler implements ContentHandler {
 		List<Order> allFISM = new ArrayList<Order>();
 		
 		for( int i = 0, n = alleOrder.size(); i<n; i++ ){
-			if(!getAllOrders().get(i).getOrdercosts().equals(null)){
+			if(!getAllOrders().get(i).isFinished()){
 				allFISM.add(getAllOrders().get(i));
 			}
 		}
@@ -263,102 +260,31 @@ public class InputContentHandler implements ContentHandler {
 	}
 	
 	/**
-	 * @return Materialliste, dass noch in der Warteschlange ist (Warteliste Arbeitsplatz)
+	 * @return the alleWL
 	 */
-	public List<Material> getWaitingMaterial(){
-		
-		List<Material> waitingMaterial = new ArrayList<Material>();
-		
-		
-		for(WaitingList wl : alleWL) 
-		{
-			waitingMaterial.add(wl.getMaterial());
-		}
-
-		return waitingMaterial;
+	public List<WaitingList> getAlleWL() {
+		return alleWL;
 	}
-	
-	/**
-	 * @return Material, dass noch in der Warteschlange ist (Warteliste Arbeitsplatz im SCSim) (Auftr�ge in der Warteschlange im Excelsheet)
-	 * @param 
-	 */
 
-	public Material findWaitingMaterial(Integer id){
-		
-		List<Material> waitingMaterial = getWaitingMaterial();
-		Material mat = new Material();
-		
-		for(Material m : waitingMaterial) 
-		{
-			if (m.getId().equals(id)){
-				mat = m;	
-			}
-		}
-		return mat;
+	/**
+	 * @param alleWL the alleWL to set
+	 */
+	public void setAlleWL(List<WaitingList> alleWL) {
+		this.alleWL = alleWL;
 	}
-	
+
 	/**
-	 * @return Material, dass noch in der Warteschlange ist (Auftr�ge in Bearbeitung im SCSim und im Excelsheet)
+	 * @return the alleWLinWork
 	 */
-	public Integer getWaitingMaterialWert(Integer materialID){
-		
-		for(WaitingList wl : alleWLinWork) 
-		{
-			if (wl.getMaterial().getId().equals(materialID)){
-				materialID = wl.getAmount();	
-			}
-		}
-		return materialID;
+	public List<WaitingList> getAlleWLinWork() {
+		return alleWLinWork;
 	}
-	
 
- //--------------------------------------
 	/**
-	 * @return Materialliste, dass noch in Bearbeitung ist (Auftr�ge in Bearbeitung im SCSim und im Excelsheet)
+	 * @param alleWLinWork the alleWLinWork to set
 	 */
-	public List<Material> getMaterialinWork(){
-		
-		List<Material> waitingMaterial = new ArrayList<Material>();
-		
-		for(WaitingList wl : alleWLinWork) 
-		{
-			waitingMaterial.add(wl.getMaterial());
-		}
-
-		return waitingMaterial;
-	}
-	
-	/**
-	 * @return Material, dass noch in Bearbeitung ist (Auftr�ge in Bearbeitung im SCSim und im Excelsheet)
-	 * @param 
-	 */
-
-	public Material findMaterialinWork(Integer id){
-		
-		List<Material> waitingMaterial = getMaterialinWork();
-		Material mat = new Material();
-				
-		for(Material m : waitingMaterial) 
-		{
-			if (m.getId().equals(id)){
-				mat = m;	
-			}
-		}
-		return mat;
-	}
-	/**
-	 * @return Integer der Menge, eines Artikels, dass noch in Bearbeitung ist (Auftr�ge in Bearbeitung im SCSim und im Excelsheet)
-	 */
-	public Integer getMaterialinWorkWert(Integer materialID){
-				
-		for(WaitingList wl : alleWLinWork) 
-		{
-			if (wl.getMaterial().getId().equals(materialID)){
-				materialID = wl.getAmount();	
-			}
-		}
-
-		return materialID;
+	public void setAlleWLinWork(List<WaitingList> alleWLinWork) {
+		this.alleWLinWork = alleWLinWork;
 	}
 	
 	
