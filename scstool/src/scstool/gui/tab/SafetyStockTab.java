@@ -1,6 +1,5 @@
 package scstool.gui.tab;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -11,14 +10,14 @@ import java.awt.event.FocusListener;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 import scstool.gui.comp.ButtonPane;
 import scstool.gui.comp.CustLabel;
 import scstool.gui.comp.NTextField;
-import scstool.gui.comp.TitlePane;
+
 
 
 
@@ -36,8 +35,11 @@ public class SafetyStockTab extends JPanel
 
 	private static final long serialVersionUID = 1L;
 
+	private int bnt_var;
+	
 	private Map<NTextField, String> txtfields;
 	private FocusListener changeListener;
+	
 	
 	//Button Panel
 	private ButtonPane bnt_pane;
@@ -81,18 +83,15 @@ public class SafetyStockTab extends JPanel
 
 	
 	
-	public SafetyStockTab()
+	public SafetyStockTab(int bnt_var)
 	{
+		this.bnt_var = bnt_var;
 		init();
 	}
 	
 	private void init()
 	{
-		//setLayout(new BorderLayout());
 		txtfields = new HashMap<NTextField,String>();
-		
-		//buildNorth();
-		//buildSouth();
 		
 		buildGui();
 	}
@@ -187,7 +186,7 @@ public class SafetyStockTab extends JPanel
 	    c.gridwidth = column;
 	    c.weightx = 0.0;
 	    c.weighty = 0.0;
-	    bnt_pane = new ButtonPane(1);
+	    bnt_pane = new ButtonPane(this.bnt_var);
 	    add(bnt_pane,c);
 		//add(getBottomRow(),c);
 		
@@ -217,7 +216,7 @@ public class SafetyStockTab extends JPanel
 	 * 
 	 * @return
 	 */
-	private JPanel getBottomRow()
+/*	private JPanel getBottomRow()
 	{
 		int width = 0;
 		int height = 50;
@@ -230,7 +229,7 @@ public class SafetyStockTab extends JPanel
 		
 		return pane;
 		
-	}
+	}*/
 	
 	/**
 	 * Erstellt den Inhalt des Platzhalters links vom Content
@@ -286,9 +285,23 @@ public class SafetyStockTab extends JPanel
 		c.insets = new Insets(10, 5, 0, 5);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx =1.0;
+	
 		c.gridy = 0;
+		c.gridx = 1;
+		pane.add(new  CustLabel("Kinderfahrrad"),c);
+
+		c.gridy = 0;
+		c.gridx = 3;
+		pane.add(new  CustLabel("Damenfahrrad"),c);
+		
+		c.gridy = 0;
+		c.gridx = 5;
+		pane.add(new  CustLabel("Herrenfahrrad"),c);
+		
+		
+		c.gridy = 1;
 		c.gridx = 0;
-				
+			
 		NTextField txt;
 		
 		for(int i = 0; i<matnr.length;i++)
@@ -309,9 +322,19 @@ public class SafetyStockTab extends JPanel
 				c.gridy++;
 			}
 		}
-		c.insets.top=50;
+		
+		
+		c.insets.top=20;
+		c.insets.left = 50;
 		c.gridwidth = 6;
-		pane.add(new  CustLabel("Gemeinsam genutzte Teile"),c);
+		Border border = BorderFactory.createMatteBorder(0,0,5,0,Color.BLACK);
+		JPanel line = new JPanel();
+		line.setBorder(border);
+		pane.add(line,c);
+		
+		c.gridy++;
+		c.insets.top=10;
+		pane.add(new  CustLabel("Gemeinsam genutzte Teile:"),c);
 		
 		c.insets.top=10;
 		c.gridwidth = 1;

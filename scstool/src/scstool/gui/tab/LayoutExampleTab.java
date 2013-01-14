@@ -14,12 +14,17 @@ import scstool.gui.comp.ButtonPane;
 
 public class LayoutExampleTab extends JPanel
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	//Button Panel
 	private ButtonPane bnt_pane;
+	private int bnt_var;
 	
-	
-	public LayoutExampleTab()
+	public LayoutExampleTab(int bnt_var)
 	{
+		this.bnt_var = bnt_var;
 		init();
 	}
 	
@@ -27,7 +32,7 @@ public class LayoutExampleTab extends JPanel
 	{
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
-		JLabel lbl;
+
 		JPanel pane;
 		
 		setBackground(Color.cyan);

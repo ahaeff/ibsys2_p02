@@ -50,23 +50,25 @@ public class TabbedPaneView extends JTabbedPane
 		setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 		
 		//Tab Produktions Programm
-		tab01 = new SellWishTab();
+		tab01 = new SellWishTab(2);
 		tab01.addButtonListener(new ButtonListener());		
 		tab01.addChangeListener(new ProdProgChangeListener());
 		add("Vertriebswunsch",tab01);
 
 		
 		//Sicherheitsbestand
-		tab02 = new SafetyStockTab();
-		//tab02.addButtonListener(new ButtonListener());
-		//tab02.addChangeListener(new SafetyStockChangeListener());
+		tab02 = new SafetyStockTab(3);
+		tab02.addButtonListener(new ButtonListener());
+		tab02.addChangeListener(new SafetyStockChangeListener());
 		add("Sicherheitsbestand",tab02);
 		
 		//Einstellungen
-		tab03 = new SettingsTab();
+		tab03 = new SettingsTab(1);
+		tab03.addButtonListener(new ButtonListener());
+		//tab03.addChangeListener(new SafetyStockChangeListener());
 		add("Einstellungen",tab03);
 		
-		expTab = new LayoutExampleTab();
+		expTab = new LayoutExampleTab(1);
 		add("Layout Spielerei",expTab);
 		
 	}

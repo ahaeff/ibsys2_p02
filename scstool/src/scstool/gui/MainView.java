@@ -1,21 +1,14 @@
 package scstool.gui;
 
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
-import org.xml.sax.SAXException;
 
-import scstool.proc.DatabaseContentHandler;
-import scstool.proc.ImportXmlController;
 
 public class MainView extends JFrame
 {

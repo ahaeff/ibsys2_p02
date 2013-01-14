@@ -1,6 +1,7 @@
 package scstool.gui.tab;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -9,13 +10,12 @@ import java.awt.event.FocusListener;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 import scstool.gui.comp.ButtonPane;
 import scstool.gui.comp.CustLabel;
 import scstool.gui.comp.NTextField;
-import scstool.gui.comp.TitlePane;
+
 
 /**
  * Eingabe des Produktionsprogramms, Prognosen und Direktverkaeufe
@@ -28,7 +28,8 @@ public class SellWishTab extends JPanel
 
 	private static final long serialVersionUID = 1L;
 
-		
+	private int bnt_var;
+	 
 	private Map<NTextField, String> txtfields;
 	private FocusListener changeListener;
 	
@@ -42,21 +43,22 @@ public class SellWishTab extends JPanel
 	private final static String PERIOD_2 = "_2";
 	private final static String PERIOD_3 = "_3";
 	
+	private final static String DIRECT ="D";
 	//Button Panel
 	private ButtonPane bnt_pane;
 	
-	public SellWishTab()
+	public SellWishTab(int bnt_var)
 	{
+		this.bnt_var = bnt_var;
 		init();
 	}
 	
 	private void init()
 	{
+		
 		setLayout(new BorderLayout());
 		txtfields = new HashMap<NTextField,String>();
-		
-		buildNorth();
-		buildSouth();
+		buildGui();
 	}
 	
 	/**
@@ -80,7 +82,7 @@ public class SellWishTab extends JPanel
 	}
 	
 	/**
-	 * Alle textfelder erhlaten einen Actionlistener
+	 * Alle textfelder erhalten einen Actionlistener
 	 */
 	private void registerChangeListener()
 	{
@@ -93,56 +95,178 @@ public class SellWishTab extends JPanel
 		}
 	}
 	
-	/**
-	 * Erzeugt den Teil des Contents der im Page_Start Bereich eingefuegt wird
-	 */
-	private void buildNorth()
+	
+	private void buildGui()
 	{
+		int rows = 3;
+		int column = 3;
+		
+		setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;
+		c.insets = new Insets(5, 5, 5, 5);
+	    c.gridheight =1;
+	    c.weightx= 1;
+	    c.weighty= 1;
+		
+		
+		//Platzhalter 1. Zeile
+		c.gridx = 0;
+	    c.gridy = 0;
+	    c.gridwidth = column;
+	    c.weightx = 0.0;
+	    c.weighty = 0.0;
+	    add(getTopRow(),c);		
+		
+		//Platzhalter links
+	    c.weightx= 0.0;
+	    c.weighty= 0.0;
+	    c.gridwidth = 1;    
+	    c.gridx = 0;
+	    c.gridy = 1;
+		add(getLeft(),c);
+		
+		//Content mitte
+	    c.weightx= 1.0;
+	    c.weighty= 1.0;
+		c.gridx = 1;
+	    c.gridy = 1;
+	    c.fill = GridBagConstraints.NONE;
+	    c.anchor = GridBagConstraints.NORTHWEST;
+	    add(getContent(),c);
+		
+	    //Platzhalter rechts
+	    c.fill = GridBagConstraints.BOTH;
+	    c.weightx= 0.0;
+	    c.weighty= 0.0;
+		c.gridx = 2;
+	    c.gridy = 1;
+	    c.anchor = GridBagConstraints.CENTER;
+		add(getRight(),c);
+		
+		//Letzte Zeile
+		c.gridx = 0;
+		c.gridy = rows-1;
+	    c.gridwidth = column;
+	    c.weightx = 0.0;
+	    c.weighty = 0.0;
+	    bnt_pane = new ButtonPane(this.bnt_var);
+	    add(bnt_pane,c);
+		//add(getBottomRow(),c);
+		
+	}
+	
+	
+	/**
+	 * Erstellt den Inhalt des Platzhalters ersten Zeile
+	 * 
+	 * @return
+	 */
+	private JPanel getTopRow()
+	{
+		int width = 0;
+		int height = 50;
+		
 		JPanel pane = new JPanel();
-		pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
+		pane.setPreferredSize(new Dimension(width,height));
 		
-		//Titel
-		pane.add(new TitlePane("Verkaufswunsch und Prognosen eingeben"));
+		//fix fuer einen BUG bezueglich der Breite/Hoehe in einem GribagLayout
+		pane.setMinimumSize(pane.getPreferredSize());
 		
-		//Content
-		pane.add(getSellWishComponents());
-		pane.add(getDirectSaleComponents());
-		
-		add(pane,BorderLayout.PAGE_START);
-		
+		return pane;
 	}
-
+	
 	/**
-	 * Erzeugt den Teil des Contents der im Page_End Bereich eingefuegt wird
+	 * Erstellt den Inhalt des Platzhalters letzte Zeile
+	 * 
+	 * @return
 	 */
-	private void buildSouth()
+/*	private JPanel getBottomRow()
 	{
-		bnt_pane = new ButtonPane(2);
-		add(bnt_pane,BorderLayout.PAGE_END);
+		int width = 0;
+		int height = 50;
+		
+		JPanel pane = new JPanel();
+		pane.setPreferredSize(new Dimension(width,height));
+		
+		//fix fuer einen BUG bezueglich der Breite/Hoehe in einem GribagLayout
+		pane.setMinimumSize(pane.getPreferredSize());
+		
+		return pane;
+		
+	}*/
+	
+	/**
+	 * Erstellt den Inhalt des Platzhalters links vom Content
+	 * 
+	 * @return
+	 */
+	private JPanel getLeft()
+	{
+		int width = 100;
+		int height = 0;
+		
+		JPanel pane = new JPanel();
+		pane.setPreferredSize(new Dimension(width,height));
+
+		//fix fuer einen BUG bezueglich der Breite/Hoehe in einem GribagLayout
+		pane.setMinimumSize(pane.getPreferredSize());
+		
+		return pane;
+	}
+	
+	/**
+	 * Erstellt den Inhalt des Platzhalters rechts vom Content
+	 * 
+	 * @return
+	 */
+	private JPanel getRight()
+	{
+		int width = 100;
+		int height = 0;
+		
+		JPanel pane = new JPanel();
+		pane.setPreferredSize(new Dimension(width,height));
+		
+		//fix fuer einen BUG bezueglich der Breite/Hoehe in einem GribagLayout
+		pane.setMinimumSize(pane.getPreferredSize());
+		
+		return pane;
 	}
 	
 	
+	
 	/**
-	 * Erstellt ein Panel mit den Eingabefeldern fuer das Produktionsprogramm
+	 * Erstellt den Inhalt des Content
+	 * 
+	 * @return
 	 */
-	private JPanel getSellWishComponents()
-	{  	
+	private JPanel getContent()
+	{
 		
 		JPanel pane = new JPanel();
 		pane.setLayout(new GridBagLayout());
 		
-		
 		GridBagConstraints c = new GridBagConstraints();
 		
 		c.insets = new Insets(10, 10, 0, 10);
-		c.fill = GridBagConstraints.HORIZONTAL;
+		c.fill = GridBagConstraints.NONE;
+		c.anchor = GridBagConstraints.NORTHWEST;
 		c.ipadx = 10;
-		
-		NTextField txt;
 		
 		//1. Zeile
 		c.gridy = 0;
 		c.gridx = 0;
+		c.gridwidth = 5;
+		pane.add(new  CustLabel("Verkaufswunsch und Prognosen:"),c);
+		
+		
+		NTextField txt;
+		
+		//2. Zeile
+		c.gridy = 1;
+		c.gridx = 0;
+		c.gridwidth = 1;
 		pane.add(new  CustLabel(""),c);
 		
 	
@@ -159,8 +283,8 @@ public class SellWishTab extends JPanel
 		pane.add(new  CustLabel("Prognose 3"),c);
 		
 		
-		//2. Zeile
-		c.gridy = 1;
+		//3. Zeile
+		c.gridy = 2;
 		c.gridx = 0;
 		pane.add(new  CustLabel("P1"),c);
 		
@@ -185,8 +309,8 @@ public class SellWishTab extends JPanel
 		txtfields.put(txt,P1_PREFIX+PERIOD_3);
 		pane.add(txt,c);
 		
-		//3. Zeile
-		c.gridy = 2;
+		//4. Zeile
+		c.gridy = 3;
 		c.gridx = 0;
 		pane.add(new  CustLabel("P2"),c);
 		
@@ -210,8 +334,8 @@ public class SellWishTab extends JPanel
 		txtfields.put(txt,P2_PREFIX+PERIOD_3);
 		pane.add(txt,c);
 		
-		//4. Zeile
-		c.gridy = 3;
+		//5. Zeile
+		c.gridy = 4;
 		c.gridx = 0;
 		pane.add(new  CustLabel("P3"),c);
 		
@@ -235,29 +359,52 @@ public class SellWishTab extends JPanel
 		txtfields.put(txt,P3_PREFIX+PERIOD_3);
 		pane.add(txt,c);
 		
+		
+		//Direktverkauf
+		//6.Zeile
+		c.gridy = 5;
+		c.gridx = 0;
+		c.gridwidth = 5;
+		c.insets.top=30;
+		pane.add(new  CustLabel("Direktverkauf:"),c);
+		
+		//7. Zeile
+		c.insets.top=10;
+		c.gridy = 6;
+		c.gridx = 0;		
+		c.gridwidth = 1;
+		pane.add(new  CustLabel("P1"),c);
+		
+		c.gridx = 1;
+		txt = new NTextField();
+		txtfields.put(txt,DIRECT+P1_PREFIX);
+		pane.add(txt,c);
+				
+		//8. Zeile
+		c.gridy = 7;
+		c.gridx = 0;	
+		pane.add(new  CustLabel("P2"),c);
+		
+		c.gridx = 1;
+		txt = new NTextField();
+		txtfields.put(txt,DIRECT+P2_PREFIX);
+		pane.add(txt,c);
+		
+		//8. Zeile
+		c.gridy = 8;
+		c.gridx = 0;	
+		pane.add(new  CustLabel("P3"),c);
+		
+		c.gridx = 1;
+		txt = new NTextField();
+		txtfields.put(txt,DIRECT+P3_PREFIX);
+		pane.add(txt,c);
+
 		return pane;
+		
 	}
-	
-	private JPanel getDirectSaleComponents()
-	{  	
-		JPanel pane = new JPanel();
-		pane.setLayout(new GridBagLayout());
-		
-		
-		GridBagConstraints c = new GridBagConstraints();
-		
-		c.insets = new Insets(10, 10, 0, 10);
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.ipadx = 10;
-		
-		
-		
-		
-		return pane;
-	}
-	
-	
-	public String getNTextFieldKey(NTextField txt)
+
+public String getNTextFieldKey(NTextField txt)
 	{
 		return txtfields.get(txt);
 	}
