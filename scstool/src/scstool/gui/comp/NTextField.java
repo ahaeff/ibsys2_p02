@@ -37,6 +37,8 @@ public class NTextField extends JFormattedTextField
 	{
 		//beite und hoehe
 		this.setPreferredSize(new Dimension(width, height));
+		//fix fuer einen BUG bezueglich der Breite/Hoehe in einem GribagLayout
+		this.setMinimumSize(this.getPreferredSize());
 		
 		//Eingabe nur Numerisch 
 		this.setDocument(new IntegerDocument(maxChars));

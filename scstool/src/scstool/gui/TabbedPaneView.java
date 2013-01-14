@@ -7,8 +7,10 @@ import java.awt.event.FocusListener;
 import javax.swing.JTabbedPane;
 
 import scstool.gui.comp.NTextField;
+import scstool.gui.tab.LayoutExampleTab;
 import scstool.gui.tab.SellWishTab;
 import scstool.gui.tab.SafetyStockTab;
+import scstool.gui.tab.SettingsTab;
 import scstool.utils.Repository;
 
 
@@ -29,6 +31,13 @@ public class TabbedPaneView extends JTabbedPane
 	//2. Tab
 	private SafetyStockTab tab02;
 
+	//3. Tab
+	private SettingsTab tab03;
+	
+	//TODO nach ende des Layouting loeschen
+	//Beispiel Tab
+	private LayoutExampleTab expTab;
+	
 	public TabbedPaneView() 
 	{
 		init();
@@ -49,9 +58,16 @@ public class TabbedPaneView extends JTabbedPane
 		
 		//Sicherheitsbestand
 		tab02 = new SafetyStockTab();
-		tab02.addButtonListener(new ButtonListener());
-		tab02.addChangeListener(new SafetyStockChangeListener());
+		//tab02.addButtonListener(new ButtonListener());
+		//tab02.addChangeListener(new SafetyStockChangeListener());
 		add("Sicherheitsbestand",tab02);
+		
+		//Einstellungen
+		tab03 = new SettingsTab();
+		add("Einstellungen",tab03);
+		
+		expTab = new LayoutExampleTab();
+		add("Layout Spielerei",expTab);
 		
 	}
 

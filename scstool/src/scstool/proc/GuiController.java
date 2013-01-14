@@ -97,7 +97,7 @@ public class GuiController implements IController
 					ico.openDialog();
 					break;
 				case MainMenu.MENU_USER_INPUT:
-					ProdProgrammController pco = new ProdProgrammController();
+					UserInputController pco = new UserInputController();
 					addContent(pco.getView());
 					break;
 			}
