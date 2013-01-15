@@ -6,23 +6,15 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-
+import javax.swing.JTextField;
 
 import scstool.gui.comp.ButtonPane;
+import scstool.gui.comp.CustLabel;
+import scstool.gui.comp.NTextField;
+import scstool.gui.comp.STextField;
 
-
-
-
-/**
- * 
- * Einstellung der Planung
- * 
- * @author haeff
- *
- */
-public class SettingsTab extends JPanel 
+public class OrderTab extends JPanel 
 {
 
 	private static final long serialVersionUID = 1L;
@@ -33,7 +25,7 @@ public class SettingsTab extends JPanel
 	private ButtonPane bnt_pane;
 	
 	
-	public SettingsTab(int bnt_var)
+	public OrderTab(int bnt_var)
 	{
 		this.bnt_var = bnt_var;
 		init();
@@ -43,9 +35,7 @@ public class SettingsTab extends JPanel
 	{
 		
 		buildGui();
-	    
-	    
-	    
+	     
 	}
 	
 	private void buildGui()
@@ -59,8 +49,7 @@ public class SettingsTab extends JPanel
 		c.insets = new Insets(5, 5, 5, 5);
 	    c.gridheight =1;
 	    c.weightx= 1;
-	    c.weighty= 1;
-		
+	    c.weighty= 1;	
 		
 		//Platzhalter 1. Zeile
 		c.gridx = 0;
@@ -83,8 +72,8 @@ public class SettingsTab extends JPanel
 	    c.weighty= 1.0;
 		c.gridx = 1;
 	    c.gridy = 1;
-	    c.fill = GridBagConstraints.VERTICAL;
-	    c.anchor = GridBagConstraints.WEST;
+	    c.fill = GridBagConstraints.NONE;
+	    c.anchor = GridBagConstraints.NORTHWEST;
 	    add(getContent(),c);
 		
 	    //Platzhalter rechts
@@ -196,14 +185,65 @@ public class SettingsTab extends JPanel
 		pane.setLayout(new GridBagLayout());
 				
 		GridBagConstraints c = new GridBagConstraints();
+		NTextField ntxt;
+		JTextField txt;
 		
 		c.insets = new Insets(10, 5, 0, 5);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx =1.0;
 		c.gridy = 0;
 		c.gridx = 0;
-		pane.add(new JLabel("Settings - Was soll hier rein??"),c);
-		//TODO Was soll hier rein ????
+		pane.add(new  CustLabel("Artikel"),c);
+		
+		c.gridy = 0;
+		c.gridx = 1;
+		pane.add(new  CustLabel("Menge"),c);
+		
+		c.gridy = 0;
+		c.gridx = 2;		
+		pane.add(new  CustLabel("Modus"),c);
+		
+		c.gridy = 1;
+		c.gridx = 0;
+		txt = new JTextField();
+		txt.setText("55");
+		txt.setEditable(false);
+		pane.add(txt,c);
+		
+		c.gridy = 1;
+		c.gridx = 1;
+		txt = new JTextField();
+		txt.setText("2000");
+		txt.setEditable(false);
+		pane.add(txt,c);
+		
+		c.gridy = 1;
+		c.gridx = 2;
+		txt = new JTextField();
+		txt.setText("Normal");
+		txt.setEditable(false);
+		pane.add(txt,c);
+		
+		c.gridy = 2;
+		c.gridx = 0;
+		txt = new JTextField();
+		txt.setText("56");
+		txt.setEditable(false);
+		pane.add(txt,c);
+		
+		c.gridy = 2;
+		c.gridx = 1;
+		txt = new JTextField();
+		txt.setText("5000");
+		txt.setEditable(false);
+		pane.add(txt,c);
+		
+		c.gridy = 2;
+		c.gridx = 2;
+		txt = new JTextField();
+		txt.setText("Eil");
+		txt.setEditable(false);
+		pane.add(txt,c);
 		
 		return pane;
 	}
@@ -217,5 +257,4 @@ public class SettingsTab extends JPanel
 	{
 		bnt_pane.addButtonListener(l);
 	}
-	
 }

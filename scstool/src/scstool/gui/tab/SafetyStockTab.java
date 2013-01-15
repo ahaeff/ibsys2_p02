@@ -167,8 +167,8 @@ public class SafetyStockTab extends JPanel
 	    c.weighty= 1.0;
 		c.gridx = 1;
 	    c.gridy = 1;
-	    c.fill = GridBagConstraints.VERTICAL;
-	    c.anchor = GridBagConstraints.WEST;
+	    c.fill = GridBagConstraints.NONE;
+	    c.anchor = GridBagConstraints.NORTHWEST;
 	    add(getContent(),c);
 		
 	    //Platzhalter rechts
