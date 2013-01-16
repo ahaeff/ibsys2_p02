@@ -54,7 +54,6 @@ public class ExportXmlController {
 			    for(int i = 1;i <= 3;++i){
 			    	writer.writeEmptyElement("item");
 			    		writer.writeAttribute("article", String.valueOf(i));
-			    		// TODO Selldirect
 			    		writer.writeAttribute("quantity", "1");
 			    		writer.writeAttribute("price", "1");
 			    		writer.writeAttribute("penalty", "1");
@@ -63,7 +62,6 @@ public class ExportXmlController {
 		    
 			    //Orderlist
 			    writer.writeStartElement("orderlist");
-			    	//TODO Orders
 			    	for(Order order : allOrders){
 			    		writer.writeEmptyElement("order");
 				    		writer.writeAttribute("article", String.valueOf(order.getMaterial().getId()));
@@ -74,7 +72,6 @@ public class ExportXmlController {
 			    
 			    //Productionlist
 			    writer.writeStartElement("productionlist");
-				  	//TODO Production
 			    	for(List<Integer> dataset : allProductions){
 			    		writer.writeEmptyElement("production");
 				    		writer.writeAttribute("article", String.valueOf(dataset.get(0)));
@@ -84,7 +81,6 @@ public class ExportXmlController {
 			    
 			    //Workingtimelist
 			    writer.writeStartElement("workingtimelist");
-			    	//TODO working time
 			    	for(List<Integer> dataset : allWorkingTime){
 			    		writer.writeEmptyElement("workingtime");
 				    		writer.writeAttribute("station", String.valueOf(dataset.get(0)));

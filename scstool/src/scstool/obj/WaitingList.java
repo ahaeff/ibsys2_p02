@@ -2,6 +2,7 @@ package scstool.obj;
 
 public class WaitingList {
 
+	private Workplace workplace;
 	
 	private Material material;
 	
@@ -13,6 +14,14 @@ public class WaitingList {
 	public String toString() {
 		return "WaitingList [material=" + material + ", amount=" + amount
 				+ ", timeneed=" + timeneed + "]";
+	}
+
+	public Workplace getWorkplace() {
+		return workplace;
+	}
+
+	public void setWorkplace(Workplace workplace) {
+		this.workplace = workplace;
 	}
 
 	public Material getMaterial() {

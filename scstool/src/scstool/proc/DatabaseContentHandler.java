@@ -1,11 +1,7 @@
 package scstool.proc;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
@@ -14,6 +10,7 @@ import org.xml.sax.SAXException;
 
 import scstool.obj.BillOfMaterial;
 import scstool.obj.Material;
+import scstool.obj.Material.PartTypes;
 import scstool.obj.Order;
 import scstool.obj.Salary;
 import scstool.obj.WorkPlan;
@@ -277,10 +274,10 @@ public class DatabaseContentHandler implements ContentHandler {
 	 * @return alle Kaufteile in einer Liste
 	 */
 
-	public  List<Material> getKTeile(){
+	public  List<Material> getPurchaseGoods(){
 		List<Material> kteile = new ArrayList<Material>();
 		for(Material m: allesMaterial){
-			if("PURCHASE".equals(m.getPartType().toString()))
+			if(PartTypes.PURCHASE.equals(m.getPartType()))
 				kteile.add(m);	
 		}
 

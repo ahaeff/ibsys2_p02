@@ -95,6 +95,7 @@ public class GuiController implements IController
 				case MainMenu.MENU_IMPORTXML:
 					ImportXmlController ico = new ImportXmlController(view);
 					ico.openDialog();
+					OrderService ord = new OrderService();
 					break;
 				case MainMenu.MENU_USER_INPUT:
 					ProdProgrammController pco = new ProdProgrammController();

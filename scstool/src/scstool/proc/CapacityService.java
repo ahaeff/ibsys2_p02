@@ -8,8 +8,10 @@ import java.util.List;
 
 import scstool.obj.BillOfMaterial;
 import scstool.obj.Material;
+import scstool.obj.WaitingList;
 import scstool.obj.WorkPlan;
 import scstool.obj.Workplace;
+import scstool.utils.Repository;
 
 /**
  * Kapazitätenplanung
@@ -20,10 +22,13 @@ import scstool.obj.Workplace;
 public class CapacityService {
 
 	/**
-	 * Kalkuliert die benötigte Kapzität für einen Arbeitsplatz
+	 * Kalkuliert die benötigte Kapzität für einen Arbeitsplatz ohne die
+	 * Materialien in der Warteschlange.
 	 * 
-	 * @param workplace der Arbeitsplatz
-	 * @param productionProgram das Produktionsprogramm als Integer Array
+	 * @param workplace
+	 *            der Arbeitsplatz
+	 * @param productionProgram
+	 *            das Produktionsprogramm als Integer Array
 	 * @return die benötigte Kapazität in Minuten mit Rüstzeit
 	 */
 	public static Integer calculateWorkplaceCapacity(Workplace workplace,
@@ -60,5 +65,24 @@ public class CapacityService {
 
 		return result;
 	}
+
+	/**
+	 * Rechnet die noch einzurechnende Kapazität für einen Arbeitsplatz.
+	 * 
+	 * @param workplace
+	 * @return
+	 */
+	public static Integer calculateWaitingListCapacity(Workplace workplace) {
+
+		Integer result = 0;
+		Repository repo = Repository.getInstance();
+		for (WaitingList wl : repo.getInWork()) {
+			result += wl.getTimeneed();
+		}
+
+		return result;
+	}
+	
+	//TODO Schichtenberechnung
 
 }

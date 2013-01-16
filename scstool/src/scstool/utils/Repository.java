@@ -20,31 +20,38 @@ public class Repository
 	private static Repository instance;
 	
 	// Produktionsprgramm und Prognosen
-	private static Map<Integer,SellWish> sellwish;
+	private Map<Integer,SellWish> sellwish;
 	//Sticherheitsbestand <matnr,menge>
-	private static Map<Integer,Integer> safetyStock;
+	private Map<Integer,Integer> safetyStock;
 	// Integer[0] ist das Material und Integer[1] für die Menge
-	private static List<Integer[]> productionProgram;
+	private List<Integer[]> productionProgram;
 	// die angekommenen Bestellungen
-	private static List<Order> arrivals;
+	private List<Order> arrivals;
 	// die Bestellungen die noch ausstehen
-	private static List<Order> futureArrivals;
+	private List<Order> futureArrivals;
+	// Material in Bearbeitung
+	private List<WaitingList> inWork;
+	// Material in der Warteschlange
+	private List<WaitingList> waiting;
 	
-	private static List<WaitingList> inWork;
-	private static List<WaitingList> waiting;
-	
+	/**
+	 * private Constructor
+	 */
+	private Repository(){
+		super();
+		init();
+	}
 	
 	public static Repository getInstance()
 	{
 		if(instance == null)
 		{
 			instance = new Repository();
-			init();
 		}
 		return instance;
 	}
 	
-	private static void init()
+	private void init()
 	{
 		sellwish = new HashMap<Integer,SellWish>();
 		sellwish.put(1,new SellWish(1, 0, 0, 0, 0));
@@ -150,6 +157,34 @@ public class Repository
 	}
 	
 	/**
+	 * @return the inWork
+	 */
+	public List<WaitingList> getInWork() {
+		return inWork;
+	}
+
+	/**
+	 * @param inWork the inWork to set
+	 */
+	public void setInWork(List<WaitingList> inWork) {
+		this.inWork = inWork;
+	}
+
+	/**
+	 * @return the waiting
+	 */
+	public List<WaitingList> getWaiting() {
+		return waiting;
+	}
+
+	/**
+	 * @param waiting the waiting to set
+	 */
+	public void setWaiting(List<WaitingList> waiting) {
+		this.waiting = waiting;
+	}
+
+	/**
 	 * @return Integer der Menge, eines Artikels, dass noch in Bearbeitung ist (Auftr�ge in Bearbeitung im SCSim und im Excelsheet)
 	 */
 	public Integer getAmountOfMaterialInWork(Integer materialID){
@@ -164,6 +199,7 @@ public class Repository
 		return materialID;
 	}
 	
+	
 	/**
 	 * @return Material, dass noch in der Warteschlange ist (Auftr�ge in Bearbeitung im SCSim und im Excelsheet)
 	 */
@@ -177,4 +213,5 @@ public class Repository
 		}
 		return materialID;
 	}
+	
 }

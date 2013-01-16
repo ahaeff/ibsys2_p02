@@ -111,7 +111,7 @@ public class InputContentHandler implements ContentHandler {
 			if (atts.getValue("id") != null && atts.getValue("period") != null && atts.getValue("order") != null && atts.getValue("batch") != null && atts.getValue("item") != null && atts.getValue("amount") != null && atts.getValue("timeneed") != null) {
 
 				waitinglistInWork = new WaitingList();
-	
+				waitinglistInWork.setWorkplace(workplace);
 				waitinglistInWork.setMaterial(dbch.findMaterial(Integer.parseInt(atts.getValue("item"))));
 				waitinglistInWork.setAmount(Integer.parseInt(atts.getValue("amount")));
 				waitinglistInWork.setTimeneed(Integer.parseInt(atts.getValue("timeneed")));

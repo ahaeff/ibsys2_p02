@@ -1,81 +1,63 @@
 package scstool.proc;
 
-
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import scstool.obj.Material;
+import scstool.obj.Material.PartTypes;
 import scstool.obj.Order;
-
 
 /**
  * @author Alexander
- *
- *Überlegungen :
- *Risiko einbinden
- *Listen haben keine Ids! Hoffen dass sie in der richtigen Reihenfolge sind?!
- *
- *
- *
+ * 
+ *         ï¿½berlegungen : Risiko einbinden Listen haben keine Ids! Hoffen dass
+ *         sie in der richtigen Reihenfolge sind?!
+ * 
+ * 
+ * 
  */
 public class OrderService {
 	public DatabaseContentHandler dbch = DatabaseContentHandler.get();
 	/**
 	 * Liste der (K) Material Objekte
 	 */
-	private List<Material> listOfMaterial = dbch.getKTeile();
-	
-	
+	private List<Material> purchaseGoods = dbch.getPurchaseGoods();
+
 	/**
 	 * Liste der eingehenden und offenen Bestellungen
 	 */
 	private List<Order> listOfOrder = new ArrayList<Order>();
-	//TODO Wie werden einzelne Periden abgebildet
-	
+	// TODO Wie werden einzelne Periden abgebildet
+
 	/**
 	 * Liste des Bedarfs (Matrix-Ergebnisse)
 	 */
-	private int[][] needs = MatrixMultiplication();
-	
+	private LinkedHashMap<Material, List<Integer>> needs = MatrixMultiplication();
+
 	/**
 	 * Durchschnitt des Periodenbedarfs
 	 */
-	private List<Double> averageNeeds = calculateAverageNeeds();
-	
+	private LinkedHashMap<Material, Double> averageNeeds = calculateAverageNeeds();
+
 	/**
 	 * Reichweite
 	 */
-	private List<Double> Coverage = calculateCoverage();
-	
+	private LinkedHashMap<Material, Double> Coverage = calculateCoverage();
 
 	/**
 	 * Reichweitensicherung
 	 */
-	private List<Double> timeMaterialCoverage = calculateTimeMaterialCoverage();
-	
-	//TODO Bedarfsliste nötig
-	
-	public List<Double> getCoverage() {
-		return Coverage;
-	}
-	
-	public void setCoverage(List<Double> coverage) {
-		Coverage = coverage;
-	}
-	
-	public List<Double> getTimeMaterialCoverage() {
-		return timeMaterialCoverage;
-	}
+	private LinkedHashMap<Material, Double> timeMaterialCoverage = calculateTimeMaterialCoverage();
 
-	public void setTimeMaterialCoverage(List<Double> timeMaterialCoverage) {
-		this.timeMaterialCoverage = timeMaterialCoverage;
-	}
+	// TODO Bedarfsliste nï¿½tig
 
-	public List<Double> getAverageNeeds() {
+
+	public LinkedHashMap<Material, Double> getAverageNeeds() {
 		return averageNeeds;
 	}
 
-	public void setAverageNeeds(List<Double> averageNeeds) {
+	public void setAverageNeeds(LinkedHashMap<Material, Double> averageNeeds) {
 		this.averageNeeds = averageNeeds;
 	}
 
@@ -83,33 +65,25 @@ public class OrderService {
 	 * Neubestellung notwendig
 	 */
 	private boolean order;
-	
-	public int[][] getNeeds() {
-		return needs;
-	}
-
-	public void setNeeds(int[][] needs) {
-		this.needs = needs;
-	}
 
 	/**
 	 * Bestellmenge
 	 */
 	private int amount;
-	
+
 	/**
 	 * Bestellart setzten
 	 */
-	private void Ordertype(){
-		
+	private void Ordertype() {
+
 	}
 
 	public List<Material> getListOfMaterial() {
-		return listOfMaterial;
+		return purchaseGoods;
 	}
 
 	public void setListOfMaterial(List<Material> listOfMaterial) {
-		this.listOfMaterial = listOfMaterial;
+		this.purchaseGoods = listOfMaterial;
 	}
 
 	public List<Order> getListOfOrder() {
@@ -135,88 +109,86 @@ public class OrderService {
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
-	
-	public int[][] MatrixMultiplication(){
-		int[][] result = new int[23][4];
-		
-		//TODO Durch Inputvariablen ersetzen
-		int[][] forcast = {
-	            {70, 150, 150, 150},
-	            {190, 150, 150, 150},
-	            {110, 150, 170, 180}
-	            };
 
-		int[][] usage = {
-	            {1, 0, 0},
-	            {0, 1, 0},
-	            {0, 0, 1},
-	            {7, 7, 7},
-	            {4, 4, 4},
-	            {2, 2, 2},
-	            {4, 5, 6},
-	            {3, 3, 3},
-	            {0, 0, 2},
-	            {0, 0, 72},
-	            {4, 4, 4},
-	            {1, 1, 1},
-	            {1, 1, 1},
-	            {1, 1, 1},
-	            {2, 2, 2},
-	            {1, 1, 1},
-	            {1, 1, 1},
-	            {2, 2, 2},
-	            {1, 1, 1},
-	            {3, 3, 3},
-	            {1, 1, 1},
-	            {1, 1, 1},
-	            {1, 1, 1},
-	            {2, 2, 2},
-	            {2, 0, 0},
-	            {72, 0, 0},
-	            {0, 2, 0},
-	            {0, 72, 0},
-	            {2, 2, 2}
-	            };
-		
-		for(int i = 0; i < result.length; i++){
-			for(int j = 0; j < result[i].length;j++){	
-				int v= 0;
-				for (int n=0; n < forcast.length; n++){
-					v += usage[i][n]*forcast[n][j];
+	public LinkedHashMap<Material, List<Integer>> MatrixMultiplication() {
+		LinkedHashMap<Material, List<Integer>> result = new LinkedHashMap<>();
+		LinkedHashMap<Material, int[]> usage = fillUsage();
+
+		// TODO Durch Inputvariablen ersetzen
+		int[][] forcast = { { 70, 150, 150, 150 }, { 190, 150, 150, 150 },
+				{ 110, 150, 170, 180 } };
+
+		for (Material mat : usage.keySet()) {
+			List<Integer> resultRow = new ArrayList<>();
+			for (int column = 0; column < forcast[0].length; ++column) {
+				int consum = 0;
+				for (int row = 0; row < usage.get(mat).length; ++row) {
+					consum += (usage.get(mat)[row] * forcast[row][column]);
 				}
-				result[i][j]= v;
+				resultRow.add(consum);
 			}
+			result.put(mat, resultRow);
 		}
+
 		return result;
 	}
-	
-	public List<Double> calculateAverageNeeds(){
-		List <Double> average = new ArrayList<Double>();
-		
-		for(int i=0; i<needs.length; i++){
-			double var = 0;
-			for(int j=0; j< needs[i].length; j++){
-				var += needs[i][j];
-			}
-			average.add(var/4);
+
+	/**
+	 * Verlinkt das Material mit der Verwendung<br/>
+	 * sortiert nach den {@link PartTypes}.PRODUCT: P1,P2,P3
+	 * 
+	 * @return
+	 */
+	private LinkedHashMap<Material, int[]> fillUsage() {
+		LinkedHashMap<Material, int[]> result = new LinkedHashMap<>();
+		final int[][] usage = { { 1, 0, 0 }, { 0, 1, 0 }, { 0, 0, 1 },
+				{ 7, 7, 7 }, { 4, 4, 4 }, { 2, 2, 2 }, { 4, 5, 6 },
+				{ 3, 3, 3 }, { 0, 0, 2 }, { 0, 0, 72 }, { 4, 4, 4 },
+				{ 1, 1, 1 }, { 1, 1, 1 }, { 1, 1, 1 }, { 2, 2, 2 },
+				{ 1, 1, 1 }, { 1, 1, 1 }, { 2, 2, 2 }, { 1, 1, 1 },
+				{ 3, 3, 3 }, { 1, 1, 1 }, { 1, 1, 1 }, { 1, 1, 1 },
+				{ 2, 2, 2 }, { 2, 0, 0 }, { 72, 0, 0 }, { 0, 2, 0 },
+				{ 0, 72, 0 }, { 2, 2, 2 } };
+
+		for (int i = 0; i < usage.length; ++i) {
+			result.put(purchaseGoods.get(i), usage[i]);
 		}
-		
-		
+
+		return result;
+	}
+
+	public LinkedHashMap<Material, Double> calculateAverageNeeds() {
+		LinkedHashMap<Material, Double> average = new LinkedHashMap<>();
+
+		for (Material mat : needs.keySet()) {
+			double var = 0;
+			List<Integer> integerList = needs.get(mat);
+			for (int j = 0; j < integerList.size(); j++) {
+				var += integerList.get(j);
+			}
+			average.put(mat, var / 4);
+		}
+
 		return average;
 	}
-	
-	public List<Double> calculateCoverage(){
-		List <Double> coverage = new ArrayList<Double>();
+
+	public LinkedHashMap<Material, Double> calculateCoverage() {
+		LinkedHashMap<Material, Double> coverage = new LinkedHashMap<Material, Double>();
 		
-		
-		
+		for(Material mat : needs.keySet()){
+			//Menge in dieser Periode / Durchschnittsverbrauch
+			Double value = dbch.findMaterial(mat.getId()).getAmount() / averageNeeds.get(mat);
+			coverage.put(mat, value);
+			
+		}
+
 		return coverage;
-		
+
 	}
-	
-	public List<Double> calculateTimeMaterialCoverage(){
-		List <Double> time = new ArrayList<Double>();
-		
+
+	public LinkedHashMap<Material, Double> calculateTimeMaterialCoverage() {
+		LinkedHashMap<Material, Double> time = new LinkedHashMap<Material, Double>() ;
+
 		return time;
 	}
 }
