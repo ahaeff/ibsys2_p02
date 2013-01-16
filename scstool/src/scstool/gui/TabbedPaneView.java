@@ -7,8 +7,11 @@ import java.awt.event.FocusListener;
 import javax.swing.JTabbedPane;
 
 import scstool.gui.comp.NTextField;
+import scstool.gui.tab.LayoutExampleTab;
+import scstool.gui.tab.OrderTab;
 import scstool.gui.tab.SellWishTab;
 import scstool.gui.tab.SafetyStockTab;
+import scstool.gui.tab.SettingsTab;
 import scstool.utils.Repository;
 
 
@@ -29,6 +32,16 @@ public class TabbedPaneView extends JTabbedPane
 	//2. Tab
 	private SafetyStockTab tab02;
 
+	//3. Tab
+	private SettingsTab tab03;
+	
+	//4. Tab
+	private OrderTab tab04;
+	
+	//TODO nach ende des Layouting loeschen
+	//Beispiel Tab
+	private LayoutExampleTab expTab;
+	
 	public TabbedPaneView() 
 	{
 		init();
@@ -41,17 +54,32 @@ public class TabbedPaneView extends JTabbedPane
 		setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 		
 		//Tab Produktions Programm
-		tab01 = new SellWishTab();
+		tab01 = new SellWishTab(2);
 		tab01.addButtonListener(new ButtonListener());		
 		tab01.addChangeListener(new ProdProgChangeListener());
 		add("Vertriebswunsch",tab01);
 
 		
 		//Sicherheitsbestand
-		tab02 = new SafetyStockTab();
+		tab02 = new SafetyStockTab(3);
 		tab02.addButtonListener(new ButtonListener());
 		tab02.addChangeListener(new SafetyStockChangeListener());
 		add("Sicherheitsbestand",tab02);
+		
+		//Einstellungen
+		tab03 = new SettingsTab(3);
+		tab03.addButtonListener(new ButtonListener());
+		//tab03.addChangeListener(new SafetyStockChangeListener());
+		add("Einstellungen",tab03);
+		
+		//Bestellungen
+		tab04 = new OrderTab(1);
+		tab04.addButtonListener(new ButtonListener());
+		//tab03.addChangeListener(new SafetyStockChangeListener());
+		add("Bestellungen",tab04);
+		
+		expTab = new LayoutExampleTab(1);
+		add("Layout Spielerei",expTab);
 		
 	}
 

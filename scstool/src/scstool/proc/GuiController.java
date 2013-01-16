@@ -98,7 +98,7 @@ public class GuiController implements IController
 					OrderService ord = new OrderService();
 					break;
 				case MainMenu.MENU_USER_INPUT:
-					ProdProgrammController pco = new ProdProgrammController();
+					UserInputController pco = new UserInputController();
 					addContent(pco.getView());
 					break;
 			}

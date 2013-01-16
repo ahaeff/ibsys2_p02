@@ -2,18 +2,11 @@ package scstool.gui.comp;
 
 import java.awt.Dimension;
 import java.awt.Font;
+
 import javax.swing.JFormattedTextField;
 
-
-/**
- * @author haeff
- * 
- *	Eigene Textfield Klasse fuer Numerische Textfelder
- *
- */
-public class NTextField extends JFormattedTextField
+public class STextField extends JFormattedTextField
 {
-	
 	private static final long serialVersionUID = 1L;
 	
 	//Textfeld
@@ -27,7 +20,7 @@ public class NTextField extends JFormattedTextField
 
 
 	
-	public NTextField() 
+	public STextField() 
 	{
 	
 		init();
@@ -41,14 +34,13 @@ public class NTextField extends JFormattedTextField
 		this.setMinimumSize(this.getPreferredSize());
 		
 		//Eingabe nur Numerisch 
-		this.setDocument(new IntegerDocument(maxChars));
+		//this.setDocument(new IntegerDocument(maxChars));
 		
 		//Schriftart,Groesse.. setzen
 		Font font1 = new Font(font, fontweight, fontsize);
 		this.setFont(font1);
 		
 		//Ausrichtung
-		this.setHorizontalAlignment(RIGHT);
+		this.setHorizontalAlignment(LEFT);
 	}
-	
 }
