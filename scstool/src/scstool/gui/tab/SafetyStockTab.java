@@ -94,6 +94,9 @@ public class SafetyStockTab extends JPanel
 		txtfields = new HashMap<NTextField,String>();
 		
 		buildGui();
+		
+		
+		setTestData();
 	}
 	
 	
@@ -361,7 +364,15 @@ public class SafetyStockTab extends JPanel
 		return pane;
 	}
 
-
+	private void setTestData()
+	{
+		for(NTextField txt :txtfields.keySet())
+		{
+			txt.setText("100"); 
+		}
+	}
+	
+	
 	public String getNTextFieldKey(NTextField txt)
 	{
 		return txtfields.get(txt);
