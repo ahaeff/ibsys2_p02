@@ -35,7 +35,6 @@ public class IntegerDocument extends PlainDocument {
 		catch (Exception ex)
 		{
 			Toolkit.getDefaultToolkit().beep();
-			// System.out.println("Keine Zahl!");
 			return;
 		}
 		

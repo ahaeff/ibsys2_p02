@@ -1,11 +1,17 @@
 package scstool.gui.tab;
 
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -43,9 +49,50 @@ public class SettingsTab extends JPanel
 	{
 		
 		buildGui();
-	    
-	    
-	    
+		URL url1 = this.getClass().getResource("/icon/tab/1.png");
+		URL url2 = this.getClass().getResource("/icon/tab/ok_hacken.png");
+		
+/*		BufferedImage mergeImage;
+		
+        ImageIcon imgUpper = new ImageIcon(url1);
+        
+        
+        ImageIcon imgLower =  new ImageIcon(url2);
+        
+        mergeImage =
+                new BufferedImage(
+                    imgUpper.getIconWidth(),
+                    imgUpper.getIconHeight() + imgLower.getIconHeight(),
+                    BufferedImage.TYPE_INT_RGB);
+ 
+            Graphics g = mergeImage.getGraphics();
+            g.drawImage(imgUpper.getImage(), 0, 0, this);
+            g.drawImage(imgLower.getImage(), 0, imgUpper.getIconHeight(), this);*/
+		
+		
+	/*	BufferedImage image;
+		try {
+			image = ImageIO.read(url1);
+	
+		BufferedImage overlay = ImageIO.read(url2);
+
+		// create the new image, canvas size is the max. of both image sizes
+		int w = Math.max(image.getWidth(), overlay.getWidth());
+		int h = Math.max(image.getHeight(), overlay.getHeight());
+		BufferedImage combined = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+
+		// paint both images, preserving the alpha channels
+		Graphics g = combined.getGraphics();
+		g.drawImage(image, 0, 0, null);
+		g.drawImage(overlay, 0, 0, null);
+            JLabel lbl = new JLabel(new ImageIcon(combined));
+            add(lbl);
+            
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    */
 	}
 	
 	private void buildGui()
