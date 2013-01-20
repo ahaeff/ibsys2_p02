@@ -1,10 +1,12 @@
 package scstool.utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import scstool.obj.Disposition;
 import scstool.obj.Order;
 import scstool.obj.SellWish;
 import scstool.obj.WaitingList;
@@ -34,6 +36,8 @@ public class Repository
 	// Material in der Warteschlange
 	private List<WaitingList> waiting;
 	
+	private Map<Integer,Disposition> dispositon;
+	
 	/**
 	 * private Constructor
 	 */
@@ -60,6 +64,10 @@ public class Repository
 		
 		safetyStock = new HashMap<Integer,Integer>();
 		productionProgram = new LinkedList<>();
+		
+		//TODO evtl. nicht noetig
+		waiting = new ArrayList<WaitingList>();
+		inWork = new ArrayList<WaitingList>();
 
 	}
 	
@@ -212,6 +220,30 @@ public class Repository
 			}
 		}
 		return materialID;
+	}
+
+	public Map<Integer, Disposition> getDispositon() {
+		return dispositon;
+	}
+
+	public void setDispositon(Map<Integer, Disposition> dispositon) {
+		this.dispositon = dispositon;
+	}
+	
+	
+	/**
+	 * Hinzufügen einzelner Dispoitionen der jeweilige Produkte(P1,P2,P3)
+	 * 
+	 * @param pos: Produkt (P1=1,P2=2,P3=3)
+	 * @param dis: Dispoition zum Produkt
+	 */
+	public void addDispoistion(int pos, Disposition dis)
+	{
+		if(dispositon == null)
+		{
+			this.dispositon = new HashMap<Integer,Disposition>();
+		}
+		this.dispositon.put(pos, dis);
 	}
 	
 }

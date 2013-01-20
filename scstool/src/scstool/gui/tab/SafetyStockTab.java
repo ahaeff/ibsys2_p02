@@ -17,6 +17,7 @@ import javax.swing.border.Border;
 import scstool.gui.comp.ButtonPane;
 import scstool.gui.comp.CustLabel;
 import scstool.gui.comp.NTextField;
+import scstool.utils.Repository;
 
 
 
@@ -366,10 +367,21 @@ public class SafetyStockTab extends JPanel
 
 	private void setTestData()
 	{
-		for(NTextField txt :txtfields.keySet())
+		Repository repo = Repository.getInstance();
+		int value = 100;
+		
+		
+		for(Map.Entry<NTextField,String> e :txtfields.entrySet())
 		{
-			txt.setText("100"); 
+			e.getKey().setText(String.valueOf(value)); 
+			
+			String str = e.getValue().substring(1);
+			int matnr = Integer.parseInt(str);
+			
+			repo.setSafetyStock(matnr, value);
 		}
+		
+		
 	}
 	
 	

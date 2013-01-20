@@ -59,6 +59,7 @@ public class SellWishTab extends JPanel
 		setLayout(new BorderLayout());
 		txtfields = new HashMap<NTextField,String>();
 		buildGui();
+		setTestData();
 	}
 	
 	/**
@@ -403,7 +404,14 @@ public class SellWishTab extends JPanel
 		return pane;
 		
 	}
-
+	private void setTestData()
+	{
+		for(NTextField txt :txtfields.keySet())
+		{
+			txt.setText("150"); 
+		}
+	}
+	
 public String getNTextFieldKey(NTextField txt)
 	{
 		return txtfields.get(txt);

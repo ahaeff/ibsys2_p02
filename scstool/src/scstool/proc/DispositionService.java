@@ -159,13 +159,18 @@ public class DispositionService {
 	}
 	
 	//Disposition P2
-	public void QueueInput2(Disposition disposition, Repository repository, SellWish sellWish){
+	public void QueueInput2(){
 		
 		/**
 		 *  Lagerhandler initialisieren
 		 */
+		
 		DatabaseContentHandler dbch = DatabaseContentHandler.get();
 		Repository repo = Repository.getInstance();
+		Disposition disposition = new Disposition();
+		
+		//Vertriebswunsch P2
+		SellWish sellWish = repo.getSellWish(2);
 		
 		//Vertertriebswunsch
 				disposition.setSalesOrders(sellWish.getN());
@@ -199,6 +204,9 @@ public class DispositionService {
 				setValueOtherPack(disposition, repo, dbch, 8,   8, 7);
 				setValueOtherPack(disposition, repo, dbch, 9,  14, 7);
 				setValueOtherPack(disposition, repo, dbch, 10, 19, 7);
+				
+				
+				repo.addDispoistion(2, disposition);
 				
 	}
 	
