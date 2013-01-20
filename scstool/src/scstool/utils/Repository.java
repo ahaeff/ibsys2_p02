@@ -36,7 +36,8 @@ public class Repository
 	// Material in der Warteschlange
 	private List<WaitingList> waiting;
 	
-	private Map<Integer,Disposition> dispositon;
+	//Disposition
+	private Map<Integer,Map<Integer,Disposition>> dispositon;
 	
 	/**
 	 * private Constructor
@@ -222,28 +223,52 @@ public class Repository
 		return materialID;
 	}
 
-	public Map<Integer, Disposition> getDispositon() {
+/*	public Map<Integer, Disposition> getDispositon() {
 		return dispositon;
 	}
 
 	public void setDispositon(Map<Integer, Disposition> dispositon) {
 		this.dispositon = dispositon;
+	}*/
+	
+	
+
+	/**
+	 * Liste der gesamten Disposition
+	 * 
+	 * @param P-Material (P1,P2,P3)
+	 * @param P-Material, E-Material
+	 * @param Dispoition
+	 */
+	public void addDispoistion(int produkt, int material, Disposition dis)
+	{
+		if(this.dispositon == null)
+		{
+			this.dispositon = new HashMap<Integer, Map<Integer,Disposition>>();
+		}
+		
+		Map<Integer,Disposition> m = this.dispositon.get(produkt);
+		if(m == null)
+		{
+			m = new HashMap<Integer,Disposition>();
+			this.dispositon.put(produkt, m);
+		}
+		
+		m.put(material, dis);
+		
 	}
 	
 	
-	/**
-	 * Hinzufügen einzelner Dispoitionen der jeweilige Produkte(P1,P2,P3)
-	 * 
-	 * @param pos: Produkt (P1=1,P2=2,P3=3)
-	 * @param dis: Dispoition zum Produkt
-	 */
-	public void addDispoistion(int pos, Disposition dis)
+	public Disposition getDispoitionByMaterial(Integer product, Integer material)
 	{
-		if(dispositon == null)
-		{
-			this.dispositon = new HashMap<Integer,Disposition>();
-		}
-		this.dispositon.put(pos, dis);
+		return this.dispositon.get(product).get(material);
+		
+	}
+	
+	public Map<Integer,Disposition> getDispoitionByProduct(Integer product)
+	{
+		return this.dispositon.get(product);
+		
 	}
 	
 }

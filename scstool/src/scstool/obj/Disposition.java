@@ -13,12 +13,15 @@ import java.util.List;
  */
 public class Disposition {
 	
+	/** Material*/
+	private Material material;
+	
 	/**
 	 * 	Vertriebswunsch
 	 */
 	private Integer salesOrders;
 	/**
-	 *	Aufträge in der Warteschlange des übergeordneten Bauteil 
+	 *	Auftrï¿½ge in der Warteschlange des ï¿½bergeordneten Bauteil 
 	 */
 	private Integer waitingQueue1;
 	/**
@@ -30,15 +33,15 @@ public class Disposition {
 	 */	
 	private Integer warehousestockPassedPeriod;
 	/**
-	 *	Aufträge in der Warteschlange	
+	 *	Auftrï¿½ge in der Warteschlange	
 	 */
 	private Integer waitingQueue2;
 	/**
-	 *	Aufträge in Bearbeitung
+	 *	Auftrï¿½ge in Bearbeitung
 	 */
 	private Integer ordersInProgress;
 	/**
-	 *	Produktionsaufträge (geplante Aufträge)
+	 *	Produktionsauftrï¿½ge (geplante Auftrï¿½ge)
 	 */
 	private Integer orders;
 	

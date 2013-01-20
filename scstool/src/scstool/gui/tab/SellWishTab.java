@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import scstool.gui.comp.ButtonPane;
 import scstool.gui.comp.CustLabel;
 import scstool.gui.comp.NTextField;
+import scstool.utils.Repository;
 
 
 /**
@@ -406,9 +407,20 @@ public class SellWishTab extends JPanel
 	}
 	private void setTestData()
 	{
-		for(NTextField txt :txtfields.keySet())
+		Repository repo = Repository.getInstance();
+		int value = 200;
+		
+		
+		for(Map.Entry<NTextField,String> e :txtfields.entrySet())
 		{
-			txt.setText("150"); 
+/*			e.getKey().setText(String.valueOf(value)); 
+			//1_1
+			String str = e.getValue().substring(0,1);
+			int matnr = Integer.parseInt(str);
+			str = e.getValue().substring(2);
+			int period = Integer.parseInt(str);
+			
+			repo.setSellWish(matnr, period, value);*/
 		}
 	}
 	
