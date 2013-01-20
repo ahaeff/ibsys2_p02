@@ -1,6 +1,7 @@
 package scstool.proc;
 
 import scstool.obj.Disposition;
+import scstool.obj.Material;
 import scstool.obj.SellWish;
 import scstool.utils.Repository;
 /**
@@ -280,6 +281,7 @@ public class DispositionService {
 		
 		
 		SellWish sellWish = repo.getSellWish(2);
+		Material mat = dbch.findMaterial(product);
 		
 		Disposition disposition = new Disposition();
 		
@@ -293,9 +295,8 @@ public class DispositionService {
 		disposition.setSafetyWarehousestock(repo.getStafetyStock(product));
 		
 		//Lagerbestand Vorperiode
-		//disposition.setWarehousestockPassedPeriod(dbch.findMaterial(2).getAmount());
-		//TODO 0 durch Database-Wert ersetzen
-		disposition.setWarehousestockPassedPeriod(0);
+		//TODO Startamount richtig?
+		disposition.setWarehousestockPassedPeriod(mat.getStartamount());
 		
 		// Warteschlange (uebergeordnet)
 		disposition.setWaitingQueue2(repo.getAmountOfWaitingMaterial(2));
@@ -328,6 +329,9 @@ public class DispositionService {
 		Repository repo = Repository.getInstance();
 		DatabaseContentHandler dbch = DatabaseContentHandler.get();
 		
+		Material mat = dbch.findMaterial(product);
+		
+		
 		Disposition disposition = new Disposition();
 		Disposition preDisposition = repo.getDispoitionByMaterial(product,preMaterial);
 		
@@ -339,8 +343,8 @@ public class DispositionService {
 		disposition.setSafetyWarehousestock(repo.getStafetyStock(material));
 		
 		//Lagerbestand Vorperiode
-		//TODO 0 durch Database-Wert ersetzen
-		disposition.setWarehousestockPassedPeriod(0);
+		//TODO Startamount richtig?
+		disposition.setWarehousestockPassedPeriod(mat.getStartamount());
 		
 		// Warteschlange (uebergeordnet)
 		disposition.setWaitingQueue2(repo.getAmountOfWaitingMaterial(material));
