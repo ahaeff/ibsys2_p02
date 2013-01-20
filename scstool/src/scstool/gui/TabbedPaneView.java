@@ -215,11 +215,9 @@ public class TabbedPaneView extends JTabbedPane
 		{
 			//beim Wechsel von Sicherheistbestand nach irgendwo
 			if(activeIndex == 1)
-			{
+			{	
 				
-				
-				DispositionService disServ = new DispositionService();
-				
+				DispositionService disServ = new DispositionService();	
 				disServ.QueueInput2();
 			}
 			

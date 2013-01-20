@@ -169,14 +169,16 @@ public class DispositionService {
 		 *  Lagerhandler initialisieren
 		 */
 		
-		//P1
-		setPMaterialDispo(1, 1);
+		//P2
+		setPMaterialDispo(2);
 		
 		//E26
-		setEMaterialDispo(1, 26, 1);
+		setEMaterialDispo(2, 26, 2);
 		
 		//E56
-		setEMaterialDispo(1, 56, 1);
+		setEMaterialDispo(2, 56, 2);
+		
+		
 		
 		
 /*		//Vertertriebswunsch
@@ -271,7 +273,7 @@ public class DispositionService {
 	 * @param P-Material fuer Stueckliste
 	 * @param P-Material,E-Material fuer das einzele Material selbst
 	 */
-	private void setPMaterialDispo(int product, int material)
+	private void setPMaterialDispo(int product)
 	{
 		Repository repo = Repository.getInstance();
 		DatabaseContentHandler dbch = DatabaseContentHandler.get();
@@ -288,10 +290,11 @@ public class DispositionService {
 		disposition.setWaitingQueue1(0);
 		
 		//Lagerbestand geplant
-		disposition.setSafetyWarehousestock(repo.getStafetyStock(material));
+		disposition.setSafetyWarehousestock(repo.getStafetyStock(product));
 		
 		//Lagerbestand Vorperiode
 		//disposition.setWarehousestockPassedPeriod(dbch.findMaterial(2).getAmount());
+		//TODO 0 durch Database-Wert ersetzen
 		disposition.setWarehousestockPassedPeriod(0);
 		
 		// Warteschlange (uebergeordnet)
@@ -309,7 +312,7 @@ public class DispositionService {
 				    disposition.getOrdersInProgress();
 		disposition.setOrders(count);
 		
-		repo.addDispoistion(product, material, disposition);
+		repo.addDispoistion(product, product, disposition);
 		
 	}
 	
