@@ -83,7 +83,7 @@ public class TabbedPaneView extends JTabbedPane
 		tab01 = new SellWishTab(2);
 		tab01.addButtonListener(new ButtonListener());		
 		tab01.addChangeListener(new ProdProgChangeListener());
-		addTab("Sicherheitsbestand",getTitleIcon(ICON01),tab01);;
+		addTab("Vertriebswunsch",getTitleIcon(ICON01),tab01);;
 
 		//Sicherheitsbestand
 		tab02 = new SafetyStockTab(3);
