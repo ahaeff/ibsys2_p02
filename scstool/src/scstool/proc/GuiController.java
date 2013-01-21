@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Vector;
 
 import javax.swing.JComponent;
 
@@ -13,7 +12,6 @@ import org.xml.sax.SAXException;
 
 import scstool.gui.MainMenu;
 import scstool.gui.MainView;
-import scstool.obj.SellWish;
 import scstool.utils.IController;
 import scstool.utils.Repository;
 
@@ -22,8 +20,8 @@ public class GuiController implements IController
 	private static final String DATABASEXML = "/database.xml";
 
 	private MainView view;
-	private Vector<SellWish> prog;
-	private Repository repo;
+
+	
 	
 	public GuiController()
 	{
@@ -43,20 +41,20 @@ public class GuiController implements IController
 		}
 		
 		//int data containers
-		repo = Repository.getInstance();
+		Repository.getInstance();
 	
 	}
 	
 	
 	@Override
 	public void addListener(ActionListener l) {
-		// TODO Auto-generated method stub
+		//not used
 		
 	}
 
 	@Override
 	public void removeListener(ActionListener l) {
-		// TODO Auto-generated method stub
+		//not used
 		
 	}
 
@@ -71,11 +69,9 @@ public class GuiController implements IController
 		return this.view;
 	}
 	
-	
-	
-	
 	public void addContent(JComponent c)
 	{
+		
 		view.add(c);
 		view.invalidate();
 		view.validate();
@@ -97,6 +93,7 @@ public class GuiController implements IController
 					ico.openDialog();
 					break;
 				case MainMenu.MENU_USER_INPUT:
+					view.removeImage();
 					UserInputController pco = new UserInputController();
 					addContent(pco.getView());
 					break;

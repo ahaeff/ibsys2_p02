@@ -6,8 +6,9 @@ import java.io.IOException;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-
+import javax.swing.JLabel;
 
 
 public class MainView extends JFrame
@@ -15,6 +16,8 @@ public class MainView extends JFrame
 	
 	private static final long serialVersionUID = 1L;
 	private MainMenu menu;
+	
+	private JLabel lbl_img;
 	
 	public MainView()
 	{
@@ -31,22 +34,25 @@ public class MainView extends JFrame
 		
 		this.menu = new MainMenu();
 		setJMenuBar(this.menu);
-	
 		
-		//Icon
+		//Icon / Bild
+		URL url;
+		Image image;
 		try {
-			URL url = this.getClass().getResource("/logo16.png");
-			Image image = ImageIO.read(url);
+			url= this.getClass().getResource("/icon/logo.png");
+			image = ImageIO.read(url);
 			setIconImage(image);
+			
+			url= this.getClass().getResource("/pic/background.jpg");
+			image = ImageIO.read(url);
+			lbl_img = new JLabel(new ImageIcon(image));
+			add(lbl_img);
+			
 		} catch (IOException e) {
 			throw new RuntimeException("Can't find Logo.");
 		}
 
 
-
-		
-		
-		
 	}
 	
 	public void setMenuListener(ActionListener l)
@@ -55,4 +61,8 @@ public class MainView extends JFrame
 	}
 	
 
+	public void removeImage()
+	{
+		this.remove(lbl_img);
+	}
 }

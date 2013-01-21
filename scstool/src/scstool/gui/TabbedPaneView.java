@@ -1,7 +1,6 @@
 package scstool.gui;
 
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -13,7 +12,6 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -77,8 +75,7 @@ public class TabbedPaneView extends JTabbedPane
 		setTabPlacement(JTabbedPane.TOP);
 		setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 		addChangeListener(new TabListener());
-		URL url;
-		
+			
 		//Tab Produktions Programm
 		tab01 = new SellWishTab(2);
 		tab01.addButtonListener(new ButtonListener());		
@@ -178,16 +175,12 @@ public class TabbedPaneView extends JTabbedPane
 		g.drawImage(overlay, 0, 0, null);
        
 		return new ImageIcon(combined);
-
-            
+   
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	    
-		
 		return null;
-		
 	}
 	
 	
