@@ -36,10 +36,16 @@ public class Repository {
 	// Material in der Warteschlange
 	private List<WaitingList> waiting;
 	private Integer lastPeriod;
-
-	// Disposition
-	private Map<Integer, Map<Integer, Disposition>> dispositon;
-
+	
+	//Wert fuer Bestell Risiko
+	private int riskPercent;
+	
+	//Ueberstunden ja oder nein
+	private boolean overtime;
+	
+	//Disposition
+	private Map<Integer,Map<Integer,Disposition>> dispositon;
+	
 	/**
 	 * private Constructor
 	 */
@@ -278,4 +284,21 @@ public class Repository {
 
 		return result;
 	}
+
+public int getRiskPercente() {
+		return riskPercent;
+	}
+
+	public void setRiskPercente(int riskPercente) {
+		this.riskPercent = riskPercente;
+	}
+
+	public boolean isOvertime() {
+		return overtime;
+	}
+
+	public void setOvertime(boolean overtime) {
+		this.overtime = overtime;
+	}
+
 }

@@ -310,7 +310,9 @@ public class TabbedPaneView extends JTabbedPane
 				checkSafetyStock();
 				
 				DispositionService disServ = new DispositionService();	
+				disServ.QueueInput1();
 				disServ.QueueInput2();
+				disServ.QueueInput3();
 				
 			}
 			

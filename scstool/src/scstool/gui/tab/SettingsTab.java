@@ -1,22 +1,24 @@
 package scstool.gui.tab;
 
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
+
+import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 
 
 import scstool.gui.comp.ButtonPane;
+import scstool.gui.comp.CustLabel;
+import scstool.gui.comp.NTextField;
+import scstool.gui.comp.OrderRiskPane;
+import scstool.gui.comp.OvertimePane;
 
 
 
@@ -38,6 +40,8 @@ public class SettingsTab extends JPanel
 	//Button Panel
 	private ButtonPane bnt_pane;
 	
+	//Risiko Einstellungen fuer Bestellungen
+	private OrderRiskPane risk_pane;
 	
 	public SettingsTab(int bnt_var)
 	{
@@ -49,50 +53,7 @@ public class SettingsTab extends JPanel
 	{
 		
 		buildGui();
-		URL url1 = this.getClass().getResource("/icon/tab/1.png");
-		URL url2 = this.getClass().getResource("/icon/tab/ok_hacken.png");
-		
-/*		BufferedImage mergeImage;
-		
-        ImageIcon imgUpper = new ImageIcon(url1);
-        
-        
-        ImageIcon imgLower =  new ImageIcon(url2);
-        
-        mergeImage =
-                new BufferedImage(
-                    imgUpper.getIconWidth(),
-                    imgUpper.getIconHeight() + imgLower.getIconHeight(),
-                    BufferedImage.TYPE_INT_RGB);
- 
-            Graphics g = mergeImage.getGraphics();
-            g.drawImage(imgUpper.getImage(), 0, 0, this);
-            g.drawImage(imgLower.getImage(), 0, imgUpper.getIconHeight(), this);*/
-		
-		
-	/*	BufferedImage image;
-		try {
-			image = ImageIO.read(url1);
-	
-		BufferedImage overlay = ImageIO.read(url2);
 
-		// create the new image, canvas size is the max. of both image sizes
-		int w = Math.max(image.getWidth(), overlay.getWidth());
-		int h = Math.max(image.getHeight(), overlay.getHeight());
-		BufferedImage combined = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-
-		// paint both images, preserving the alpha channels
-		Graphics g = combined.getGraphics();
-		g.drawImage(image, 0, 0, null);
-		g.drawImage(overlay, 0, 0, null);
-            JLabel lbl = new JLabel(new ImageIcon(combined));
-            add(lbl);
-            
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	    */
 	}
 	
 	private void buildGui()
@@ -130,8 +91,8 @@ public class SettingsTab extends JPanel
 	    c.weighty= 1.0;
 		c.gridx = 1;
 	    c.gridy = 1;
-	    c.fill = GridBagConstraints.VERTICAL;
-	    c.anchor = GridBagConstraints.WEST;
+		c.fill = GridBagConstraints.NONE;
+		c.anchor = GridBagConstraints.NORTHWEST;
 	    add(getContent(),c);
 		
 	    //Platzhalter rechts
@@ -249,11 +210,26 @@ public class SettingsTab extends JPanel
 		c.weightx =1.0;
 		c.gridy = 0;
 		c.gridx = 0;
-		pane.add(new JLabel("Settings - Was soll hier rein??"),c);
-		//TODO Was soll hier rein ????
+		pane.add(new CustLabel("Risikostrategie für die Bestellung"),c);
+		
+		c.gridy = 1;
+		c.gridx = 0;
+		pane.add(new OrderRiskPane(),c);
+		
+		c.insets.top=30;	
+		c.gridy = 2;
+		c.gridx = 0;
+		pane.add(new CustLabel("Überstunden"),c);
+		
+		c.insets.top=10;	
+		c.gridy = 3;
+		c.gridx = 0;
+		pane.add(new OvertimePane(),c);
 		
 		return pane;
 	}
+	
+
 	
 	
 	/**
@@ -264,5 +240,9 @@ public class SettingsTab extends JPanel
 	{
 		bnt_pane.addButtonListener(l);
 	}
+	
+	
+		
+	
 	
 }
