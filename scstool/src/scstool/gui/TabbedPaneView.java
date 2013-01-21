@@ -288,6 +288,7 @@ public class TabbedPaneView extends JTabbedPane
 			}
 			setSelectedIndex(index);
 			
+			System.out.println("Risikowert:"+Repository.getInstance().getRiskPercente());
 		}
 		
 	}
