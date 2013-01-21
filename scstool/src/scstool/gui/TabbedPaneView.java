@@ -316,6 +316,11 @@ public class TabbedPaneView extends JTabbedPane
 				
 			}
 			
+			if(activeIndex == 2)
+			{
+				setIconAt(2, getTitleDoneIcon(ICON03));
+			}
+			
 			activeIndex = getSelectedIndex();
 
 		
