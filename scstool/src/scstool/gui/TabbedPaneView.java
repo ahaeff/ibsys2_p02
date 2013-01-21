@@ -17,8 +17,10 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import scstool.gui.comp.NTextField;
+import scstool.gui.tab.CapacityTab;
 import scstool.gui.tab.LayoutExampleTab;
 import scstool.gui.tab.OrderTab;
+import scstool.gui.tab.ProductionTab;
 import scstool.gui.tab.SellWishTab;
 import scstool.gui.tab.SafetyStockTab;
 import scstool.gui.tab.SettingsTab;
@@ -49,6 +51,12 @@ public class TabbedPaneView extends JTabbedPane
 	
 	//4. Tab
 	private OrderTab tab04;
+	
+	//5. Tab
+	private CapacityTab tab05;
+	
+	//6 Tab
+	private ProductionTab tab06;	
 	
 	
 	//Title Icons
@@ -91,14 +99,25 @@ public class TabbedPaneView extends JTabbedPane
 		//Einstellungen
 		tab03 = new SettingsTab(3);
 		tab03.addButtonListener(new ButtonListener());
-		//tab03.addChangeListener(new SafetyStockChangeListener());
 		addTab("Einstellungen",getTitleIcon(ICON03),tab03);
 		
 		//Bestellungen
-		tab04 = new OrderTab(1);
+		tab04 = new OrderTab(3);
 		tab04.addButtonListener(new ButtonListener());
-		//tab03.addChangeListener(new SafetyStockChangeListener());
 		add("Bestellungen",tab04);
+		
+		//Kapazitaet
+		tab05 = new CapacityTab(3);
+		tab05.addButtonListener(new ButtonListener());
+		add("Kapaziät",tab05);		
+		
+		//Produktion
+		tab06 = new ProductionTab(3);
+		tab06.addButtonListener(new ButtonListener());
+		add("Produktion",tab06);		
+		
+		
+		
 		
 		expTab = new LayoutExampleTab(1);
 		add("Layout Spielerei",expTab);

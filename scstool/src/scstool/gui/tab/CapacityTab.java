@@ -4,31 +4,43 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
+
+import javax.swing.ButtonGroup;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.JRadioButton;
+
 
 import scstool.gui.comp.ButtonPane;
 import scstool.gui.comp.CustLabel;
 import scstool.gui.comp.NTextField;
-import scstool.obj.Order;
-import scstool.proc.OrderService;
+import scstool.gui.comp.OrderRiskPane;
+import scstool.gui.comp.OvertimePane;
 
-public class OrderTab extends JPanel 
+/**
+ * 
+ * Darstellung der Kapzitaet
+ * 
+ * @author haeff
+ *
+ */
+public class CapacityTab extends JPanel 
 {
 
 	private static final long serialVersionUID = 1L;
 
 	private int bnt_var;
-	private OrderService service;
 	
 	//Button Panel
 	private ButtonPane bnt_pane;
 	
+	//Risiko Einstellungen fuer Bestellungen
+	private OrderRiskPane risk_pane;
 	
-	public OrderTab(int bnt_var)
+	public CapacityTab(int bnt_var)
 	{
 		this.bnt_var = bnt_var;
 		init();
@@ -36,9 +48,9 @@ public class OrderTab extends JPanel
 	
 	private void init()
 	{
-		service = new OrderService();
+		
 		buildGui();
-	     
+
 	}
 	
 	private void buildGui()
@@ -52,7 +64,8 @@ public class OrderTab extends JPanel
 		c.insets = new Insets(5, 5, 5, 5);
 	    c.gridheight =1;
 	    c.weightx= 1;
-	    c.weighty= 1;	
+	    c.weighty= 1;
+		
 		
 		//Platzhalter 1. Zeile
 		c.gridx = 0;
@@ -75,8 +88,8 @@ public class OrderTab extends JPanel
 	    c.weighty= 1.0;
 		c.gridx = 1;
 	    c.gridy = 1;
-	    c.fill = GridBagConstraints.NONE;
-	    c.anchor = GridBagConstraints.NORTHWEST;
+		c.fill = GridBagConstraints.NONE;
+		c.anchor = GridBagConstraints.NORTHWEST;
 	    add(getContent(),c);
 		
 	    //Platzhalter rechts
@@ -188,53 +201,18 @@ public class OrderTab extends JPanel
 		pane.setLayout(new GridBagLayout());
 				
 		GridBagConstraints c = new GridBagConstraints();
-		NTextField ntxt;
-		JTextField txt;
 		
 		c.insets = new Insets(10, 5, 0, 5);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx =1.0;
 		c.gridy = 0;
 		c.gridx = 0;
-		pane.add(new  CustLabel("Artikel"),c);
-		
-		c.gridy = 0;
-		c.gridx = 1;
-		pane.add(new  CustLabel("Menge"),c);
-		
-		c.gridy = 0;
-		c.gridx = 2;		
-		pane.add(new  CustLabel("Modus"),c);
-		
-		
-		List<Order> orders = service.ordering();
-		for(Order o : orders)
-		{
-			c.gridy++;
-			c.gridx = 0;
-			txt = new JTextField();
-			txt.setText(o.getMaterial().getId().toString());
-			txt.setEditable(false);
-			pane.add(txt,c);
-			
-
-			c.gridx = 1;
-			txt = new JTextField();
-			txt.setText(o.getAmount().toString());
-			txt.setEditable(false);
-			pane.add(txt,c);
-			
-			c.gridx = 2;
-			txt = new JTextField();
-			txt.setText(o.getMode().toString());
-			txt.setEditable(false);
-			pane.add(txt,c);
-			
-		}
 
 		
 		return pane;
 	}
+	
+
 	
 	
 	/**
@@ -245,4 +223,9 @@ public class OrderTab extends JPanel
 	{
 		bnt_pane.addButtonListener(l);
 	}
+	
+	
+		
+	
+	
 }
