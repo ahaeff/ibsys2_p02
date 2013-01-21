@@ -7,6 +7,7 @@ import java.util.List;
 import scstool.obj.Material;
 import scstool.obj.Material.PartTypes;
 import scstool.obj.Order;
+import scstool.obj.Order.Mode;
 import scstool.utils.PeriodDate;
 import scstool.utils.Repository;
 
@@ -52,27 +53,22 @@ public class OrderService {
 	 */
 	private LinkedHashMap<Material, Double> timeMaterialCoverage;
 
+	/**
+	 * Errechneter Bestand mit Bestellungen abzüglich Bedarf am Ende der Periode
+	 */
 	private LinkedHashMap<Material, List<Integer>> calculatedStock;
 
 	// TODO Bedarfsliste n�tig
-
-	public LinkedHashMap<Material, Double> getAverageNeeds() {
-		return averageNeeds;
-	}
-
-	public void setAverageNeeds(LinkedHashMap<Material, Double> averageNeeds) {
-		this.averageNeeds = averageNeeds;
-	}
-
-	/**
-	 * Neubestellung notwendig
-	 */
-	private boolean order;
-
-	/**
-	 * Bestellmenge
-	 */
-	private int amount;
+	//
+	// /**
+	// * Neubestellung notwendig
+	// */
+	// private boolean order;
+	//
+	// /**
+	// * Bestellmenge
+	// */
+	// private int amount;
 
 	public OrderService() {
 		super();
@@ -87,39 +83,7 @@ public class OrderService {
 		}
 	}
 
-	public List<Material> getListOfMaterial() {
-		return purchaseGoods;
-	}
-
-	public void setListOfMaterial(List<Material> listOfMaterial) {
-		this.purchaseGoods = listOfMaterial;
-	}
-
-	public List<Order> getListOfOrder() {
-		return listOfOrder;
-	}
-
-	public void setListOfOrder(List<Order> listOfOrder) {
-		this.listOfOrder = listOfOrder;
-	}
-
-	public boolean isOrder() {
-		return order;
-	}
-
-	public void setOrder(boolean order) {
-		this.order = order;
-	}
-
-	public int getAmount() {
-		return amount;
-	}
-
-	public void setAmount(int amount) {
-		this.amount = amount;
-	}
-
-	public LinkedHashMap<Material, List<Integer>> MatrixMultiplication() {
+	private LinkedHashMap<Material, List<Integer>> MatrixMultiplication() {
 		LinkedHashMap<Material, List<Integer>> result = new LinkedHashMap<>();
 		LinkedHashMap<Material, int[]> usage = fillUsage();
 
@@ -166,7 +130,7 @@ public class OrderService {
 		return result;
 	}
 
-	public LinkedHashMap<Material, Double> calculateAverageNeeds() {
+	private LinkedHashMap<Material, Double> calculateAverageNeeds() {
 		LinkedHashMap<Material, Double> average = new LinkedHashMap<>();
 
 		for (Material mat : needs.keySet()) {
@@ -181,7 +145,7 @@ public class OrderService {
 		return average;
 	}
 
-	public LinkedHashMap<Material, Double> calculateCoverage() {
+	private LinkedHashMap<Material, Double> calculateCoverage() {
 		LinkedHashMap<Material, Double> coverage = new LinkedHashMap<Material, Double>();
 
 		for (Material mat : needs.keySet()) {
@@ -198,25 +162,26 @@ public class OrderService {
 
 	}
 
-	public LinkedHashMap<Material, Double> calculateTimeMaterialCoverage() {
+	private LinkedHashMap<Material, Double> calculateTimeMaterialCoverage() {
 		LinkedHashMap<Material, Double> times = new LinkedHashMap<Material, Double>();
 
 		for (Material mat : coverage.keySet()) {
-			PeriodDate date = mat.getDeliveryTime().add(
-					mat.getDeliveryAberation());
-
-			Double time;
-			if (date.getDay() < 3) {
-				time = averageNeeds.get(mat) / date.getPeriod();
-			} else {
-				time = averageNeeds.get(mat) / (date.getPeriod() + 1);
-			}
-
 			// Reichweitensicherung
+			Double time = averageNeeds.get(mat) / roundDeliveryPeriod(mat);
 			times.put(mat, time);
 		}
 
 		return times;
+	}
+
+	private Integer roundDeliveryPeriod(Material mat) {
+		PeriodDate date = mat.getDeliveryTime().add(mat.getDeliveryAberation());
+
+		if (date.getDay() < 3) {
+			return date.getPeriod();
+		} else {
+			return (date.getPeriod() + 1);
+		}
 	}
 
 	private LinkedHashMap<Material, List<Integer>> calculateStockForNextPeriods() {
@@ -243,5 +208,59 @@ public class OrderService {
 		}
 
 		return stockNextPeriodsWithMat;
+	}
+
+	private boolean newOrderRequired(Material mat) {
+		Integer roundDeliveryPeriod = roundDeliveryPeriod(mat);
+		if (mat.getAmount() < calculatedStock.get(mat).get(roundDeliveryPeriod)) {
+			return true;
+		}
+		return false;
+	}
+
+	private Mode chooseOrderMode(Material mat) {
+		Integer roundDeliveryPeriod = roundDeliveryPeriod(mat);
+		if (calculatedStock.get(mat).get(roundDeliveryPeriod) < 0) {
+			return Mode.NORMAL;
+		}
+		return Mode.EIL;
+
+	}
+
+	public Integer calculateOrderSize(Material mat) {
+		int result = 0;
+
+		if (newOrderRequired(mat)) {
+			Mode mode = chooseOrderMode(mat);
+			Integer roundDeliveryPeriod = 0;
+			switch (mode) {
+			case NORMAL:
+				roundDeliveryPeriod = roundDeliveryPeriod(mat);
+				break;
+
+			case EIL:
+				roundDeliveryPeriod = (int) Math.floor(mat.getDeliveryTime()
+						.getPeriod() / 2);
+				break;
+
+			}
+			result = (int) (timeMaterialCoverage.get(mat) - calculatedStock
+					.get(mat).get(roundDeliveryPeriod));
+		}
+		return result;
+	}
+
+	public List<Order> ordering() {
+		List<Order> result = new ArrayList<>();
+		for (Material mat : purchaseGoods) {
+			Integer amount = calculateOrderSize(mat);
+			if (amount != 0) {
+				Order newOrder = new Order();
+				newOrder.setAmount(amount);
+				newOrder.setMaterial(mat);
+			}
+		}
+		return result;
+
 	}
 }
