@@ -44,8 +44,9 @@ public class InputContentHandler implements ContentHandler {
 	private Map<String, List<String>> kpiValues = new HashMap<String, List<String>>();
 	
 	private String currentValue;
-	
+	private Integer lastPeriod;
 	private List<Material> allesMaterial = new ArrayList<Material>();
+	
 
 	private Order order;
 	private List<Order> alleOrder = new ArrayList<Order>();
@@ -70,6 +71,10 @@ public class InputContentHandler implements ContentHandler {
 	// Methode wird aufgerufen wenn der Parser zu einem Start-Tag kommt
 	public void startElement(String uri, String localName, String qName,
 			Attributes atts) throws SAXException {
+		
+		if(localName.equals("results")){
+			lastPeriod = Integer.parseInt(atts.getValue("period"));
+		}
 
 		/*-------------- Das ist die einzulesende Datei  -------------------------------------------*/
 
@@ -267,13 +272,6 @@ public class InputContentHandler implements ContentHandler {
 	}
 
 	/**
-	 * @param alleWL the alleWL to set
-	 */
-	public void setAlleWL(List<WaitingList> alleWL) {
-		this.alleWL = alleWL;
-	}
-
-	/**
 	 * @return the alleWLinWork
 	 */
 	public List<WaitingList> getAlleWLinWork() {
@@ -281,12 +279,9 @@ public class InputContentHandler implements ContentHandler {
 	}
 
 	/**
-	 * @param alleWLinWork the alleWLinWork to set
+	 * @return the currentPeriod
 	 */
-	public void setAlleWLinWork(List<WaitingList> alleWLinWork) {
-		this.alleWLinWork = alleWLinWork;
-	}
-	
-	
-	
+	public Integer getLastPeriod() {
+		return lastPeriod;
+	}	
 }

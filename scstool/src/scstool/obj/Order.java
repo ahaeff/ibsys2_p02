@@ -218,6 +218,7 @@ public class Order {
 		// ordered material
 		Material mat = this.material;
 		// materiallieferzeit + abweichung
+		// TODO Risiko miteinberechnen
 		PeriodDate deliveryTime = mat.getDeliveryTime().add(mat.getDeliveryAberation());
 		return this.orderDate.add(deliveryTime);
 	}
