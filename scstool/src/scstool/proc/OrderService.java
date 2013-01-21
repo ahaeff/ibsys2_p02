@@ -7,6 +7,8 @@ import java.util.List;
 import scstool.obj.Material;
 import scstool.obj.Material.PartTypes;
 import scstool.obj.Order;
+import scstool.utils.PeriodDate;
+import scstool.utils.Repository;
 
 /**
  * @author Alexander
@@ -43,15 +45,16 @@ public class OrderService {
 	/**
 	 * Reichweite
 	 */
-	private LinkedHashMap<Material, Double> Coverage = calculateCoverage();
+	private LinkedHashMap<Material, Double> coverage = calculateCoverage();
 
 	/**
 	 * Reichweitensicherung
 	 */
 	private LinkedHashMap<Material, Double> timeMaterialCoverage = calculateTimeMaterialCoverage();
 
-	// TODO Bedarfsliste n�tig
+	private LinkedHashMap<Material, List<Integer>> calculatedStock = calculateStockForNextPeriods();
 
+	// TODO Bedarfsliste n�tig
 
 	public LinkedHashMap<Material, Double> getAverageNeeds() {
 		return averageNeeds;
@@ -70,13 +73,6 @@ public class OrderService {
 	 * Bestellmenge
 	 */
 	private int amount;
-
-	/**
-	 * Bestellart setzten
-	 */
-	private void Ordertype() {
-
-	}
 
 	public List<Material> getListOfMaterial() {
 		return purchaseGoods;
@@ -174,12 +170,15 @@ public class OrderService {
 
 	public LinkedHashMap<Material, Double> calculateCoverage() {
 		LinkedHashMap<Material, Double> coverage = new LinkedHashMap<Material, Double>();
-		
-		for(Material mat : needs.keySet()){
-			//Menge in dieser Periode / Durchschnittsverbrauch
-			Double value = dbch.findMaterial(mat.getId()).getAmount() / averageNeeds.get(mat);
+
+		for (Material mat : needs.keySet()) {
+			Repository repo = Repository.getInstance();
+			// Menge im Lager + Menge die in der Planperiode kommt
+			Integer AmountThisPeriod = dbch.findMaterial(mat.getId())
+					.getAmount() + repo.getArrivalAmountOfMaterial(mat, 1);
+			// Menge in dieser Periode / Durchschnittsverbrauch
+			Double value = AmountThisPeriod / averageNeeds.get(mat);
 			coverage.put(mat, value);
-			
 		}
 
 		return coverage;
@@ -187,8 +186,49 @@ public class OrderService {
 	}
 
 	public LinkedHashMap<Material, Double> calculateTimeMaterialCoverage() {
-		LinkedHashMap<Material, Double> time = new LinkedHashMap<Material, Double>() ;
+		LinkedHashMap<Material, Double> times = new LinkedHashMap<Material, Double>();
 
-		return time;
+		for (Material mat : coverage.keySet()) {
+			PeriodDate date = mat.getDeliveryTime().add(
+					mat.getDeliveryAberation());
+
+			Double time;
+			if (date.getDay() < 3) {
+				time = averageNeeds.get(mat) / date.getPeriod();
+			} else {
+				time = averageNeeds.get(mat) / (date.getPeriod() + 1);
+			}
+
+			// Reichweitensicherung
+			times.put(mat, time);
+		}
+
+		return times;
+	}
+
+	private LinkedHashMap<Material, List<Integer>> calculateStockForNextPeriods() {
+		LinkedHashMap<Material, List<Integer>> stockNextPeriodsWithMat = new LinkedHashMap<Material, List<Integer>>();
+		Repository repo = Repository.getInstance();
+
+		List<Integer> stockNextPeriods = new ArrayList<>();
+		for (Material mat : needs.keySet()) {
+			Integer amountThisPeriod = dbch.findMaterial(mat.getId())
+					.getAmount() + repo.getArrivalAmountOfMaterial(mat, 1);
+			// Errechneter Bestand Planperiode
+			stockNextPeriods.add(amountThisPeriod - needs.get(mat).get(0));
+			// Errechneter Bestand Planperiode + 1
+			stockNextPeriods.add(stockNextPeriods.get(0)
+					- needs.get(mat).get(1));
+			// Errechneter Bestand Planperiode + 2
+			stockNextPeriods.add(stockNextPeriods.get(1)
+					- needs.get(mat).get(2));
+			// Errechneter Bestand Planperiode + 3
+			stockNextPeriods.add(stockNextPeriods.get(2)
+					- needs.get(mat).get(3));
+
+			stockNextPeriodsWithMat.put(mat, stockNextPeriods);
+		}
+
+		return stockNextPeriodsWithMat;
 	}
 }

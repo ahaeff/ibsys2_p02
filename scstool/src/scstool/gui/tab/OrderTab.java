@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 import scstool.gui.comp.ButtonPane;
 import scstool.gui.comp.CustLabel;
 import scstool.gui.comp.NTextField;
-import scstool.gui.comp.STextField;
+import scstool.proc.OrderService;
 
 public class OrderTab extends JPanel 
 {
@@ -20,6 +20,7 @@ public class OrderTab extends JPanel
 	private static final long serialVersionUID = 1L;
 
 	private int bnt_var;
+	private OrderService service;
 	
 	//Button Panel
 	private ButtonPane bnt_pane;
@@ -33,7 +34,7 @@ public class OrderTab extends JPanel
 	
 	private void init()
 	{
-		
+		service = new OrderService();
 		buildGui();
 	     
 	}

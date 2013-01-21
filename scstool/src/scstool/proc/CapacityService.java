@@ -31,6 +31,7 @@ public class CapacityService {
 	final static Integer SECOND_SHIFT_OVERTIME = 6000;
 	final static Integer THIRD_SHIFT = 7200;
 
+	// TODO Risikoaversion hinzufügen
 	private static final Double RISIKO = 1.05;
 	
 	/**
@@ -95,7 +96,6 @@ public class CapacityService {
 		return result;
 	}
 
-	// TODO Risikoaversion hinzufügen
 	/**
 	 * Berechnet die Schicht und die Überstunden pro Tag.<br/>
 	 * Dabei ist auf dem Index 0 die Schicht <br/>
