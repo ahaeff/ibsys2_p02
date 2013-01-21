@@ -35,24 +35,24 @@ public class OrderService {
 	/**
 	 * Liste des Bedarfs (Matrix-Ergebnisse)
 	 */
-	private LinkedHashMap<Material, List<Integer>> needs = MatrixMultiplication();
+	private LinkedHashMap<Material, List<Integer>> needs;
 
 	/**
 	 * Durchschnitt des Periodenbedarfs
 	 */
-	private LinkedHashMap<Material, Double> averageNeeds = calculateAverageNeeds();
+	private LinkedHashMap<Material, Double> averageNeeds;
 
 	/**
 	 * Reichweite
 	 */
-	private LinkedHashMap<Material, Double> coverage = calculateCoverage();
+	private LinkedHashMap<Material, Double> coverage;
 
 	/**
 	 * Reichweitensicherung
 	 */
-	private LinkedHashMap<Material, Double> timeMaterialCoverage = calculateTimeMaterialCoverage();
+	private LinkedHashMap<Material, Double> timeMaterialCoverage;
 
-	private LinkedHashMap<Material, List<Integer>> calculatedStock = calculateStockForNextPeriods();
+	private LinkedHashMap<Material, List<Integer>> calculatedStock;
 
 	// TODO Bedarfsliste n�tig
 
@@ -73,6 +73,19 @@ public class OrderService {
 	 * Bestellmenge
 	 */
 	private int amount;
+
+	public OrderService() {
+		super();
+		try {
+			needs = MatrixMultiplication();
+			averageNeeds = calculateAverageNeeds();
+			coverage = calculateCoverage();
+			timeMaterialCoverage = calculateTimeMaterialCoverage();
+			calculatedStock = calculateStockForNextPeriods();
+		} catch (Exception exc) {
+			exc.printStackTrace();
+		}
+	}
 
 	public List<Material> getListOfMaterial() {
 		return purchaseGoods;
