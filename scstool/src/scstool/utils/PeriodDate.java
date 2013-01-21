@@ -73,7 +73,7 @@ public class PeriodDate {
 	}
 
 	/**
-	 * Einem Datum ein anderes hinzuf���gen
+	 * Einem Datum ein anderes hinzufügen
 	 * 
 	 * @param toAdd
 	 * @return
@@ -81,6 +81,25 @@ public class PeriodDate {
 	public PeriodDate add(PeriodDate toAdd) {
 		int period = this.period + toAdd.period;
 		int day = this.day + toAdd.day;
+		while (day > 5) {
+			if (day > 5) {
+				period++;
+				day = day - 5;
+			}
+		}
+		return new PeriodDate(period, day);
+	}
+	
+	/**
+	 * Einem Datum ein anderes hinzufügen
+	 * 
+	 * @param toAdd
+	 * @param risk
+	 * @return
+	 */
+	public PeriodDate add(PeriodDate toAdd, Double risk) {
+		int period = (int) ((this.period + toAdd.period)*(1+risk));
+		int day = (int) ((this.day + toAdd.day)*(1+risk));
 		while (day > 5) {
 			if (day > 5) {
 				period++;

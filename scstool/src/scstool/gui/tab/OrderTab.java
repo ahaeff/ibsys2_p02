@@ -37,6 +37,7 @@ public class OrderTab extends JPanel
 	private void init()
 	{
 		service = new OrderService();
+		List<Order> orders = service.ordering();
 		buildGui();
 	     
 	}
