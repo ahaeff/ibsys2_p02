@@ -5,6 +5,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -12,6 +13,7 @@ import javax.swing.JTextField;
 import scstool.gui.comp.ButtonPane;
 import scstool.gui.comp.CustLabel;
 import scstool.gui.comp.NTextField;
+import scstool.obj.Order;
 import scstool.proc.OrderService;
 
 public class OrderTab extends JPanel 
@@ -35,6 +37,7 @@ public class OrderTab extends JPanel
 	private void init()
 	{
 		service = new OrderService();
+		List<Order> orders = service.ordering();
 		buildGui();
 	     
 	}

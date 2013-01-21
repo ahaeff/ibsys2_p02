@@ -156,7 +156,6 @@ public class InputContentHandler implements ContentHandler {
 							.getValue("piececosts")));
 				} else {
 					order.setFinished(false);
-					order.setDeliveryDate(order.calculateDeliveryDate());
 				}
 				
 				alleOrder.add(order);

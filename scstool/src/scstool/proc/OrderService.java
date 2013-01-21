@@ -27,10 +27,6 @@ public class OrderService {
 	 */
 	private List<Material> purchaseGoods = dbch.getPurchaseGoods();
 
-	/**
-	 * Liste der eingehenden und offenen Bestellungen
-	 */
-	private List<Order> listOfOrder = new ArrayList<Order>();
 	// TODO Wie werden einzelne Periden abgebildet
 
 	/**
@@ -175,7 +171,9 @@ public class OrderService {
 	}
 
 	private Integer roundDeliveryPeriod(Material mat) {
-		PeriodDate date = mat.getDeliveryTime().add(mat.getDeliveryAberation());
+		Repository repo = Repository.getInstance();
+		PeriodDate date = mat.getDeliveryTime().add(mat.getDeliveryAberation(),
+				new Double(repo.getRiskPercente() / 100));
 
 		if (date.getDay() < 3) {
 			return date.getPeriod();
@@ -213,22 +211,23 @@ public class OrderService {
 	private boolean newOrderRequired(Material mat) {
 		Integer roundDeliveryPeriod = roundDeliveryPeriod(mat);
 		if (mat.getAmount() < calculatedStock.get(mat).get(roundDeliveryPeriod)) {
-			return true;
+			return false;
 		}
-		return false;
+		return true;
 	}
 
 	private Mode chooseOrderMode(Material mat) {
 		Integer roundDeliveryPeriod = roundDeliveryPeriod(mat);
 		if (calculatedStock.get(mat).get(roundDeliveryPeriod) < 0) {
-			return Mode.NORMAL;
+			return Mode.EIL;
 		}
-		return Mode.EIL;
+		return Mode.NORMAL;
 
 	}
 
-	public Integer calculateOrderSize(Material mat) {
-		int result = 0;
+	private Order calculateOrderSize(Material mat) {
+		int resultAmount = 0;
+		Mode resultMode = null;
 
 		if (newOrderRequired(mat)) {
 			Mode mode = chooseOrderMode(mat);
@@ -236,28 +235,32 @@ public class OrderService {
 			switch (mode) {
 			case NORMAL:
 				roundDeliveryPeriod = roundDeliveryPeriod(mat);
+				resultMode = Mode.NORMAL;
 				break;
 
 			case EIL:
 				roundDeliveryPeriod = (int) Math.floor(mat.getDeliveryTime()
 						.getPeriod() / 2);
+				resultMode = Mode.EIL;
 				break;
 
 			}
-			result = (int) (timeMaterialCoverage.get(mat) - calculatedStock
+			resultAmount = (int) (timeMaterialCoverage.get(mat) - calculatedStock
 					.get(mat).get(roundDeliveryPeriod));
 		}
+		Order result = new Order();
+		result.setMaterial(mat);
+		result.setAmount(resultAmount);
+		result.setMode(resultMode.getMark());
 		return result;
 	}
 
 	public List<Order> ordering() {
 		List<Order> result = new ArrayList<>();
 		for (Material mat : purchaseGoods) {
-			Integer amount = calculateOrderSize(mat);
-			if (amount != 0) {
-				Order newOrder = new Order();
-				newOrder.setAmount(amount);
-				newOrder.setMaterial(mat);
+			Order newOrder = calculateOrderSize(mat);
+			if (newOrder.getAmount() != 0) {
+				result.add(newOrder);
 			}
 		}
 		return result;

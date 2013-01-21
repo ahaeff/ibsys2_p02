@@ -31,8 +31,14 @@ public class CapacityService {
 	final static Integer SECOND_SHIFT_OVERTIME = 6000;
 	final static Integer THIRD_SHIFT = 7200;
 
-	// TODO Risikoaversion hinzufügen
-	private static final Double RISIKO = 1.05;
+	private static final Double RISIKO = risk();
+
+	/**
+	 * @return
+	 */
+	private static double risk() {
+		return new Double(1+(Repository.getInstance().getRiskPercente()/100));
+	}
 	
 	/**
 	 * Kalkuliert die benötigte Kapzität für einen Arbeitsplatz ohne die

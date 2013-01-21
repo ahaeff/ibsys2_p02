@@ -86,7 +86,13 @@ public class Order {
 	 * @return the deliveryDate
 	 */
 	public PeriodDate getDeliveryDate() {
-		return deliveryDate;
+		return calculateDeliveryDate(1.0);
+	}
+	/**
+	 * @return the deliveryDate
+	 */
+	public PeriodDate getDeliveryDate(Double risk) {
+		return calculateDeliveryDate(risk);
 	}
 	/**
 	 * @param deliveryDate the deliveryDate to set
@@ -214,12 +220,11 @@ public class Order {
 	 * 
 	 * @return der Lieferzeitpunkt als PeriodDate
 	 */
-	public PeriodDate calculateDeliveryDate() {
+	public PeriodDate calculateDeliveryDate(Double risk) {
 		// ordered material
 		Material mat = this.material;
 		// materiallieferzeit + abweichung
-		// TODO Risiko miteinberechnen
-		PeriodDate deliveryTime = mat.getDeliveryTime().add(mat.getDeliveryAberation());
+		PeriodDate deliveryTime = mat.getDeliveryTime().add(mat.getDeliveryAberation(), risk);
 		return this.orderDate.add(deliveryTime);
 	}
 
