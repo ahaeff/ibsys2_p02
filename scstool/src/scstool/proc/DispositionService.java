@@ -118,7 +118,7 @@ public class DispositionService {
 		DatabaseContentHandler dbch = DatabaseContentHandler.get();
 		
 		
-		SellWish sellWish = repo.getSellWish(2);
+		SellWish sellWish = repo.getSellWish(product);
 		Material mat = dbch.findMaterial(product);
 		
 		Disposition disposition = new Disposition();
@@ -137,10 +137,10 @@ public class DispositionService {
 		disposition.setWarehousestockPassedPeriod(mat.getStartamount());
 		
 		// Warteschlange (uebergeordnet)
-		disposition.setWaitingQueue2(repo.getAmountOfWaitingMaterial(2));
+		disposition.setWaitingQueue2(repo.getAmountOfWaitingMaterial(product));
 		
 		// Auftraege in Bearbeitung
-		disposition.setOrdersInProgress(repo.getAmountOfMaterialInWork(2));
+		disposition.setOrdersInProgress(repo.getAmountOfMaterialInWork(product));
 		
 		// Produktionsauftraege kommende Periode
 		int count = disposition.getSalesOrders() + 
