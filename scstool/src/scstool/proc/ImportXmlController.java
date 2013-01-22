@@ -35,7 +35,7 @@ public class ImportXmlController {
 				File selectedFile = dia.getSelectedFile();
 				contentHandler = new InputContentHandler();
 				readXml(selectedFile, contentHandler);
-
+				StatusSingleton.get().setInputXmlLoaded(true);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {

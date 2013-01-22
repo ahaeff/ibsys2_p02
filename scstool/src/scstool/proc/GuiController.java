@@ -18,11 +18,10 @@ import scstool.utils.Repository;
 public class GuiController implements IController
 {
 	private static final String DATABASEXML = "/database.xml";
+	
 
 	private MainView view;
 
-	
-	
 	public GuiController()
 	{
 		init();
