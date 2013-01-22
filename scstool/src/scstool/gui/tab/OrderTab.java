@@ -189,35 +189,55 @@ public class OrderTab extends JPanel {
 		c.gridx = 0;
 		pane.add(new CustLabel("Artikel"), c);
 
-		c.gridy = 0;
 		c.gridx = 1;
 		pane.add(new CustLabel("Menge"), c);
 
-		c.gridy = 0;
 		c.gridx = 2;
+		pane.add(new CustLabel("Modus"), c);
+
+		c.gridx = 3;
+		c.insets.left = 30;
+		pane.add(new CustLabel("Artikel"), c);
+
+		c.gridx = 4;
+		c.insets.left = 5;
+		pane.add(new CustLabel("Menge"), c);
+
+		c.gridx = 5;
 		pane.add(new CustLabel("Modus"), c);
 
 		if (StatusSingleton.get().isInputXmlLoaded()) {
 			List<Order> orders = service.ordering();
+			int i = 0;
+
+			c.gridy = 1;
 			for (Order o : orders) {
-				c.gridy++;
-				c.gridx = 0;
+				c.gridx = i;
 				txt = new JTextField();
 				txt.setText(o.getMaterial().getId().toString());
 				txt.setEditable(false);
 				pane.add(txt, c);
 
-				c.gridx = 1;
+				c.gridx = i + 1;
+				c.insets.left = 5;
 				txt = new JTextField();
 				txt.setText(o.getAmount().toString());
 				txt.setEditable(false);
 				pane.add(txt, c);
 
-				c.gridx = 2;
+				c.gridx = i + 2;
 				txt = new JTextField();
 				txt.setText(o.getMode().toString());
 				txt.setEditable(false);
 				pane.add(txt, c);
+
+				if (i != 3) {
+					i = 3;
+					c.insets.left = 30;
+				} else {
+					c.gridy++;
+					i = 0;
+				}
 
 			}
 		}
