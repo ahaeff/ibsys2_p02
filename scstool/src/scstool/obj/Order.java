@@ -52,7 +52,7 @@ public class Order {
 	/**
 	 * the amout of material
 	 */
-	private Integer amount;
+	private Integer amount = 0;
 	/**
 	 * is order finished
 	 */

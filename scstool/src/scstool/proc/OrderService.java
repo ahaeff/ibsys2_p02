@@ -163,7 +163,11 @@ public class OrderService {
 
 		for (Material mat : coverage.keySet()) {
 			// Reichweitensicherung
-			Double time = averageNeeds.get(mat) / roundDeliveryPeriod(mat);
+			Integer roundDeliveryPeriod = roundDeliveryPeriod(mat);
+			if(roundDeliveryPeriod == 0){
+				roundDeliveryPeriod = 1;
+			}
+			Double time = averageNeeds.get(mat) * roundDeliveryPeriod;
 			times.put(mat, time);
 		}
 
@@ -226,8 +230,16 @@ public class OrderService {
 	}
 
 	private Order calculateOrderSize(Material mat) {
-		int resultAmount = 0;
+		Integer resultAmount = null;
 		Mode resultMode = null;
+		if (mat.getId() == 37) {
+			try {
+				Thread.sleep(1);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
 		if (newOrderRequired(mat)) {
 			Mode mode = chooseOrderMode(mat);
@@ -250,8 +262,10 @@ public class OrderService {
 		}
 		Order result = new Order();
 		result.setMaterial(mat);
-		result.setAmount(resultAmount);
-		result.setMode(resultMode.getMark());
+		if (resultAmount != null && resultMode != null) {
+			result.setAmount(resultAmount);
+			result.setMode(resultMode.getMark());
+		}
 		return result;
 	}
 
