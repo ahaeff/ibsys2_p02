@@ -33,6 +33,7 @@ public class OrderTab extends JPanel {
 	}
 
 	private void init() {
+		service = new OrderService();
 		buildGui();
 
 	}

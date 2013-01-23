@@ -259,7 +259,7 @@ public class OrderService {
 		List<Order> result = new ArrayList<>();
 		for (Material mat : purchaseGoods) {
 			Order newOrder = calculateOrderSize(mat);
-			if (newOrder.getAmount() != 0) {
+			if (newOrder.getAmount() > 0) {
 				result.add(newOrder);
 			}
 		}
