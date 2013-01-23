@@ -68,7 +68,7 @@ public class Repository {
 		sellwish.put(3, new SellWish(3, 0, 0, 0, 0));
 
 		safetyStock = new HashMap<Integer, Integer>();
-		productionProgram = new LinkedList<>();
+		setProductionProgram(new LinkedList<Integer[]>());
 
 		// TODO evtl. nicht noetig
 		waiting = new ArrayList<WaitingList>();
@@ -299,6 +299,20 @@ public int getRiskPercente() {
 
 	public void setOvertime(boolean overtime) {
 		this.overtime = overtime;
+	}
+
+	/**
+	 * @return the productionProgram
+	 */
+	public List<Integer[]> getProductionProgram() {
+		return productionProgram;
+	}
+
+	/**
+	 * @param productionProgram the productionProgram to set
+	 */
+	public void setProductionProgram(List<Integer[]> productionProgram) {
+		this.productionProgram = productionProgram;
 	}
 
 }

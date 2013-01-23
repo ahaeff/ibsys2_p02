@@ -4,6 +4,7 @@
 package scstool.proc;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import scstool.obj.BillOfMaterial;
@@ -37,17 +38,19 @@ public class CapacityService {
 	 * @return
 	 */
 	private static double risk() {
-		return new Double(1+(Repository.getInstance().getRiskPercente()/100));
+		return new Double(
+				1 + (Repository.getInstance().getRiskPercente() / 100));
 	}
-	
+
 	/**
-	 * Kalkuliert die benötigte Kapzität für einen Arbeitsplatz ohne die
+	 * Kalkuliert die benötigte Kapazität für einen Arbeitsplatz ohne die
 	 * Materialien in der Warteschlange.
 	 * 
 	 * @param workplace
 	 *            der Arbeitsplatz
 	 * @param productionProgram
-	 *            das Produktionsprogramm als Integer Array
+	 *            das Produktionsprogramm als Integer Array(Index 0 die ID,Index
+	 *            1 die Anzahl)
 	 * @return die benötigte Kapazität in Minuten mit Rüstzeit
 	 */
 	public static Integer calculateWorkplaceCapacity(Workplace workplace,
@@ -57,6 +60,8 @@ public class CapacityService {
 		Integer result = 0;
 
 		// suche in dem Produktionsprogramm
+		// prodMat ist ein Integer[] auf Index 0 ist die Material ID und auf
+		// Index 1 die produzierende Anzahl
 		for (Integer[] prodMat : productionProgram) {
 
 			// suche in den Arbeitsplänen für einen Arbeitsplatz
@@ -102,14 +107,32 @@ public class CapacityService {
 		return result;
 	}
 
+	public LinkedHashMap<Workplace, Integer[]> capaciting() {
+		DatabaseContentHandler dbch = DatabaseContentHandler.get();
+		List<Integer[]> productionProgram = Repository.getInstance()
+				.getProductionProgram();
+		LinkedHashMap<Workplace, Integer[]> result = new LinkedHashMap<>();
+		for (Workplace workplace : dbch.getAllWorkplaces()) {
+			Integer capacity = calculateWorkplaceCapacity(workplace,
+					productionProgram);
+			capacity += calculateWaitingListCapacity(workplace);
+			Integer[] resultList = calculateShift(workplace, capacity);
+			result.put(workplace, resultList);
+		}
+		return result;
+	}
+
 	/**
 	 * Berechnet die Schicht und die Überstunden pro Tag.<br/>
 	 * Dabei ist auf dem Index 0 die Schicht <br/>
 	 * und auf dem Index 1 die Überstunden.
 	 * 
-	 * @param workplace der Arbeitsplatz
-	 * @param capacity die Kapazität
-	 * @return zwei Integer Werte auf dem Index 0 die Schicht auf dem Index 1 die Überstunden pro Tag
+	 * @param workplace
+	 *            der Arbeitsplatz
+	 * @param capacity
+	 *            die Kapazität
+	 * @return zwei Integer Werte auf dem Index 0 die Schicht auf dem Index 1
+	 *         die Überstunden pro Tag
 	 */
 	public static Integer[] calculateShift(Workplace workplace, Integer capacity) {
 		Double costsSecondShift = Double.MAX_VALUE;
@@ -117,15 +140,18 @@ public class CapacityService {
 		Double costsFirstShift = Double.MAX_VALUE;
 
 		if (capacity < FIRST_SHIFT_OVERTIME) {
-			costsFirstShift = getCosts(workplace, capacity, FIRST_SHIFT, FIRST_SHIFT_SALARY);
+			costsFirstShift = getCosts(workplace, capacity, FIRST_SHIFT,
+					FIRST_SHIFT_SALARY);
 		}
 
 		if (capacity < SECOND_SHIFT_OVERTIME) {
-			costsSecondShift = getCosts(workplace, capacity, SECOND_SHIFT, SECOND_SHIFT_SALARY);
+			costsSecondShift = getCosts(workplace, capacity, SECOND_SHIFT,
+					SECOND_SHIFT_SALARY);
 		}
 
 		if (capacity < THIRD_SHIFT) {
-			costsThirdShift = getCosts(workplace, capacity, THIRD_SHIFT, THIRD_SHIFT_SALARY);
+			costsThirdShift = getCosts(workplace, capacity, THIRD_SHIFT,
+					THIRD_SHIFT_SALARY);
 		}
 
 		return chooseShift(capacity, costsFirstShift, costsSecondShift,
@@ -166,11 +192,16 @@ public class CapacityService {
 	/**
 	 * Algorithmus zum Auswählen der Schicht.
 	 * 
-	 * @param capacity die Kapazität
-	 * @param costsFirstShift Kosten der ersten Schicht
-	 * @param costsSecondShift Kosten der zweiten Schicht
-	 * @param costsThirdShift Kosten der dritten Schicht
-	 * @return zwei Integer Werte auf dem Index 0 die Schicht auf dem Index 1 die Überstunden pro Tag
+	 * @param capacity
+	 *            die Kapazität
+	 * @param costsFirstShift
+	 *            Kosten der ersten Schicht
+	 * @param costsSecondShift
+	 *            Kosten der zweiten Schicht
+	 * @param costsThirdShift
+	 *            Kosten der dritten Schicht
+	 * @return zwei Integer Werte auf dem Index 0 die Schicht auf dem Index 1
+	 *         die Überstunden pro Tag
 	 */
 	private static Integer[] chooseShift(Integer capacity,
 			Double costsFirstShift, Double costsSecondShift,

@@ -49,12 +49,13 @@ public class DatabaseContentHandler implements ContentHandler {
 	private List<Order> alleOrder = new ArrayList<Order>();
 
 	/**
-	 * Privater Konstruktor da Singleton siehe {@link DatabaseContentHandler}.get()
+	 * Privater Konstruktor da Singleton siehe {@link DatabaseContentHandler}
+	 * .get()
 	 */
-	private DatabaseContentHandler(){
+	private DatabaseContentHandler() {
 		super();
 	}
-	 
+
 	// Aktuelle Zeichen die gelesen werden, werden in eine Zwischenvariable
 	// gespeichert
 	public void characters(char[] ch, int start, int length)
@@ -113,8 +114,10 @@ public class DatabaseContentHandler implements ContentHandler {
 
 			workplace.setId(Integer.parseInt(atts.getValue("id")));
 			workplace.setDescripton(atts.getValue("descripton"));
-			// workplace.setFixMachineCosts(MyMath.parseDouble(atts.getValue("fixMachineCosts")));
-			// workplace.setVarMachineCosts(MyMath.parseDouble(atts.getValue("varMachineCosts")));
+			workplace.setFixMachineCosts(MyMath.parseDouble(atts
+					.getValue("fixMachineCosts")));
+			workplace.setVarMachineCosts(MyMath.parseDouble(atts
+					.getValue("varMachineCosts")));
 		}
 
 		// ---------------------------------------------------------
@@ -167,32 +170,32 @@ public class DatabaseContentHandler implements ContentHandler {
 		// wurde.
 		if (localName.equals("material")) {
 			allesMaterial.add(material);
-//			System.out.println(material);
+			// System.out.println(material);
 		}
 
 		if (localName.equals("salary")) {
 			alleLoehne.add(salary);
-//			System.out.println(salary);
+			// System.out.println(salary);
 		}
 
 		if (localName.equals("workplace")) {
 			allePlaetze.add(workplace);
-//			System.out.println(workplace);
+			// System.out.println(workplace);
 		}
 
 		if (localName.equals("workplan")) {
 			allePlaene.add(workplan);
-//			System.out.println(workplan);
+			// System.out.println(workplan);
 		}
 
 		if (localName.equals("billofmaterial")) {
 			alleBOM.add(billofmaterial);
-//			System.out.println(billofmaterial);
+			// System.out.println(billofmaterial);
 		}
 
 		if (localName.equals("order")) {
 			alleOrder.add(order);
-//			System.out.println(order);
+			// System.out.println(order);
 		}
 
 	}
@@ -247,10 +250,9 @@ public class DatabaseContentHandler implements ContentHandler {
 	public Workplace findWorkplace(Integer id) {
 
 		Workplace wp = new Workplace();
-		
-		for(Workplace w : allePlaetze) 
-		{
-			if (w.getId() == id){
+
+		for (Workplace w : allePlaetze) {
+			if (w.getId() == id) {
 				wp = w;
 			}
 		}
@@ -260,7 +262,7 @@ public class DatabaseContentHandler implements ContentHandler {
 	public List<BillOfMaterial> getAllBoM() {
 		return alleBOM;
 	}
-	
+
 	public Salary findSalary(int id) {
 
 		int xmlID = id - 1;
@@ -268,33 +270,31 @@ public class DatabaseContentHandler implements ContentHandler {
 
 		return salary;
 	}
-	
-	
+
 	/**
 	 * @return alle Kaufteile in einer Liste
 	 */
 
-	public  List<Material> getPurchaseGoods(){
+	public List<Material> getPurchaseGoods() {
 		List<Material> kteile = new ArrayList<Material>();
-		for(Material m: allesMaterial){
-			if(PartTypes.PURCHASE.equals(m.getPartType()))
-				kteile.add(m);	
+		for (Material m : allesMaterial) {
+			if (PartTypes.PURCHASE.equals(m.getPartType()))
+				kteile.add(m);
 		}
 
 		return kteile;
 	}
-	
-	public  List<String> getKTeileTEST(){
+
+	public List<String> getKTeileTEST() {
 		List<String> kteile = new ArrayList<String>();
-		for(Material m: allesMaterial){
-				kteile.add(m.getPartType().toString());	
+		for (Material m : allesMaterial) {
+			kteile.add(m.getPartType().toString());
 		}
 		return kteile;
 	}
-	
 
 	/**
-	 * Singleton Klasse 
+	 * Singleton Klasse
 	 * 
 	 * @return das {@link DatabaseContentHandler} objekt
 	 */

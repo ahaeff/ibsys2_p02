@@ -4,21 +4,13 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
-import javax.swing.ButtonGroup;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-
 
 import scstool.gui.comp.ButtonPane;
-import scstool.gui.comp.CustLabel;
-import scstool.gui.comp.NTextField;
 import scstool.gui.comp.OrderRiskPane;
-import scstool.gui.comp.OvertimePane;
+import scstool.proc.CapacityService;
 
 /**
  * 
@@ -34,6 +26,8 @@ public class CapacityTab extends JPanel
 
 	private int bnt_var;
 	
+	private CapacityService service;
+	
 	//Button Panel
 	private ButtonPane bnt_pane;
 	
@@ -48,7 +42,9 @@ public class CapacityTab extends JPanel
 	
 	private void init()
 	{
-		
+		service = new CapacityService();
+		//TODO richtige Stelle finden
+		service.capaciting();
 		buildGui();
 
 	}
