@@ -12,6 +12,7 @@ import scstool.obj.Order;
 import scstool.obj.SellWish;
 import scstool.obj.WaitingList;
 import scstool.proc.InputContentHandler;
+import scstool.proc.WarehouseService;
 
 /**
  * @author haeff
@@ -39,6 +40,8 @@ public class Repository {
 	private List<WaitingList> waiting;
 	private Integer lastPeriod;
 	private List<Order> orders;
+	//Lagerwert aller Materialien
+	private Double warehouseStock;
 
 	// Wert fuer Bestell Risiko
 	private int riskPercent;
@@ -325,6 +328,16 @@ public class Repository {
 
 	public List<Order> getOrders() {
 		return orders;
+	}
+
+	public Double getWarehouseStock() {
+		WarehouseService whs = new WarehouseService();
+		warehouseStock = whs.getWarehouseStockAll();
+		return warehouseStock;
+	}
+
+	public void setWarehouseStock(Double warehouseStock) {
+		this.warehouseStock = warehouseStock;
 	}
 
 }
