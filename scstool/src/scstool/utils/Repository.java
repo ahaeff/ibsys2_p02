@@ -314,5 +314,7 @@ public int getRiskPercente() {
 	public void setProductionProgram(List<Integer[]> productionProgram) {
 		this.productionProgram = productionProgram;
 	}
+	
+	
 
 }

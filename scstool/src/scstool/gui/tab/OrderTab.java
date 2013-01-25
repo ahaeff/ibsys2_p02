@@ -5,7 +5,9 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -23,16 +25,24 @@ public class OrderTab extends JPanel {
 
 	private int bnt_var;
 	private OrderService service;
+	
+	private Map<String,JTextField> txtfields;
 
 	// Button Panel
 	private ButtonPane bnt_pane;
 
+	
+	private JTextField t;
+	
+	
 	public OrderTab(int bnt_var) {
 		this.bnt_var = bnt_var;
 		init();
 	}
 
 	private void init() {
+		
+		txtfields = new HashMap<String,JTextField>();
 		service = new OrderService();
 		buildGui();
 
@@ -214,9 +224,11 @@ public class OrderTab extends JPanel {
 			c.gridy = 1;
 			for (Order o : orders) {
 				c.gridx = i;
+				String id = o.getMaterial().getId().toString();
 				txt = new JTextField();
-				txt.setText(o.getMaterial().getId().toString());
+				txt.setText(id);
 				txt.setEditable(false);
+				txtfields.put(id+"_id",txt);
 				pane.add(txt, c);
 
 				c.gridx = i + 1;
@@ -224,12 +236,14 @@ public class OrderTab extends JPanel {
 				txt = new JTextField();
 				txt.setText(o.getAmount().toString());
 				txt.setEditable(false);
+				txtfields.put(id+"_amount",txt);
 				pane.add(txt, c);
 
 				c.gridx = i + 2;
 				txt = new JTextField();
 				txt.setText(o.getMode().toString());
 				txt.setEditable(false);
+				txtfields.put(id+"_mode",txt);
 				pane.add(txt, c);
 
 				if (i != 3) {
@@ -242,7 +256,6 @@ public class OrderTab extends JPanel {
 
 			}
 		}
-
 		return pane;
 	}
 
@@ -254,5 +267,18 @@ public class OrderTab extends JPanel {
 	 */
 	public void addButtonListener(ActionListener l) {
 		bnt_pane.addButtonListener(l);
+	}
+	
+	public void refresh()
+	{
+		service = new OrderService();
+		List<Order> orders = service.ordering();
+		for(Order o : orders)
+		{
+			String id = o.getMaterial().getId().toString();
+			txtfields.get(id+"_amount").setText(o.getAmount().toString());
+			txtfields.get(id+"_mode").setText(o.getMode().toString());
+		}
+		
 	}
 }

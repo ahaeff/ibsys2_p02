@@ -8,6 +8,7 @@ import scstool.obj.Material;
 import scstool.obj.Material.PartTypes;
 import scstool.obj.Order;
 import scstool.obj.Order.Mode;
+import scstool.obj.SellWish;
 import scstool.utils.PeriodDate;
 import scstool.utils.Repository;
 
@@ -84,9 +85,16 @@ public class OrderService {
 		LinkedHashMap<Material, int[]> usage = fillUsage();
 
 		// TODO Durch Inputvariablen ersetzen
-		int[][] forcast = { { 70, 150, 150, 150 }, { 190, 150, 150, 150 },
-				{ 110, 150, 170, 180 } };
+//		int[][] forcast = { { 70, 150, 150, 150 }, { 190, 150, 150, 150 },
+//				{ 110, 150, 170, 180 } };
 
+		Repository repo = Repository.getInstance();
+		  SellWish p1 = repo. getSellWish(1);
+		  SellWish p2 = repo. getSellWish(2);
+		  SellWish p3 = repo. getSellWish(3);
+		  
+		  int[][] forcast = { {p1.getN(), p1.getN1(), p1.getN2(), p1.getN3()}, {p2.getN(), p2.getN1(), p2.getN2(), p2.getN3()}, {p3.getN(), p3.getN1(), p3.getN2(), p3.getN3()} };
+		
 		for (Material mat : usage.keySet()) {
 			List<Integer> resultRow = new ArrayList<>();
 			for (int column = 0; column < forcast[0].length; ++column) {

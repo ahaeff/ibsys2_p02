@@ -1,5 +1,9 @@
 package scstool.proc;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import scstool.obj.Disposition;
 import scstool.obj.Material;
 import scstool.obj.SellWish;
@@ -200,5 +204,21 @@ public class DispositionService {
 		disposition.setOrders(count);
 		
 		repo.addDispoistion(product, material, disposition);
+	}
+	
+	public void prodProgramm()
+	{
+		Repository repo = Repository.getInstance();
+		List<Integer[]> p = new ArrayList<Integer[]>();
+		
+		Map<Integer,Disposition> p1 = repo.getDispoitionByProduct(1);
+		for(Map.Entry<Integer,Disposition> e : p1.entrySet())
+		{
+			Integer[] i= {e.getKey(),e.getValue().getOrders()};
+			p.add(i);
+		}
+		
+		
+		repo.setProductionProgram(p);
 	}
 }

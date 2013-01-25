@@ -325,6 +325,9 @@ public class TabbedPaneView extends JTabbedPane
 				disServ.QueueInput1();
 				disServ.QueueInput2();
 				disServ.QueueInput3();
+				Repository repo = Repository.getInstance();
+				tab04.refresh();
+				System.out.println("");
 				
 			}
 			

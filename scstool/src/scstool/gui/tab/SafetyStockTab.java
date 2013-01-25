@@ -133,9 +133,7 @@ public class SafetyStockTab extends JPanel
 			}
 		}
 	}
-	
-	
-	
+
 	private void buildGui()
 	{
 		int rows = 3;
@@ -327,7 +325,6 @@ public class SafetyStockTab extends JPanel
 			}
 		}
 		
-		
 		c.insets.top=20;
 		c.insets.left = 50;
 		c.gridwidth = 6;
@@ -380,10 +377,7 @@ public class SafetyStockTab extends JPanel
 			
 			repo.setSafetyStock(matnr, value);
 		}
-		
-		
-	}
-	
+	}	
 	
 	public String getNTextFieldKey(NTextField txt)
 	{
