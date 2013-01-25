@@ -5,12 +5,15 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.util.LinkedHashMap;
 
 import javax.swing.JPanel;
 
 import scstool.gui.comp.ButtonPane;
 import scstool.gui.comp.OrderRiskPane;
+import scstool.obj.Workplace;
 import scstool.proc.CapacityService;
+import scstool.proc.DatabaseContentHandler;
 
 /**
  * 
@@ -44,7 +47,8 @@ public class CapacityTab extends JPanel
 	{
 		service = new CapacityService();
 		//TODO richtige Stelle finden
-		service.capaciting();
+		LinkedHashMap<Workplace, Integer[]> capa = service.capaciting();
+		capa.size();
 		buildGui();
 
 	}
