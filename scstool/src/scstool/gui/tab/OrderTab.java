@@ -15,7 +15,9 @@ import javax.swing.JTextField;
 import scstool.gui.comp.ButtonPane;
 import scstool.gui.comp.CustLabel;
 import scstool.gui.comp.NTextField;
+import scstool.obj.Material;
 import scstool.obj.Order;
+import scstool.proc.DatabaseContentHandler;
 import scstool.proc.OrderService;
 import scstool.proc.StatusSingleton;
 
@@ -25,24 +27,22 @@ public class OrderTab extends JPanel {
 
 	private int bnt_var;
 	private OrderService service;
-	
-	private Map<String,JTextField> txtfields;
+
+	private Map<String, JTextField> txtfields;
 
 	// Button Panel
 	private ButtonPane bnt_pane;
 
-	
 	private JTextField t;
-	
-	
+
 	public OrderTab(int bnt_var) {
 		this.bnt_var = bnt_var;
 		init();
 	}
 
 	private void init() {
-		
-		txtfields = new HashMap<String,JTextField>();
+
+		txtfields = new HashMap<String, JTextField>();
 		service = new OrderService();
 		buildGui();
 
@@ -222,28 +222,30 @@ public class OrderTab extends JPanel {
 			int i = 0;
 
 			c.gridy = 1;
-			for (Order o : orders) {
+			for (Material mat : DatabaseContentHandler.get().getPurchaseGoods()) {
 				c.gridx = i;
-				String id = o.getMaterial().getId().toString();
+				String id = mat.getId().toString();
 				txt = new JTextField();
 				txt.setText(id);
 				txt.setEditable(false);
-				txtfields.put(id+"_id",txt);
+				txtfields.put(id + "_id", txt);
 				pane.add(txt, c);
 
+				Order order = findOrder(mat, orders);
+				
 				c.gridx = i + 1;
 				c.insets.left = 5;
 				txt = new JTextField();
-				txt.setText(o.getAmount().toString());
+				txt.setText(order.getAmount().toString());
 				txt.setEditable(false);
-				txtfields.put(id+"_amount",txt);
+				txtfields.put(id + "_amount", txt);
 				pane.add(txt, c);
 
 				c.gridx = i + 2;
 				txt = new JTextField();
-				txt.setText(o.getMode().toString());
+				txt.setText(order.getMode().toString());
 				txt.setEditable(false);
-				txtfields.put(id+"_mode",txt);
+				txtfields.put(id + "_mode", txt);
 				pane.add(txt, c);
 
 				if (i != 3) {
@@ -259,6 +261,18 @@ public class OrderTab extends JPanel {
 		return pane;
 	}
 
+	private Order findOrder(Material mat, List<Order> orders) {
+		for (Order or : orders) {
+			if (or.getMaterial().equals(mat)) {
+				return or;
+			}
+		}
+		Order order = new Order();
+		order.setAmount(0);
+		order.setMode(Order.Mode.NORMAL.getMark());
+		return order;
+	}
+
 	/**
 	 * Gibt den Buttonlistener an das ButtonPanel weiter
 	 * 
@@ -268,17 +282,18 @@ public class OrderTab extends JPanel {
 	public void addButtonListener(ActionListener l) {
 		bnt_pane.addButtonListener(l);
 	}
-	
-	public void refresh()
-	{
+
+	public void refresh() {
 		service = new OrderService();
 		List<Order> orders = service.ordering();
-		for(Order o : orders)
-		{
+		for (Order o : orders) {
 			String id = o.getMaterial().getId().toString();
-			txtfields.get(id+"_amount").setText(o.getAmount().toString());
-			txtfields.get(id+"_mode").setText(o.getMode().toString());
+			if (o == null || o.getAmount() == null) {
+				System.out.println(o.getId());
+			}
+			txtfields.get(id + "_amount").setText(o.getAmount().toString());
+			txtfields.get(id + "_mode").setText(o.getMode().toString());
 		}
-		
+
 	}
 }
