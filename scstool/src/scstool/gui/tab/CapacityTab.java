@@ -5,11 +5,17 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import scstool.gui.comp.ButtonPane;
+import scstool.gui.comp.CustLabel;
 import scstool.gui.comp.OrderRiskPane;
 import scstool.obj.Workplace;
 import scstool.proc.CapacityService;
@@ -34,8 +40,9 @@ public class CapacityTab extends JPanel
 	//Button Panel
 	private ButtonPane bnt_pane;
 	
-	//Risiko Einstellungen fuer Bestellungen
-	private OrderRiskPane risk_pane;
+	private Map<String, JTextField> txtfields;
+	
+	
 	
 	public CapacityTab(int bnt_var)
 	{
@@ -47,8 +54,9 @@ public class CapacityTab extends JPanel
 	{
 		service = new CapacityService();
 		//TODO richtige Stelle finden
-		LinkedHashMap<Workplace, Integer[]> capa = service.capaciting();
-		capa.size();
+
+		txtfields = new HashMap<String, JTextField>();
+	//	capa.size();
 		buildGui();
 
 	}
@@ -197,6 +205,9 @@ public class CapacityTab extends JPanel
 	private JPanel getContent()
 	{
 
+		DatabaseContentHandler dbch = DatabaseContentHandler.get();
+		List<Workplace> wp = dbch.getAllWorkplaces();
+		
 		JPanel pane = new JPanel();
 		pane.setLayout(new GridBagLayout());
 				
@@ -208,6 +219,79 @@ public class CapacityTab extends JPanel
 		c.gridy = 0;
 		c.gridx = 0;
 
+
+		c.gridwidth = 2;
+		c.anchor = GridBagConstraints.WEST;
+		pane.add(new  CustLabel("Arbeitsplätze"),c);
+		
+		c.gridy=1;	
+		c.gridwidth = 1;
+		pane.add(new JLabel("Nr."),c);
+		
+		c.gridx=1;
+		pane.add(new JLabel("Beschreibung"),c);
+		
+		c.gridx=2;
+		pane.add(new JLabel("Schichten"),c);
+		
+		c.gridx=3;
+		pane.add(new JLabel("Überstunden"),c);
+		
+		c.gridx=4;
+		pane.add(new JLabel("Auslastung"),c);
+		
+		JTextField txt;
+		for(Workplace w: wp)
+		{
+			c.gridy++;
+			c.gridx = 0;
+			String id = w.getId().toString();
+			txt = new JTextField();
+			txt.setText(id);
+			txt.setEditable(false);
+			//txtfields.put(id + "_id", txt);
+			pane.add(txt, c);
+			
+			c.gridx = 1;
+			txt = new JTextField();
+			txt.setText(w.getDescripton());
+			txt.setEditable(false);
+			txt.setPreferredSize(new Dimension(150, 20));
+			txt.setMinimumSize(txt.getPreferredSize());
+			//txtfields.put(id + "_desc", txt);
+			pane.add(txt, c);
+			
+			c.gridx = 2;
+			txt = new JTextField();
+			txt.setText("0");
+			txt.setEditable(false);
+			txt.setPreferredSize(new Dimension(30, 20));
+			txt.setMinimumSize(txt.getPreferredSize());
+			txtfields.put(id + "_shift", txt);
+			pane.add(txt, c);
+			c.gridx = 2;
+			
+			c.gridx = 3;
+			txt = new JTextField();
+			txt.setText("0");
+			txt.setEditable(false);
+			txt.setPreferredSize(new Dimension(30, 20));
+			txt.setMinimumSize(txt.getPreferredSize());
+			txtfields.put(id + "_overtime", txt);
+			pane.add(txt, c);
+			
+			c.gridx = 4;
+			txt = new JTextField();
+			txt.setText("0");
+			txt.setEditable(false);
+			txt.setPreferredSize(new Dimension(30, 20));
+			txt.setMinimumSize(txt.getPreferredSize());
+			txtfields.put(id + "_percente", txt);
+			pane.add(txt, c);
+		
+		}
+		
+		
 		
 		return pane;
 	}
@@ -224,7 +308,18 @@ public class CapacityTab extends JPanel
 		bnt_pane.addButtonListener(l);
 	}
 	
-	
+	public void refresh()
+	{
+		LinkedHashMap<Workplace, Integer[]> capa = service.capaciting();
+		
+		for(Map.Entry<Workplace, Integer[]> e : capa.entrySet())
+		{
+				String id = e.getKey().getId().toString();
+				txtfields.get(id+"_shift").setText(e.getValue()[0].toString());
+				txtfields.get(id+ "_overtime").setText(e.getValue()[1].toString());
+		}
+		
+	}
 		
 	
 	
