@@ -20,6 +20,7 @@ import scstool.gui.comp.NTextField;
 import scstool.gui.tab.CapacityTab;
 import scstool.gui.tab.LayoutExampleTab;
 import scstool.gui.tab.OrderTab;
+import scstool.gui.tab.OverviewTab;
 import scstool.gui.tab.ProductionTab;
 import scstool.gui.tab.SellWishTab;
 import scstool.gui.tab.SafetyStockTab;
@@ -58,6 +59,8 @@ public class TabbedPaneView extends JTabbedPane
 	//6 Tab
 	private ProductionTab tab06;	
 	
+	//7. Tab 
+	private OverviewTab tab07;
 	
 	//Title Icons
 	private final static String ICON01 = "/icon/tab/num1_22x16.png";
@@ -116,11 +119,14 @@ public class TabbedPaneView extends JTabbedPane
 		tab06.addButtonListener(new ButtonListener());
 		add("Produktion",tab06);		
 		
-		
+		//Uebersicht
+		tab07 = new OverviewTab(1);
+		tab07.addButtonListener(new ButtonListener());
+		add("Übersicht",tab07);
 		
 		
 		expTab = new LayoutExampleTab(1);
-		add("Layout Spielerei",expTab);
+		//add("Layout Spielerei",expTab);
 		
 	}
 
@@ -330,6 +336,7 @@ public class TabbedPaneView extends JTabbedPane
 				tab04.refresh();
 				tab05.refresh();
 				tab06.refresh();
+				tab07.refresh();
 				
 				
 			}
