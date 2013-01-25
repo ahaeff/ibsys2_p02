@@ -12,52 +12,51 @@ import java.util.List;
  *
  */
 public class Disposition {
-	
-	/** Material*/
+
+	/** Material */
 	private Material material;
-	
+
 	/**
-	 * 	Vertriebswunsch
+	 * Vertriebswunsch
 	 */
-	private Integer salesOrders;
+	private Integer salesWish = 0;
 	/**
-	 *	Auftr�ge in der Warteschlange des �bergeordneten Bauteil 
+	 * Auftr�ge in der Warteschlange des �bergeordneten Bauteil
 	 */
-	private Integer waitingQueue1;
+	private Integer waitingQueue1 = 0;
 	/**
-	 *	Sicherheitsbestand
+	 * Sicherheitsbestand
 	 */
-	private Integer safetyWarehousestock;
+	private Integer safetyWarehousestock = 0;
 	/**
-	 *	Lagerbestand am Ende der Vorperiode
-	 */	
-	private Integer warehousestockPassedPeriod;
-	/**
-	 *	Auftr�ge in der Warteschlange	
+	 * Lagerbestand am Ende der Vorperiode
 	 */
-	private Integer waitingQueue2;
+	private Integer warehousestockPassedPeriod = 0;
 	/**
-	 *	Auftr�ge in Bearbeitung
+	 * Auftr�ge in der Warteschlange
 	 */
-	private Integer ordersInProgress;
+	private Integer waitingQueue2 = 0;
 	/**
-	 *	Produktionsauftr�ge (geplante Auftr�ge)
+	 * Auftr�ge in Bearbeitung
+	 */
+	private Integer ordersInProgress = 0;
+	/**
+	 * Produktionsauftr�ge (geplante Auftr�ge)
 	 */
 	private Integer orders;
-	
+
 	private List<Disposition> dispositionen = new ArrayList<Disposition>();
 
-	
 	public Disposition() {
 		super();
 	}
 
-	public Integer getSalesOrders() {
-		return salesOrders;
+	public Integer getSalesWish() {
+		return salesWish;
 	}
 
-	public void setSalesOrders(Integer salesOrders) {
-		this.salesOrders = salesOrders;
+	public void setSalesWish(Integer salesOrders) {
+		this.salesWish = salesOrders;
 	}
 
 	public Integer getWaitingQueue1() {
@@ -101,6 +100,10 @@ public class Disposition {
 	}
 
 	public Integer getOrders() {
+		// Produktionsauftraege kommende Periode
+		orders = getSalesWish() + getWaitingQueue1()
+				+ getSafetyWarehousestock() - getWarehousestockPassedPeriod()
+				- getWaitingQueue2() - getOrdersInProgress();
 		return orders;
 	}
 
@@ -115,8 +118,8 @@ public class Disposition {
 	public void setDispositionen(List<Disposition> dispositionen) {
 		this.dispositionen = dispositionen;
 	}
-	
-	public void createP1(){
+
+	public void createP1() {
 		Disposition e26 = new Disposition();
 		dispositionen.add(e26);
 		Disposition e51 = new Disposition();
@@ -140,8 +143,8 @@ public class Disposition {
 		Disposition e18 = new Disposition();
 		dispositionen.add(e18);
 	}
-	
-	public void createP2(){
+
+	public void createP2() {
 		Disposition e26 = new Disposition();
 		dispositionen.add(e26);
 		Disposition e56 = new Disposition();
@@ -165,8 +168,8 @@ public class Disposition {
 		Disposition e19 = new Disposition();
 		dispositionen.add(e19);
 	}
-	
-	public void createP3(){
+
+	public void createP3() {
 		Disposition e26 = new Disposition();
 		dispositionen.add(e26);
 		Disposition e31 = new Disposition();
@@ -189,5 +192,5 @@ public class Disposition {
 		dispositionen.add(e15);
 		Disposition e20 = new Disposition();
 		dispositionen.add(e20);
-	}		
+	}
 }
