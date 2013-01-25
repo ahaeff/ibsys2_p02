@@ -220,7 +220,7 @@ public class CapacityService {
 
 		if (costsSecondShift < costsThirdShift
 				&& costsSecondShift < costsFirstShift) {
-			result[1] = 2;
+			result[0] = 2;
 			if (capacity > SECOND_SHIFT) {
 				result[1] = (int) (((capacity - SECOND_SHIFT) / 5) * RISIKO);
 			} else {
@@ -230,7 +230,7 @@ public class CapacityService {
 
 		if (costsThirdShift < costsFirstShift
 				&& costsThirdShift < costsSecondShift) {
-			result[1] = 3;
+			result[0] = 3;
 			if (capacity > THIRD_SHIFT) {
 				result[1] = (int) (((capacity - THIRD_SHIFT) / 5) * RISIKO);
 			} else {
