@@ -85,16 +85,11 @@ public class OrderService {
 		LinkedHashMap<Material, int[]> usage = fillUsage();
 
 		// TODO Durch Inputvariablen ersetzen
-//		int[][] forcast = { { 70, 150, 150, 150 }, { 190, 150, 150, 150 },
-//				{ 110, 150, 170, 180 } };
+		// int[][] forcast = { { 70, 150, 150, 150 }, { 190, 150, 150, 150 },
+		// { 110, 150, 170, 180 } };
 
-		Repository repo = Repository.getInstance();
-		  SellWish p1 = repo. getSellWish(1);
-		  SellWish p2 = repo. getSellWish(2);
-		  SellWish p3 = repo. getSellWish(3);
-		  
-		  int[][] forcast = { {p1.getN(), p1.getN1(), p1.getN2(), p1.getN3()}, {p2.getN(), p2.getN1(), p2.getN2(), p2.getN3()}, {p3.getN(), p3.getN1(), p3.getN2(), p3.getN3()} };
-		
+		int[][] forcast = extractForecasts();
+
 		for (Material mat : usage.keySet()) {
 			List<Integer> resultRow = new ArrayList<>();
 			for (int column = 0; column < forcast[0].length; ++column) {
@@ -107,6 +102,43 @@ public class OrderService {
 			result.put(mat, resultRow);
 		}
 
+		return result;
+	}
+
+	private int[][] extractForecasts() {
+		int[][] result = new int[3][4];
+		for (Integer[] integer : Repository.getInstance()
+				.getProductionProgram()) {
+			switch (integer[0]) {
+			case 1:
+				result = forecasts(1, integer[1]);
+				break;
+			case 2:
+				result = forecasts(2, integer[1]);
+				break;
+			case 3:
+				result = forecasts(3, integer[1]);
+				break;
+			}
+		}
+
+		return result;
+	}
+
+	private int[][] forecasts(int index, int firstValue) {
+		int[][] result = new int[3][4];
+		SellWish sellwish = Repository.getInstance().getSellWish(index);
+		int safetyStock = Repository.getInstance().getStafetyStock(index);
+		result[index - 1][0] = firstValue;
+		result[index - 1][1] = sellwish.getN1()
+				- ((sellwish.getN1() / sellwish.getN()) * safetyStock)
+				+ safetyStock;
+		result[index - 1][2] = sellwish.getN2()
+				- ((sellwish.getN2() / sellwish.getN1()) * safetyStock)
+				+ safetyStock;
+		result[index - 1][3] = sellwish.getN3()
+				- ((sellwish.getN3() / sellwish.getN2()) * safetyStock)
+				+ safetyStock;
 		return result;
 	}
 
@@ -172,7 +204,7 @@ public class OrderService {
 		for (Material mat : coverage.keySet()) {
 			// Reichweitensicherung
 			Integer roundDeliveryPeriod = roundDeliveryPeriod(mat);
-			if(roundDeliveryPeriod == 0){
+			if (roundDeliveryPeriod == 0) {
 				roundDeliveryPeriod = 1;
 			}
 			Double time = averageNeeds.get(mat) * roundDeliveryPeriod;

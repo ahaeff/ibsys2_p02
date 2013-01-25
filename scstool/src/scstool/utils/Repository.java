@@ -22,8 +22,10 @@ import scstool.proc.InputContentHandler;
 public class Repository {
 	private static Repository instance;
 
-	// Produktionsprgramm und Prognosen
+	// Verkaufswunsch
 	private Map<Integer, SellWish> sellwish;
+	// Produktionsprgramm und Prognosen
+	private Map<Integer, SellWish> prodForecast;
 	// Sticherheitsbestand <matnr,menge>
 	private Map<Integer, Integer> safetyStock;
 	// Integer[0] ist das Material und Integer[1] für die Menge
@@ -67,7 +69,7 @@ public class Repository {
 		sellwish.put(1, new SellWish(1, 0, 0, 0, 0));
 		sellwish.put(2, new SellWish(2, 0, 0, 0, 0));
 		sellwish.put(3, new SellWish(3, 0, 0, 0, 0));
-
+		
 		safetyStock = new HashMap<Integer, Integer>();
 		setProductionProgram(new LinkedList<Integer[]>());
 
