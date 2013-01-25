@@ -96,7 +96,7 @@ public class ProductionTab extends JPanel
 	{
 		txtfields = new HashMap<String, JTextField>(); 
 		buildGui();
-		refresh();
+		
 	}
 	
 	private void buildGui()
