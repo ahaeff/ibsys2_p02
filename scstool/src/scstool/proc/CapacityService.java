@@ -206,7 +206,7 @@ public class CapacityService {
 	private static Integer[] chooseShift(Integer capacity,
 			Double costsFirstShift, Double costsSecondShift,
 			Double costsThirdShift) {
-		Integer[] result = new Integer[2];
+		Integer[] result = new Integer[3];
 
 		if (costsFirstShift < costsSecondShift
 				&& costsFirstShift < costsThirdShift) {
@@ -237,7 +237,8 @@ public class CapacityService {
 				result[1] = 0;
 			}
 		}
-
+		
+		result[2] = capacity;
 		return result;
 	}
 }
