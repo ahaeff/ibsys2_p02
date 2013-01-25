@@ -6,16 +6,15 @@ import scstool.obj.Material;
 
 public class WarehouseService {
 	
-	DatabaseContentHandler dbch = DatabaseContentHandler.get();
+	
 	//Lagerwert dieses Artikels
 	private Double warehouseStock = 0.0;
 	//Lagerwert gesamt (aller Materialien)
 	private Double warehouseStockAll = 0.0;
-	//Liste aller Materiealien
-	private List<Material> allesMaterial = dbch.getAllMaterial();
 
 	public Double calcWarehouseStock(Material material){
 		
+
 		warehouseStock = warehouseStock + material.getAmount() * material.getPrice();
 		
 		return warehouseStock;
@@ -35,7 +34,8 @@ public class WarehouseService {
 	}
 	
 	public Double getWarehouseStockAll() {
-		
+		DatabaseContentHandler dbch = DatabaseContentHandler.get();
+		List<Material> allesMaterial = dbch.getAllMaterial();
 		for (Material m : allesMaterial) {
 			warehouseStockAll = warehouseStockAll + m.getAmount() * m.getPrice();
 		}
