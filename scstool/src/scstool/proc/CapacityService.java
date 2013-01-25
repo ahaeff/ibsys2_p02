@@ -109,7 +109,6 @@ public class CapacityService {
 
 	public LinkedHashMap<Workplace, Integer[]> capaciting() {
 		DatabaseContentHandler dbch = DatabaseContentHandler.get();
-		//TODO Produktionsprogramm wurde nicht gefüllt
 		List<Integer[]> productionProgram = Repository.getInstance()
 				.getProductionProgram();
 		LinkedHashMap<Workplace, Integer[]> result = new LinkedHashMap<>();

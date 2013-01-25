@@ -95,13 +95,13 @@ public class OrderService {
 				.getProductionProgram()) {
 			switch (integer[0]) {
 			case 1:
-				result = forecasts(1, integer[1]);
+				result[0] = forecasts(1, integer[1]);
 				break;
 			case 2:
-				result = forecasts(2, integer[1]);
+				result[1] = forecasts(2, integer[1]);
 				break;
 			case 3:
-				result = forecasts(3, integer[1]);
+				result[2] = forecasts(3, integer[1]);
 				break;
 			}
 		}
@@ -109,18 +109,18 @@ public class OrderService {
 		return result;
 	}
 
-	private int[][] forecasts(int index, int firstValue) {
-		int[][] result = new int[3][4];
+	private int[] forecasts(int index, int firstValue) {
+		int[] result = new int[4];
 		SellWish sellwish = Repository.getInstance().getSellWish(index);
 		int safetyStock = Repository.getInstance().getStafetyStock(index);
-		result[index - 1][0] = firstValue;
-		result[index - 1][1] = sellwish.getN1()
+		result[0] = firstValue;
+		result[1] = sellwish.getN1()
 				- ((sellwish.getN1() / sellwish.getN()) * safetyStock)
 				+ safetyStock;
-		result[index - 1][2] = sellwish.getN2()
+		result[2] = sellwish.getN2()
 				- ((sellwish.getN2() / sellwish.getN1()) * safetyStock)
 				+ safetyStock;
-		result[index - 1][3] = sellwish.getN3()
+		result[3] = sellwish.getN3()
 				- ((sellwish.getN3() / sellwish.getN2()) * safetyStock)
 				+ safetyStock;
 		return result;
