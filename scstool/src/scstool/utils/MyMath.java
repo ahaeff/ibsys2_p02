@@ -14,6 +14,8 @@ import java.math.BigDecimal;
  */
 public class MyMath {
 
+	
+	
 	/**
 	 * Eine Rundungsfunktion
 	 * 
