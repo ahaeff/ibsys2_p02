@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 import scstool.obj.Disposition;
 import scstool.obj.Material;
@@ -39,16 +38,17 @@ public class Repository {
 	// Material in der Warteschlange
 	private List<WaitingList> waiting;
 	private Integer lastPeriod;
-	
-	//Wert fuer Bestell Risiko
+	private List<Order> orders;
+
+	// Wert fuer Bestell Risiko
 	private int riskPercent;
-	
-	//Ueberstunden ja oder nein
+
+	// Ueberstunden ja oder nein
 	private boolean overtime;
-	
-	//Disposition
-	private Map<Integer,Map<Integer,Disposition>> dispositon;
-	
+
+	// Disposition
+	private Map<Integer, Map<Integer, Disposition>> dispositon;
+
 	/**
 	 * private Constructor
 	 */
@@ -69,7 +69,7 @@ public class Repository {
 		sellwish.put(1, new SellWish(1, 0, 0, 0, 0));
 		sellwish.put(2, new SellWish(2, 0, 0, 0, 0));
 		sellwish.put(3, new SellWish(3, 0, 0, 0, 0));
-		
+
 		safetyStock = new HashMap<Integer, Integer>();
 		setProductionProgram(new LinkedList<Integer[]>());
 
@@ -288,7 +288,7 @@ public class Repository {
 		return result;
 	}
 
-public int getRiskPercente() {
+	public int getRiskPercente() {
 		return riskPercent;
 	}
 
@@ -312,12 +312,19 @@ public int getRiskPercente() {
 	}
 
 	/**
-	 * @param productionProgram the productionProgram to set
+	 * @param productionProgram
+	 *            the productionProgram to set
 	 */
 	public void setProductionProgram(List<Integer[]> productionProgram) {
 		this.productionProgram = productionProgram;
 	}
-	
-	
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
 
 }

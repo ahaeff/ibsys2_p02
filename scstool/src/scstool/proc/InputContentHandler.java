@@ -77,34 +77,6 @@ public class InputContentHandler implements ContentHandler {
 
 		}
 
-		/*-------------------------------------
-
-		if (localName.equals("waitinglist")) {
-
-			Integer timeneed = null;
-			try {
-				timeneed = Integer.parseInt(atts.getValue("timeneed"));
-			} catch (Exception ex) {
-				//Siehe unten 
-			}
-			// TODO Habe ich reingemacht als ich ein NullPointer bekommen habe
-			// ist das richtig so. ResultXML von Periode 6
-			if (timeneed != null) {
-				waitinglist = new WaitingList();
-
-				waitinglist.setMaterial(dbch.findMaterial(Integer.parseInt(atts
-						.getValue("item"))));
-				waitinglist
-						.setAmount(Integer.parseInt(atts.getValue("amount")));
-				waitinglist.setTimeneed(timeneed);
-
-				workplace.addWaitingList(waitinglist);
-				alleWL.add(waitinglist);
-			}
-
-		}
-		/*-------------------------------------*/
-
 		if (localName.equals("waitinglist")) {
 			if (atts.getValue("period") != null && atts.getValue("firstbatch") != null && atts.getValue("lastbatch") != null && atts.getValue("item") != null && atts.getValue("amount") != null && atts.getValue("timeneed") != null) {
 				waitinglist = new WaitingList();

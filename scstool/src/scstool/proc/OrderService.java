@@ -27,7 +27,7 @@ public class OrderService {
 	 * Liste der (K) Material Objekte
 	 */
 	private List<Material> purchaseGoods = dbch.getPurchaseGoods();
-
+	
 	// TODO Wie werden einzelne Periden abgebildet
 
 	/**
@@ -55,18 +55,6 @@ public class OrderService {
 	 */
 	private LinkedHashMap<Material, List<Integer>> calculatedStock;
 
-	// TODO Bedarfsliste n�tig
-	//
-	// /**
-	// * Neubestellung notwendig
-	// */
-	// private boolean order;
-	//
-	// /**
-	// * Bestellmenge
-	// */
-	// private int amount;
-
 	public OrderService() {
 		super();
 		try {
@@ -83,10 +71,6 @@ public class OrderService {
 	private LinkedHashMap<Material, List<Integer>> MatrixMultiplication() {
 		LinkedHashMap<Material, List<Integer>> result = new LinkedHashMap<>();
 		LinkedHashMap<Material, int[]> usage = fillUsage();
-
-		// TODO Durch Inputvariablen ersetzen
-		// int[][] forcast = { { 70, 150, 150, 150 }, { 190, 150, 150, 150 },
-		// { 110, 150, 170, 180 } };
 
 		int[][] forcast = extractForecasts();
 

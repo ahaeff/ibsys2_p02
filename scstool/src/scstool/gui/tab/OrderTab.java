@@ -20,6 +20,7 @@ import scstool.obj.Order;
 import scstool.proc.DatabaseContentHandler;
 import scstool.proc.OrderService;
 import scstool.proc.StatusSingleton;
+import scstool.utils.Repository;
 
 public class OrderTab extends JPanel {
 
@@ -286,6 +287,7 @@ public class OrderTab extends JPanel {
 	public void refresh() {
 		service = new OrderService();
 		List<Order> orders = service.ordering();
+		Repository.getInstance().setOrders(orders);
 		for (Order o : orders) {
 			String id = o.getMaterial().getId().toString();
 			if (o == null || o.getAmount() == null) {
