@@ -36,7 +36,9 @@ public class InputContentHandler implements ContentHandler {
 	private List<Order> alleOrder = new ArrayList<Order>();
 
 	private WaitingList waitinglist;
+	private WaitingList waitinglistMaterial;
 	private List<WaitingList> alleWL = new ArrayList<WaitingList>();
+	private List<WaitingList> alleWLMaterial = new ArrayList<WaitingList>();
 
 	DatabaseContentHandler dbch = DatabaseContentHandler.get();
 
@@ -75,7 +77,7 @@ public class InputContentHandler implements ContentHandler {
 
 		}
 
-		/*-------------------------------------*/
+		/*-------------------------------------
 
 		if (localName.equals("waitinglist")) {
 
@@ -99,6 +101,43 @@ public class InputContentHandler implements ContentHandler {
 				workplace.addWaitingList(waitinglist);
 				alleWL.add(waitinglist);
 			}
+
+		}
+		/*-------------------------------------*/
+
+		if (localName.equals("waitinglist")) {
+			if (atts.getValue("period") != null && atts.getValue("firstbatch") != null && atts.getValue("lastbatch") != null && atts.getValue("item") != null && atts.getValue("amount") != null && atts.getValue("timeneed") != null) {
+				waitinglist = new WaitingList();
+
+				waitinglist.setMaterial(dbch.findMaterial(Integer.parseInt(atts
+						.getValue("item"))));
+				waitinglist
+						.setAmount(Integer.parseInt(atts.getValue("amount")));
+				waitinglist.setTimeneed(Integer.parseInt(atts.getValue("timeneed")));
+				
+				//Warteliste Arbeitsplatz im SCSim
+				workplace.addWaitingList(waitinglist);
+				alleWL.add(waitinglist);
+			}
+			
+			
+			if (atts.getValue("period") != null && atts.getValue("firstbatch") != null && atts.getValue("lastbatch") != null && atts.getValue("item") != null && atts.getValue("amount") != null && atts.getValue("timeneed") == null) {
+				waitinglistMaterial = new WaitingList();
+
+				waitinglistMaterial.setMaterial(dbch.findMaterial(Integer.parseInt(atts
+						.getValue("item"))));
+				waitinglistMaterial
+						.setAmount(Integer.parseInt(atts.getValue("amount")));
+				
+				//Warteliste Material im SCSim
+				workplace.addWaitingList(waitinglistMaterial);
+				alleWLMaterial.add(waitinglistMaterial);
+				
+				// wir fügen das Material, zur Warteliste Arbeitsplatz (siehe Dispostion:Aufträge in Warteschlange)
+				//workplace.addWaitingList(waitinglistMaterial);
+				//alleWL.add(waitinglistMaterial);
+			}
+
 
 		}
 
@@ -280,6 +319,13 @@ public class InputContentHandler implements ContentHandler {
 	 */
 	public List<WaitingList> getAlleWL() {
 		return alleWL;
+	}
+	
+	/**
+	 * @return the alleWLMaterial
+	 */
+	public List<WaitingList> getAlleWLMaterial() {
+		return alleWLMaterial;
 	}
 
 	/**
