@@ -328,7 +328,9 @@ public class TabbedPaneView extends JTabbedPane
 
 				disServ.prodProgramm();
 				tab04.refresh();
+				tab05.refresh();
 				tab06.refresh();
+				
 				
 			}
 			
