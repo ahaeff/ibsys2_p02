@@ -17,6 +17,7 @@ import scstool.obj.WorkPlan;
 import scstool.obj.Workplace;
 import scstool.utils.MyMath;
 import scstool.utils.PeriodDate;
+import scstool.utils.Repository;
 
 public class DatabaseContentHandler implements ContentHandler {
 
@@ -285,13 +286,45 @@ public class DatabaseContentHandler implements ContentHandler {
 		return kteile;
 	}
 
-	public List<String> getKTeileTEST() {
-		List<String> kteile = new ArrayList<String>();
+//	public List<String> getKTeile() {
+//		List<String> kteile = new ArrayList<String>();
+//		for (Material m : allesMaterial) {
+//			kteile.add(m.getPartType().toString());
+//		}
+//		return kteile;
+//	}
+	
+	public List<String> getProductGoods()
+	{
+		List<String> pteile = new ArrayList<String>();
 		for (Material m : allesMaterial) {
-			kteile.add(m.getPartType().toString());
+			if(PartTypes.PRODUCT.equals(m.getPartType()))
+			pteile.add(m.getPartType().toString());
 		}
-		return kteile;
+		return pteile;
 	}
+	
+	public List<String> getSubAssemblyGoods()
+	{
+		List<String> pteile = new ArrayList<String>();
+		for (Material m : allesMaterial) {
+			if(PartTypes.SUBASSEMBLY.equals(m.getPartType()))
+			pteile.add(m.getPartType().toString());
+		}
+		return pteile;
+	}
+	
+	public List<String> getSelfProdGoods()
+	{
+		List<String> steile = new ArrayList<String>();
+		for (Material m : allesMaterial) {
+			if(PartTypes.SUBASSEMBLY.equals(m.getPartType()))
+				steile.add(m.getPartType().toString());
+			else if(PartTypes.PRODUCT.equals(m.getPartType()))
+				steile.add(m.getPartType().toString());
+		}
+		return steile;
+	}	
 
 	/**
 	 * Singleton Klasse
@@ -303,5 +336,6 @@ public class DatabaseContentHandler implements ContentHandler {
 			entity = new DatabaseContentHandler();
 		return entity;
 	}
+
 
 }

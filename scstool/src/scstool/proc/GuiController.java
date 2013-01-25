@@ -82,6 +82,7 @@ public class GuiController implements IController
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
+			StatusSingleton stat = StatusSingleton.get();
 			switch(e.getActionCommand())
 			{
 				case MainMenu.MENU_EXIT:
@@ -92,9 +93,12 @@ public class GuiController implements IController
 					ico.openDialog();
 					break;
 				case MainMenu.MENU_USER_INPUT:
-					view.removeImage();
-					UserInputController pco = new UserInputController();
-					addContent(pco.getView());
+					if(stat.isInputXmlLoaded())
+					{
+						view.removeImage();
+						UserInputController pco = new UserInputController();
+						addContent(pco.getView());
+					}
 					break;
 			}
 		}

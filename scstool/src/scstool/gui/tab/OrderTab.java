@@ -14,7 +14,6 @@ import javax.swing.JTextField;
 
 import scstool.gui.comp.ButtonPane;
 import scstool.gui.comp.CustLabel;
-import scstool.gui.comp.NTextField;
 import scstool.obj.Material;
 import scstool.obj.Order;
 import scstool.proc.DatabaseContentHandler;
@@ -32,8 +31,6 @@ public class OrderTab extends JPanel {
 
 	// Button Panel
 	private ButtonPane bnt_pane;
-
-	private JTextField t;
 
 	public OrderTab(int bnt_var) {
 		this.bnt_var = bnt_var;
@@ -185,12 +182,11 @@ public class OrderTab extends JPanel {
 	 * @return
 	 */
 	private JPanel getContent() {
-
+		
 		JPanel pane = new JPanel();
 		pane.setLayout(new GridBagLayout());
 
 		GridBagConstraints c = new GridBagConstraints();
-		NTextField ntxt;
 		JTextField txt;
 
 		c.insets = new Insets(10, 5, 0, 5);
@@ -245,6 +241,8 @@ public class OrderTab extends JPanel {
 				txt = new JTextField();
 				txt.setText(order.getMode().toString());
 				txt.setEditable(false);
+				txt.setPreferredSize(new Dimension(75, 20));
+				txt.setMinimumSize(txt.getPreferredSize());
 				txtfields.put(id + "_mode", txt);
 				pane.add(txt, c);
 
@@ -288,9 +286,6 @@ public class OrderTab extends JPanel {
 		List<Order> orders = service.ordering();
 		for (Order o : orders) {
 			String id = o.getMaterial().getId().toString();
-			if (o == null || o.getAmount() == null) {
-				System.out.println(o.getId());
-			}
 			txtfields.get(id + "_amount").setText(o.getAmount().toString());
 			txtfields.get(id + "_mode").setText(o.getMode().toString());
 		}
