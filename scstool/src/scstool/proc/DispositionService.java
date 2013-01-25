@@ -209,15 +209,41 @@ public class DispositionService {
 	public void prodProgramm()
 	{
 		Repository repo = Repository.getInstance();
-		List<Integer[]> p = new ArrayList<Integer[]>();
+		List<Integer[]> p = repo.getProductionProgram();
 		
-		Map<Integer,Disposition> p1 = repo.getDispoitionByProduct(1);
-		for(Map.Entry<Integer,Disposition> e : p1.entrySet())
+		Map<Integer,Disposition> disp;	
+
+		int mat16 =0;
+		int mat17 =0;
+		int mat26 =0;
+		for(int i=1;i<=3;i++)
 		{
-			Integer[] i= {e.getKey(),e.getValue().getOrders()};
-			p.add(i);
+			disp = repo.getDispoitionByProduct(i);	
+			for(Map.Entry<Integer,Disposition> e : disp.entrySet())
+			{
+				switch(e.getKey())
+				{
+					case 16:
+						mat16 = mat16 + e.getValue().getOrders();
+						break;
+					case 17:
+						mat17 = mat17 + e.getValue().getOrders();
+						break;
+					case 26:
+						mat26 = mat26 + e.getValue().getOrders();
+						break;
+					default:
+						Integer[] iarr= {e.getKey(),e.getValue().getOrders()};
+						p.add(iarr);
+				}		
+			}
 		}
-		
+		Integer[] iarr= {16,mat16};
+		p.add(iarr);
+		iarr = new Integer[]{17,mat17};
+		p.add(iarr);
+		iarr = new Integer[]{26,mat26};
+		p.add(iarr);	
 		
 		repo.setProductionProgram(p);
 	}
