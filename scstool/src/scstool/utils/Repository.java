@@ -201,14 +201,15 @@ public class Repository {
 	 *         (Auftr�ge in Bearbeitung im SCSim und im Excelsheet)
 	 */
 	public Integer getAmountOfMaterialInWork(Integer materialID) {
-
+		Integer result = 0;
+		
 		for (WaitingList wl : inWork) {
 			if (wl.getMaterial().getId().equals(materialID)) {
-				materialID = wl.getAmount();
+				result = wl.getAmount();
 			}
 		}
 
-		return materialID;
+		return result;
 	}
 
 	/**
@@ -216,13 +217,13 @@ public class Repository {
 	 *         Bearbeitung im SCSim und im Excelsheet)
 	 */
 	public Integer getAmountOfWaitingMaterial(Integer materialID) {
-
+		Integer result = 0;
 		for (WaitingList wl : waiting) {
 			if (wl.getMaterial().getId().equals(materialID)) {
-				materialID = wl.getAmount();
+				result = wl.getAmount();
 			}
 		}
-		return materialID;
+		return result;
 	}
 
 	/*

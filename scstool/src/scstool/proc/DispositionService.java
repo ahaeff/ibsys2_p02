@@ -7,6 +7,7 @@ import java.util.Map;
 import scstool.obj.Disposition;
 import scstool.obj.Material;
 import scstool.obj.SellWish;
+import scstool.obj.Material.UsedIn;
 import scstool.utils.Repository;
 
 /**
@@ -139,8 +140,7 @@ public class DispositionService {
 		disposition.setSafetyWarehousestock(repo.getStafetyStock(product));
 
 		// Lagerbestand Vorperiode
-		// TODO Startamount richtig?
-		disposition.setWarehousestockPassedPeriod(mat.getStartamount());
+		disposition.setWarehousestockPassedPeriod(mat.getAmount());
 
 		// Warteschlange (uebergeordnet)
 		disposition.setWaitingQueue2(repo.getAmountOfWaitingMaterial(product));
@@ -167,7 +167,12 @@ public class DispositionService {
 		Repository repo = Repository.getInstance();
 		DatabaseContentHandler dbch = DatabaseContentHandler.get();
 
+		// product
 		Material mat = dbch.findMaterial(product);
+		
+		// componente
+		Material component = dbch.findMaterial(material);
+		
 
 		Disposition disposition = new Disposition();
 		Disposition preDisposition = repo.getDispoitionByMaterial(product,
@@ -178,11 +183,19 @@ public class DispositionService {
 		disposition.setWaitingQueue1(preDisposition.getWaitingQueue2());
 
 		// Lagerbestand geplant
-		disposition.setSafetyWarehousestock(repo.getStafetyStock(material));
+		int safetyWarehousestock;
+		Integer warehouseStockPassedPeriod;
+		if(component.getUsedIn().equals(UsedIn.ALLE)){
+			safetyWarehousestock = repo.getStafetyStock(material)/3;
+			warehouseStockPassedPeriod = component.getAmount()/3;
+		} else{
+			safetyWarehousestock = repo.getStafetyStock(material);
+			warehouseStockPassedPeriod = component.getAmount();
+		}
+		disposition.setSafetyWarehousestock(safetyWarehousestock);
 
 		// Lagerbestand Vorperiode
-		// TODO Startamount richtig?
-		disposition.setWarehousestockPassedPeriod(mat.getAmount());
+		disposition.setWarehousestockPassedPeriod(warehouseStockPassedPeriod);
 
 		// Warteschlange (uebergeordnet)
 		disposition.setWaitingQueue2(repo.getAmountOfWaitingMaterial(material));

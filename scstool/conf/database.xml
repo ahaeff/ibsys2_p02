@@ -26,7 +26,7 @@
 		<material id="23" startamount="300" name="Kette" partType="K" deliveryTime="1.2" deliveryAberation="0.2" orderCosts="50" discountAmount="300" usedIn="H"  />
 		<material id="24" startamount="6100" name="Mutter 3/8“" partType="K" deliveryTime="3.2" deliveryAberation="0.3" orderCosts="100" discountAmount="6100" usedIn="K"  />
 		<material id="25" startamount="3600" name="Scheibe 3/8“" partType="K" deliveryTime="0.9" deliveryAberation="0.2" orderCosts="50" discountAmount="3600" usedIn="D"  />
-		<material id="26" startamount="300" name="Pedal cpl." partType="E" deliveryTime="0.0" deliveryAberation="0.0" orderCosts="0" discountAmount="0" usedIn="H"  />
+		<material id="26" startamount="300" name="Pedal cpl." partType="E" deliveryTime="0.0" deliveryAberation="0.0" orderCosts="0" discountAmount="0" usedIn="KDH"  />
 		<material id="27" startamount="1800" name="Schraube 3/8“" partType="K" deliveryTime="0.9" deliveryAberation="0.2" orderCosts="75" discountAmount="1800" usedIn="KDH"  />
 		<material id="28" startamount="4500" name="Rohr 3/4“" partType="K" deliveryTime="1.7" deliveryAberation="0.4" orderCosts="50" discountAmount="4500" usedIn="KDH"  />
 		<material id="29" startamount="100" name="Vorderrad mont." partType="E" deliveryTime="0.0" deliveryAberation="0.0" orderCosts="0" discountAmount="0" usedIn="H"  />
