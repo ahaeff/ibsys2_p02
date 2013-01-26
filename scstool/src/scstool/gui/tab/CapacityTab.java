@@ -55,10 +55,7 @@ public class CapacityTab extends JPanel
 	private void init()
 	{
 		service = new CapacityService();
-		//TODO richtige Stelle finden
-
 		txtfields = new HashMap<String, JTextField>();
-	//	capa.size();
 		buildGui();
 
 	}
@@ -307,10 +304,7 @@ public class CapacityTab extends JPanel
 		}
 		return pane;
 	}
-	
 
-	
-	
 	/**
 	 * Gibt den Buttonlistener an das ButtonPanel weiter
 	 * @param l: Actionlistener
@@ -338,7 +332,4 @@ public class CapacityTab extends JPanel
 		}
 		
 	}
-		
-	
-	
 }
