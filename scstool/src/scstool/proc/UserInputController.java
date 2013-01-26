@@ -1,5 +1,7 @@
 package scstool.proc;
 
+import javax.swing.JFrame;
+
 import scstool.gui.TabbedPaneView;
 
 /**
@@ -13,14 +15,14 @@ public class UserInputController
 	private TabbedPaneView view;
 	
 	
-	public UserInputController()
+	public UserInputController(JFrame j)
 	{
-		init();
+		init(j);
 	}
 	
-	private void init()
+	private void init(JFrame j)
 	{
-		this.view = new TabbedPaneView();
+		this.view = new TabbedPaneView(j);
 		
 		
 	}

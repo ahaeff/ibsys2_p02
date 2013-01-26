@@ -12,6 +12,7 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -27,125 +28,118 @@ import scstool.gui.tab.SafetyStockTab;
 import scstool.gui.tab.SettingsTab;
 import scstool.obj.SellWish;
 import scstool.proc.DispositionService;
+import scstool.proc.ExportXmlController;
 import scstool.proc.StatusSingleton;
 import scstool.utils.Repository;
-
 
 /**
  * Registerkarten View
  * 
  * @author haeff
- *
+ * 
  */
-public class TabbedPaneView extends JTabbedPane 
-{
+public class TabbedPaneView extends JTabbedPane {
 
 	private static final long serialVersionUID = 1L;
+
+	private JFrame parent;
 	
-	//1. Tab
+	// 1. Tab
 	private SellWishTab tab01;
-		
-	//2. Tab
+
+	// 2. Tab
 	private SafetyStockTab tab02;
 
-	//3. Tab
+	// 3. Tab
 	private SettingsTab tab03;
-	
-	//4. Tab
+
+	// 4. Tab
 	private OrderTab tab04;
-	
-	//5. Tab
+
+	// 5. Tab
 	private CapacityTab tab05;
-	
-	//6 Tab
-	private ProductionTab tab06;	
-	
-	//7. Tab 
+
+	// 6 Tab
+	private ProductionTab tab06;
+
+	// 7. Tab
 	private OverviewTab tab07;
-	
-	//Title Icons
+
+	// Title Icons
 	private final static String ICON01 = "/icon/tab/num1_22x16.png";
 	private final static String ICON02 = "/icon/tab/num2_22x16.png";
 	private final static String ICON03 = "/icon/tab/num3_22x16.png";
-	private final static String ICON_OK ="/icon/tab/ok_22x16.png";
-	
-	
+	private final static String ICON_OK = "/icon/tab/ok_22x16.png";
+
 	private int activeIndex = 0;
-	
-	//TODO nach ende des Layouting loeschen
-	//Beispiel Tab
+
+	// TODO nach ende des Layouting loeschen
+	// Beispiel Tab
 	private LayoutExampleTab expTab;
-	
-	public TabbedPaneView() 
-	{
+
+	public TabbedPaneView(JFrame j) {
+		parent = j;
 		init();
 	}
 
-	private void init() 
-	{
+	private void init() {
 
 		setTabPlacement(JTabbedPane.TOP);
 		setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 		addChangeListener(new TabListener());
-			
-		//Tab Produktions Programm
-		tab01 = new SellWishTab(2);
-		tab01.addButtonListener(new ButtonListener());		
-		tab01.addChangeListener(new ProdProgChangeListener());
-		addTab("Vertriebswunsch",getTitleIcon(ICON01),tab01);;
 
-		//Sicherheitsbestand
+		// Tab Produktions Programm
+		tab01 = new SellWishTab(2);
+		tab01.addButtonListener(new ButtonListener());
+		tab01.addChangeListener(new ProdProgChangeListener());
+		addTab("Vertriebswunsch", getTitleIcon(ICON01), tab01);
+		;
+
+		// Sicherheitsbestand
 		tab02 = new SafetyStockTab(3);
 		tab02.addButtonListener(new ButtonListener());
 		tab02.addChangeListener(new SafetyStockChangeListener());
-		addTab("Sicherheitsbestand",getTitleIcon(ICON02),tab02);
-		
-		//Einstellungen
+		addTab("Sicherheitsbestand", getTitleIcon(ICON02), tab02);
+
+		// Einstellungen
 		tab03 = new SettingsTab(3);
 		tab03.addButtonListener(new ButtonListener());
-		addTab("Einstellungen",getTitleIcon(ICON03),tab03);
-		
-		//Bestellungen
+		addTab("Einstellungen", getTitleIcon(ICON03), tab03);
+
+		// Bestellungen
 		tab04 = new OrderTab(3);
 		tab04.addButtonListener(new ButtonListener());
-		add("Bestellungen",tab04);
-		
-		//Kapazitaet
+		add("Bestellungen", tab04);
+
+		// Kapazitaet
 		tab05 = new CapacityTab(3);
 		tab05.addButtonListener(new ButtonListener());
-		add("Kapazität",tab05);		
-		
-		//Produktion
+		add("Kapazität", tab05);
+
+		// Produktion
 		tab06 = new ProductionTab(3);
 		tab06.addButtonListener(new ButtonListener());
-		add("Produktion",tab06);		
-		
-		//Uebersicht
+		add("Produktion", tab06);
+
+		// Uebersicht
 		tab07 = new OverviewTab(1);
 		tab07.addButtonListener(new ButtonListener());
-		add("Übersicht",tab07);
-		
-		
+		add("Übersicht", tab07);
+
 		expTab = new LayoutExampleTab(1);
-		//add("Layout Spielerei",expTab);
-		
+		// add("Layout Spielerei",expTab);
+
 	}
 
-	
-	private void checkSellWisch()
-	{
+	private void checkSellWisch() {
 		Repository repo = Repository.getInstance();
 		StatusSingleton stat = StatusSingleton.get();
-		Map<Integer,SellWish> sellwish = repo.getSellWishAll();
-		 
-		for(Integer i: sellwish.keySet())
-		{
+		Map<Integer, SellWish> sellwish = repo.getSellWishAll();
+
+		for (Integer i : sellwish.keySet()) {
 			SellWish s = sellwish.get(i);
-			if( s.getN()  == 0 ||
-				s.getN1() == 0 ||
-				s.getN2() == 0 ||
-				s.getN3() == 0 )
-			{
+			if (s.getN() == 0 || s.getN1() == 0 || s.getN2() == 0
+					|| s.getN3() == 0) {
 				setIconAt(0, getTitleIcon(ICON01));
 				stat.setSellwischOk(false);
 				return;
@@ -154,17 +148,14 @@ public class TabbedPaneView extends JTabbedPane
 		stat.setSellwischOk(true);
 		setIconAt(0, getTitleDoneIcon(ICON01));
 	}
-	
-	private void checkSafetyStock()
-	{
+
+	private void checkSafetyStock() {
 		Repository repo = Repository.getInstance();
 		StatusSingleton stat = StatusSingleton.get();
-		Map<Integer,Integer> saftystock = repo.getStafetyStockAll();
-		
-		for(Map.Entry<Integer, Integer> e:saftystock.entrySet())
-		{
-			if(e.getValue() < 0)
-			{
+		Map<Integer, Integer> saftystock = repo.getStafetyStockAll();
+
+		for (Map.Entry<Integer, Integer> e : saftystock.entrySet()) {
+			if (e.getValue() < 0) {
 				setIconAt(1, getTitleIcon(ICON02));
 				stat.setSafetyStockOk(false);
 				return;
@@ -173,159 +164,143 @@ public class TabbedPaneView extends JTabbedPane
 		setIconAt(1, getTitleDoneIcon(ICON02));
 		stat.setSafetyStockOk(true);
 	}
-	
-	private ImageIcon getTitleIcon(String path)
-	{
+
+	private ImageIcon getTitleIcon(String path) {
 		URL url = this.getClass().getResource(path);
 		return new ImageIcon(url);
 
 	}
-	private ImageIcon getTitleDoneIcon(String path)
-	{
-		
+
+	private ImageIcon getTitleDoneIcon(String path) {
+
 		BufferedImage image;
 		BufferedImage overlay;
-	
-		
+
 		URL url;
 		try {
-		url = this.getClass().getResource(path);
-		image = ImageIO.read(url);
-		
-		url = this.getClass().getResource(ICON_OK);
-		overlay = ImageIO.read(url);
+			url = this.getClass().getResource(path);
+			image = ImageIO.read(url);
 
-		// create the new image, canvas size is the max. of both image sizes
-		int w = Math.max(image.getWidth(), overlay.getWidth());
-		int h = Math.max(image.getHeight(), overlay.getHeight());
-		BufferedImage combined = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+			url = this.getClass().getResource(ICON_OK);
+			overlay = ImageIO.read(url);
 
-		// paint both images, preserving the alpha channels
-		Graphics g = combined.getGraphics();
-		g.drawImage(image, 0, 0, null);
-		g.drawImage(overlay, 0, 0, null);
-       
-		return new ImageIcon(combined);
-   
+			// create the new image, canvas size is the max. of both image sizes
+			int w = Math.max(image.getWidth(), overlay.getWidth());
+			int h = Math.max(image.getHeight(), overlay.getHeight());
+			BufferedImage combined = new BufferedImage(w, h,
+					BufferedImage.TYPE_INT_ARGB);
+
+			// paint both images, preserving the alpha channels
+			Graphics g = combined.getGraphics();
+			g.drawImage(image, 0, 0, null);
+			g.drawImage(overlay, 0, 0, null);
+
+			return new ImageIcon(combined);
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	    
+
 		return null;
 	}
-	
-	
+
 	/**
 	 * Focus Listener f�r die Textfields
+	 * 
 	 * @author haeff
-	 *
+	 * 
 	 */
-	class ProdProgChangeListener implements FocusListener
-	{
+	class ProdProgChangeListener implements FocusListener {
 
 		@Override
 		public void focusGained(FocusEvent e) {
-			// not used		
+			// not used
 		}
 
 		@Override
-		public void focusLost(FocusEvent e) 
-		{
-			if(e.getSource() instanceof NTextField)
-			{
+		public void focusLost(FocusEvent e) {
+			if (e.getSource() instanceof NTextField) {
 				NTextField txt = (NTextField) e.getSource();
-				
+
 				String key = tab01.getNTextFieldKey(txt);
 				String[] arr = key.split("_");
-				
+
 				int product = Integer.valueOf(arr[0]);
 				int periode = Integer.valueOf(arr[1]);
-		
-				if(txt.getText().matches("[0-9]+"))
-				{
+
+				if (txt.getText().matches("[0-9]+")) {
 					int value = Integer.parseInt(txt.getText());
-					Repository.getInstance().setSellWish(product, periode, value);
-				}
-				else
-				{
+					Repository.getInstance().setSellWish(product, periode,
+							value);
+				} else {
 					Repository.getInstance().setSellWish(product, periode, 0);
 				}
 			}
 		}
 	}
-	
-	
-	class SafetyStockChangeListener implements FocusListener
-	{
+
+	class SafetyStockChangeListener implements FocusListener {
 
 		@Override
 		public void focusGained(FocusEvent e) {
 			// not used
-			
+
 		}
 
 		@Override
-		public void focusLost(FocusEvent e) 
-		{
-			if(e.getSource() instanceof NTextField)
-			{
+		public void focusLost(FocusEvent e) {
+			if (e.getSource() instanceof NTextField) {
 				NTextField txt = (NTextField) e.getSource();
-				
+
 				String strkey = tab02.getNTextFieldKey(txt);
 				int key = Integer.parseInt(strkey.substring(1));
-				if(txt.getText().matches("[0-9]+"))
-				{
+				if (txt.getText().matches("[0-9]+")) {
 					int value = Integer.parseInt(txt.getText());
 					Repository.getInstance().setSafetyStock(key, value);
-				}
-				else
-				{
+				} else {
 					Repository.getInstance().setSafetyStock(key, 0);
 				}
 			}
-			
+
 		}
 	}
-	
+
 	/**
 	 * ButtonListener f�r das Wechseln der Tabs �ber die Buttons
 	 * 
 	 * @author haeff
-	 *
+	 * 
 	 */
-	class ButtonListener implements ActionListener
-	{
+	class ButtonListener implements ActionListener {
 
 		@Override
-		public void actionPerformed(ActionEvent e) 
-		{
-			int index = getSelectedIndex();
-			switch(e.getActionCommand())
-			{
+		public void actionPerformed(ActionEvent e) {
+			if (e.getActionCommand() == "EXP") {
+				ExportXmlController controller = new ExportXmlController(parent);
+				controller.openDialog();
+			} else {
+				int index = getSelectedIndex();
+				switch (e.getActionCommand()) {
 				case "L":
 					index--;
 					break;
 				case "R":
 					index++;
 					break;
-					
+				}
+				setSelectedIndex(index);
 			}
-			setSelectedIndex(index);
-			
 		}
-		
+
 	}
-	
-	class TabListener implements ChangeListener
-	{
+
+	class TabListener implements ChangeListener {
 
 		@Override
-		public void stateChanged(ChangeEvent e) 
-		{
+		public void stateChanged(ChangeEvent e) {
 			StatusSingleton stat = StatusSingleton.get();
-			
-			if(activeIndex == 0)
-			{
+
+			if (activeIndex == 0) {
 				checkSellWisch();
 			}
 			
@@ -333,9 +308,10 @@ public class TabbedPaneView extends JTabbedPane
 			//beim Wechsel von Sicherheistbestand nach irgendwo
 			if(activeIndex == 1)
 			{	
+
 				checkSafetyStock();
-				
-				DispositionService disServ = new DispositionService();	
+
+				DispositionService disServ = new DispositionService();
 				disServ.QueueInput1();
 				disServ.QueueInput2();
 				disServ.QueueInput3();
@@ -345,22 +321,21 @@ public class TabbedPaneView extends JTabbedPane
 				tab05.refresh();
 				tab06.refresh();
 				tab07.refresh();
-							
+
 			}
-			
-			if(activeIndex == 2)
-			{
+
+			if (activeIndex == 2) {
 				tab04.refresh();
 				stat.setRiskOk(true);
 				setIconAt(2, getTitleDoneIcon(ICON03));
 			}
-			if(activeIndex == 3){
-//				setIconAt(3, getTitleDoneIcon(ICON04));
+			if (activeIndex == 3) {
+				// setIconAt(3, getTitleDoneIcon(ICON04));
 			}
-			
+
 			activeIndex = getSelectedIndex();
-		
+
 		}
-		
+
 	}
 }

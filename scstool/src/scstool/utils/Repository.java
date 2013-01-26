@@ -346,7 +346,7 @@ public class Repository {
 		this.warehouseStock = warehouseStock;
 	}
 
-	private LinkedHashMap<Workplace, Integer[]> getCapacity() {
+	public LinkedHashMap<Workplace, Integer[]> getCapacity() {
 		return capacity;
 	}
 
@@ -361,21 +361,23 @@ public class Repository {
 		if (capacity != null) {
 			for (Integer[] entry : capacity.values()) {
 				usedCapactiy += entry[2];
-				
+
 				switch (entry[0]) {
 				case 1:
-					totalCapacity += 2400+(entry[1]*5);
+					totalCapacity += 2400 + (entry[1] * 5);
 					break;
 				case 2:
-					totalCapacity += 4800+(entry[1]*5);
+					totalCapacity += 4800 + (entry[1] * 5);
 					break;
 				case 3:
-					totalCapacity += 7200+(entry[1]*5);
+					totalCapacity += 7200 + (entry[1] * 5);
 					break;
 				}
 			}
 		}
-		return (double) (usedCapactiy/totalCapacity);
+		Double usedCap = new Double(usedCapactiy);
+		Double totalCap = new Double(totalCapacity);
+		return usedCap/totalCap;
 	}
 
 }
