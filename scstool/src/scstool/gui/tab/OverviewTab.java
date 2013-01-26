@@ -105,7 +105,7 @@ public class OverviewTab extends JPanel
 	    c.gridwidth = column;
 	    c.weightx = 0.0;
 	    c.weighty = 0.0;
-	    bnt_pane = new ButtonPane(this.bnt_var);
+	    bnt_pane = new ButtonPane(this.bnt_var,true);
 	    add(bnt_pane,c);
 		//add(getBottomRow(),c);
 		

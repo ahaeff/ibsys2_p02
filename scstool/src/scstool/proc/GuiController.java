@@ -1,5 +1,6 @@
 package scstool.proc;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -12,6 +13,9 @@ import org.xml.sax.SAXException;
 
 import scstool.gui.MainMenu;
 import scstool.gui.MainView;
+import scstool.gui.StatusMessageEvent;
+import scstool.gui.StatusMessageEventMulticaster;
+import scstool.gui.comp.StatusPane;
 import scstool.utils.IController;
 import scstool.utils.Repository;
 
@@ -21,7 +25,9 @@ public class GuiController implements IController
 	
 
 	private MainView view;
-
+	private StatusPane sPane; 
+	private StatusMessageEventMulticaster multicaster;
+	
 	public GuiController()
 	{
 		init();
@@ -29,8 +35,11 @@ public class GuiController implements IController
 	
 	private void init()
 	{
+		multicaster = StatusMessageEventMulticaster.getInstance();
+		sPane = new StatusPane();
 		view = new MainView();
 		view.setMenuListener(new MenuListener());
+		view.add(sPane,BorderLayout.PAGE_END);
 		
 		try {
 			URL url = this.getClass().getResource(DATABASEXML);
@@ -41,6 +50,8 @@ public class GuiController implements IController
 		
 		//int data containers
 		Repository.getInstance();
+		StatusMessageEventMulticaster multicaster =StatusMessageEventMulticaster.getInstance();
+		multicaster.add(sPane);
 	
 	}
 	
@@ -91,8 +102,10 @@ public class GuiController implements IController
 				case MainMenu.MENU_IMPORTXML:
 					ImportXmlController ico = new ImportXmlController(view);
 					ico.openDialog();
+
 					break;
 				case MainMenu.MENU_USER_INPUT:
+					multicaster.setStatusMessage(new StatusMessageEvent(this, ""));
 					if(stat.isInputXmlLoaded())
 					{
 						view.removePanel();
@@ -104,6 +117,5 @@ public class GuiController implements IController
 		}
 		
 	}
-
 
 }

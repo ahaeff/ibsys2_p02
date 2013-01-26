@@ -5,27 +5,19 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
-
 import scstool.gui.comp.ButtonPane;
 import scstool.gui.comp.CustLabel;
-import scstool.gui.comp.NTextField;
 import scstool.gui.comp.OrderRiskPane;
-import scstool.gui.comp.OvertimePane;
 import scstool.utils.Repository;
 
 /**

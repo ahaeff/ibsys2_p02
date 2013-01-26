@@ -17,10 +17,10 @@ import javax.swing.JTextField;
 
 import scstool.gui.comp.ButtonPane;
 import scstool.gui.comp.CustLabel;
-import scstool.gui.comp.OrderRiskPane;
 import scstool.obj.Workplace;
 import scstool.proc.CapacityService;
 import scstool.proc.DatabaseContentHandler;
+import scstool.utils.Repository;
 
 /**
  * 
@@ -55,10 +55,7 @@ public class CapacityTab extends JPanel
 	private void init()
 	{
 		service = new CapacityService();
-		//TODO richtige Stelle finden
-
 		txtfields = new HashMap<String, JTextField>();
-	//	capa.size();
 		buildGui();
 
 	}
@@ -234,12 +231,15 @@ public class CapacityTab extends JPanel
 		pane.add(new JLabel("Beschreibung"),c);
 		
 		c.gridx=2;
-		pane.add(new JLabel("Schichten"),c);
+		pane.add(new JLabel("Stunden"),c);
 		
 		c.gridx=3;
-		pane.add(new JLabel("Überstunden"),c);
+		pane.add(new JLabel("Schichten"),c);
 		
 		c.gridx=4;
+		pane.add(new JLabel("Überstunden"),c);
+		
+		c.gridx=5;
 		pane.add(new JLabel("Auslastung"),c);
 		
 		JTextField txt;
@@ -262,8 +262,18 @@ public class CapacityTab extends JPanel
 			txt.setMinimumSize(txt.getPreferredSize());
 			//txtfields.put(id + "_desc", txt);
 			pane.add(txt, c);
-			
+
 			c.gridx = 2;
+			txt = new JTextField();
+			txt.setText("0");
+			txt.setEditable(false);
+			txt.setPreferredSize(new Dimension(30, 20));
+			txt.setMinimumSize(txt.getPreferredSize());
+			txtfields.put(id + "_hours", txt);
+			pane.add(txt, c);
+
+			
+			c.gridx = 3;
 			txt = new JTextField();
 			txt.setText("0");
 			txt.setEditable(false);
@@ -271,9 +281,9 @@ public class CapacityTab extends JPanel
 			txt.setMinimumSize(txt.getPreferredSize());
 			txtfields.put(id + "_shift", txt);
 			pane.add(txt, c);
-			c.gridx = 2;
+
 			
-			c.gridx = 3;
+			c.gridx = 4;
 			txt = new JTextField();
 			txt.setText("0");
 			txt.setEditable(false);
@@ -282,22 +292,34 @@ public class CapacityTab extends JPanel
 			txtfields.put(id + "_overtime", txt);
 			pane.add(txt, c);
 			
-			c.gridx = 4;
+			c.gridx = 5;
 			txt = new JTextField();
 			txt.setText("0");
 			txt.setEditable(false);
-			txt.setPreferredSize(new Dimension(30, 20));
+			txt.setPreferredSize(new Dimension(50, 20));
 			txt.setMinimumSize(txt.getPreferredSize());
 			txtfields.put(id + "_percent", txt);
 			pane.add(txt, c);
 		
 		}
+		
+		c.insets.left = 40;
+		c.gridx = 6;
+		c.gridy = 1;
+		pane.add(new JLabel("Gesamt Auslastung:"),c);
+		c.insets.left = 5;
+		c.gridx = 7;
+		c.gridy = 1;
+		txt = new JTextField();
+		txt.setText("0");
+		txt.setEditable(false);
+		txt.setPreferredSize(new Dimension(50, 20));
+		txt.setMinimumSize(txt.getPreferredSize());
+		txtfields.put("00_percent_all", txt);
+		pane.add(txt, c);
 		return pane;
 	}
-	
 
-	
-	
 	/**
 	 * Gibt den Buttonlistener an das ButtonPanel weiter
 	 * @param l: Actionlistener
@@ -310,10 +332,11 @@ public class CapacityTab extends JPanel
 	public void refresh()
 	{
 		LinkedHashMap<Workplace, Integer[]> capa = service.capaciting();
-		
+		Repository.getInstance().setCapacity(capa);
 		for(Map.Entry<Workplace, Integer[]> e : capa.entrySet())
 		{
 				String id = e.getKey().getId().toString();
+				txtfields.get(id+ "_hours").setText(e.getValue()[2].toString());
 				txtfields.get(id+"_shift").setText(e.getValue()[0].toString());
 				txtfields.get(id+ "_overtime").setText(e.getValue()[1].toString());
 				
@@ -322,9 +345,6 @@ public class CapacityTab extends JPanel
 				NumberFormat nf = NumberFormat.getPercentInstance();
 				txtfields.get(id+ "_percent").setText(nf.format((hours/shifttime)));
 		}
-		
+		//TODO @Reinhold hier
 	}
-		
-	
-	
 }

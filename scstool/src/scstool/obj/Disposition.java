@@ -14,7 +14,7 @@ import java.util.List;
 public class Disposition {
 
 	/** Material */
-	private Material material;
+//	private Material material;
 
 	/**
 	 * Vertriebswunsch
@@ -104,6 +104,8 @@ public class Disposition {
 		orders = getSalesWish() + getWaitingQueue1()
 				+ getSafetyWarehousestock() - getWarehousestockPassedPeriod()
 				- getWaitingQueue2() - getOrdersInProgress();
+		if(orders < 0)
+			orders = 0;
 		return orders;
 	}
 
