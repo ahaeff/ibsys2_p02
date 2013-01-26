@@ -27,6 +27,7 @@ import scstool.gui.tab.SafetyStockTab;
 import scstool.gui.tab.SettingsTab;
 import scstool.obj.SellWish;
 import scstool.proc.DispositionService;
+import scstool.proc.StatusSingleton;
 import scstool.utils.Repository;
 
 
@@ -112,7 +113,7 @@ public class TabbedPaneView extends JTabbedPane
 		//Kapazitaet
 		tab05 = new CapacityTab(3);
 		tab05.addButtonListener(new ButtonListener());
-		add("Kapaziät",tab05);		
+		add("Kapazität",tab05);		
 		
 		//Produktion
 		tab06 = new ProductionTab(3);
@@ -134,7 +135,8 @@ public class TabbedPaneView extends JTabbedPane
 	private void checkSellWisch()
 	{
 		Repository repo = Repository.getInstance();
-		 Map<Integer,SellWish> sellwish = repo.getSellWishAll();
+		StatusSingleton stat = StatusSingleton.get();
+		Map<Integer,SellWish> sellwish = repo.getSellWishAll();
 		 
 		for(Integer i: sellwish.keySet())
 		{
@@ -145,27 +147,31 @@ public class TabbedPaneView extends JTabbedPane
 				s.getN3() == 0 )
 			{
 				setIconAt(0, getTitleIcon(ICON01));
+				stat.setSellwischOk(false);
 				return;
 			}
 		}
+		stat.setSellwischOk(true);
 		setIconAt(0, getTitleDoneIcon(ICON01));
 	}
 	
 	private void checkSafetyStock()
 	{
 		Repository repo = Repository.getInstance();
+		StatusSingleton stat = StatusSingleton.get();
 		Map<Integer,Integer> saftystock = repo.getStafetyStockAll();
 		
 		for(Map.Entry<Integer, Integer> e:saftystock.entrySet())
 		{
-			if(e.getValue() == 0)
+			if(e.getValue() < 0)
 			{
 				setIconAt(1, getTitleIcon(ICON02));
+				stat.setSafetyStockOk(false);
 				return;
 			}
 		}
 		setIconAt(1, getTitleDoneIcon(ICON02));
-		return;
+		stat.setSafetyStockOk(true);
 	}
 	
 	private ImageIcon getTitleIcon(String path)
@@ -316,11 +322,12 @@ public class TabbedPaneView extends JTabbedPane
 		@Override
 		public void stateChanged(ChangeEvent e) 
 		{
+			StatusSingleton stat = StatusSingleton.get();
+			
 			if(activeIndex == 0)
 			{
 				checkSellWisch();
 			}
-			
 			
 			//beim Wechsel von Sicherheistbestand nach irgendwo
 			if(activeIndex == 1)
@@ -337,13 +344,13 @@ public class TabbedPaneView extends JTabbedPane
 				tab05.refresh();
 				tab06.refresh();
 				tab07.refresh();
-				
-				
+							
 			}
 			
 			if(activeIndex == 2)
 			{
 				tab04.refresh();
+				stat.setRiskOk(true);
 				setIconAt(2, getTitleDoneIcon(ICON03));
 			}
 			if(activeIndex == 3){
@@ -351,11 +358,7 @@ public class TabbedPaneView extends JTabbedPane
 			}
 			
 			activeIndex = getSelectedIndex();
-
 		
-			
-			
-			
 		}
 		
 	}

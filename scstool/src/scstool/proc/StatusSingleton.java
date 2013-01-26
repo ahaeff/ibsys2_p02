@@ -13,7 +13,9 @@ public class StatusSingleton {
 	
 	private static StatusSingleton entity = null;
 	private boolean inputXmlLoaded = false;
-	
+	private boolean sellwischOk = false;
+	private boolean safetyStockOk = false;
+	private boolean riskOk = false;
 	private StatusSingleton() {
 		super();
 	}
@@ -42,5 +44,30 @@ public class StatusSingleton {
 	public void setInputXmlLoaded(boolean inputXmlLoaded) {
 		this.inputXmlLoaded = inputXmlLoaded;
 	}
+
+	public boolean isSellwischOk() {
+		return sellwischOk;
+	}
+
+	public void setSellwischOk(boolean sellwischOk) {
+		this.sellwischOk = sellwischOk;
+	}
+
+	public boolean isSafetyStockOk() {
+		return safetyStockOk;
+	}
+
+	public void setSafetyStockOk(boolean safetyStockOk) {
+		this.safetyStockOk = safetyStockOk;
+	}
+
+	public boolean isRiskOk() {
+		return riskOk;
+	}
+
+	public void setRiskOk(boolean riskOk) {
+		this.riskOk = riskOk;
+	}
+	
 	
 }
