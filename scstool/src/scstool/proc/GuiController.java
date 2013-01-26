@@ -95,7 +95,7 @@ public class GuiController implements IController
 				case MainMenu.MENU_USER_INPUT:
 					if(stat.isInputXmlLoaded())
 					{
-						view.removeImage();
+						view.removePanel();
 						UserInputController pco = new UserInputController();
 						addContent(pco.getView());
 					}
