@@ -53,8 +53,10 @@ public class CapacityTab extends JPanel
 	
 	private void init()
 	{
+		service = new CapacityService();
 		txtfields = new HashMap<String, JTextField>();
 		buildGui();
+
 	}
 	
 	private void buildGui()
