@@ -346,7 +346,7 @@ public class Repository {
 		this.warehouseStock = warehouseStock;
 	}
 
-	private LinkedHashMap<Workplace, Integer[]> getCapacity() {
+	public LinkedHashMap<Workplace, Integer[]> getCapacity() {
 		return capacity;
 	}
 
