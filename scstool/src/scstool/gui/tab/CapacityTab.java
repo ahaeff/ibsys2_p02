@@ -17,7 +17,6 @@ import javax.swing.JTextField;
 
 import scstool.gui.comp.ButtonPane;
 import scstool.gui.comp.CustLabel;
-import scstool.gui.comp.OrderRiskPane;
 import scstool.obj.Workplace;
 import scstool.proc.CapacityService;
 import scstool.proc.DatabaseContentHandler;
@@ -54,13 +53,8 @@ public class CapacityTab extends JPanel
 	
 	private void init()
 	{
-		service = new CapacityService();
-		//TODO richtige Stelle finden
-
 		txtfields = new HashMap<String, JTextField>();
-	//	capa.size();
 		buildGui();
-
 	}
 	
 	private void buildGui()
@@ -307,10 +301,7 @@ public class CapacityTab extends JPanel
 		}
 		return pane;
 	}
-	
 
-	
-	
 	/**
 	 * Gibt den Buttonlistener an das ButtonPanel weiter
 	 * @param l: Actionlistener
@@ -338,7 +329,4 @@ public class CapacityTab extends JPanel
 		}
 		
 	}
-		
-	
-	
 }
