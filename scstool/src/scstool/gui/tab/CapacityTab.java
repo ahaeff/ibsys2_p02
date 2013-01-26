@@ -295,12 +295,27 @@ public class CapacityTab extends JPanel
 			txt = new JTextField();
 			txt.setText("0");
 			txt.setEditable(false);
-			txt.setPreferredSize(new Dimension(30, 20));
+			txt.setPreferredSize(new Dimension(50, 20));
 			txt.setMinimumSize(txt.getPreferredSize());
 			txtfields.put(id + "_percent", txt);
 			pane.add(txt, c);
 		
 		}
+		
+		c.insets.left = 40;
+		c.gridx = 6;
+		c.gridy = 1;
+		pane.add(new JLabel("Gesamt Auslastung:"),c);
+		c.insets.left = 5;
+		c.gridx = 7;
+		c.gridy = 1;
+		txt = new JTextField();
+		txt.setText("0");
+		txt.setEditable(false);
+		txt.setPreferredSize(new Dimension(50, 20));
+		txt.setMinimumSize(txt.getPreferredSize());
+		txtfields.put("00_percent_all", txt);
+		pane.add(txt, c);
 		return pane;
 	}
 
@@ -329,6 +344,6 @@ public class CapacityTab extends JPanel
 				NumberFormat nf = NumberFormat.getPercentInstance();
 				txtfields.get(id+ "_percent").setText(nf.format((hours/shifttime)));
 		}
-		
+		//TODO @Reinhold hier
 	}
 }

@@ -1,6 +1,7 @@
 package scstool.gui.comp;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionListener;
 
@@ -23,7 +24,7 @@ public class ButtonPane extends JPanel
 	private final static String ICONPATH01 = "/arrow_right.png";
 	private final static String ICONPATH02 = "/arrow_left.png";
 	
-	//ist eines der beiden negativ wird das Seitenverhältnis beibehalten
+	//ist eines der beiden negativ wird das Seitenverhï¿½ltnis beibehalten
 	private int icon_width = 40;
 	private int icon_height = -1;
 	
@@ -32,14 +33,21 @@ public class ButtonPane extends JPanel
 	//2 => nur Button rechts
 	//3 => Button links und rechts
 	private int variant;
+	private boolean export;
 	
 	private JButton bnt_right;
 	private JButton bnt_left;
 	
+	private JButton bnt_export;
 	
-	public ButtonPane(int var) 
+	public ButtonPane(int var)
 	{
-		variant = var;
+		this(var,false);
+	}
+	public ButtonPane(int var,boolean exp) 
+	{
+		this.export = exp;
+		this.variant = var;
 		init();
 		
 	}
@@ -59,6 +67,11 @@ public class ButtonPane extends JPanel
 		bnt_left = new JButton("",icon);
 		bnt_left.setActionCommand("L");
 		
+		JPanel pane = new JPanel();
+		bnt_export = new JButton("Export XML");
+		bnt_export.setPreferredSize(new Dimension(100, 50));
+		bnt_export.setMinimumSize(this.getPreferredSize());		
+		pane.add(bnt_export);
 		switch(variant)
 		{
 			case 1:
@@ -71,6 +84,10 @@ public class ButtonPane extends JPanel
 				add(bnt_left, BorderLayout.LINE_START);
 				add(bnt_right, BorderLayout.LINE_END);
 				break;		
+		}
+		if(export)
+		{
+			add(pane,BorderLayout.CENTER);
 		}
 		
 	}
