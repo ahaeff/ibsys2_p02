@@ -3,6 +3,7 @@
  */
 package scstool.proc;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
@@ -11,10 +12,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.swing.JFrame;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
+import scstool.gui.ExportXMLDialog;
+import scstool.gui.ImportDialogView;
+import scstool.gui.StatusMessageEvent;
+import scstool.gui.StatusMessageEventMulticaster;
 import scstool.obj.Order;
 import scstool.obj.SellWish;
 import scstool.obj.Workplace;
@@ -25,13 +31,16 @@ import scstool.utils.Repository;
  * 
  */
 public class ExportXmlController {
-
+	private JFrame parent;
+	private StatusMessageEventMulticaster multicaster;
 	List<Order> allOrders = new ArrayList<>();
 	List<Integer[]> allProductions = new ArrayList<>();
-	LinkedHashMap<Workplace,Integer[]> allWorkingTime = new LinkedHashMap<>();
+	LinkedHashMap<Workplace, Integer[]> allWorkingTime = new LinkedHashMap<>();
 	private Map<Integer, SellWish> sellWish;
 
-	public ExportXmlController() {
+	public ExportXmlController(JFrame j) {
+		this.parent = j;
+		multicaster = StatusMessageEventMulticaster.getInstance();
 		init();
 	}
 
@@ -42,7 +51,27 @@ public class ExportXmlController {
 		allProductions = Repository.getInstance().getProductionProgram();
 	}
 
-	public void export(String file) {
+	public void openDialog() {
+		ExportXMLDialog dia = new ExportXMLDialog();
+		int dialogResult = dia.showOpenDialog(parent);
+		switch (dialogResult) {
+		case ImportDialogView.APPROVE_OPTION:
+			File selectedFile = dia.getSelectedFile();
+			export(selectedFile.getAbsolutePath());
+			multicaster.setStatusMessage(new StatusMessageEvent(this,
+					"XML wurde exportiert"));
+
+			break;
+		case ImportDialogView.CANCEL_OPTION:
+			break;
+		case ImportDialogView.ERROR:
+			break;
+		default:
+			break;
+		}
+	}
+
+	private void export(String file) {
 		try {
 			XMLOutputFactory factory = XMLOutputFactory.newInstance();
 			XMLStreamWriter writer = factory
@@ -62,7 +91,8 @@ public class ExportXmlController {
 			for (Entry<Integer, SellWish> sell : sellWish.entrySet()) {
 				writer.writeEmptyElement("item");
 				writer.writeAttribute("article", String.valueOf(sell.getKey()));
-				writer.writeAttribute("quantity", String.valueOf(sell.getValue().getN()));
+				writer.writeAttribute("quantity",
+						String.valueOf(sell.getValue().getN()));
 			}
 			writer.writeEndElement();
 
@@ -95,17 +125,19 @@ public class ExportXmlController {
 			for (Integer[] dataset : allProductions) {
 				writer.writeEmptyElement("production");
 				writer.writeAttribute("article", String.valueOf(dataset[0]));
-				writer.writeAttribute("quantity",
-						String.valueOf(dataset[1]));
+				writer.writeAttribute("quantity", String.valueOf(dataset[1]));
 			}
 			writer.writeEndElement();
 
 			// Workingtimelist
 			writer.writeStartElement("workingtimelist");
-			for (Entry<Workplace, Integer[]> dataset : allWorkingTime.entrySet()) {
+			for (Entry<Workplace, Integer[]> dataset : allWorkingTime
+					.entrySet()) {
 				writer.writeEmptyElement("workingtime");
-				writer.writeAttribute("station", String.valueOf(dataset.getKey().getId()));
-				writer.writeAttribute("shift", String.valueOf(dataset.getValue()[0]));
+				writer.writeAttribute("station",
+						String.valueOf(dataset.getKey().getId()));
+				writer.writeAttribute("shift",
+						String.valueOf(dataset.getValue()[0]));
 				writer.writeAttribute("overtime",
 						String.valueOf(dataset.getValue()[1]));
 			}
