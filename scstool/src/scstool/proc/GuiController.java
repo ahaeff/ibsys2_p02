@@ -108,7 +108,7 @@ public class GuiController implements IController
 					multicaster.setStatusMessage(new StatusMessageEvent(this, ""));
 					if(stat.isInputXmlLoaded())
 					{
-						view.removeImage();
+						view.removePanel();
 						UserInputController pco = new UserInputController();
 						addContent(pco.getView());
 					}
