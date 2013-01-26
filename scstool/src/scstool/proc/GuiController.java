@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.URL;
 
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 
 import org.xml.sax.SAXException;
 
@@ -40,7 +41,7 @@ public class GuiController implements IController
 		view = new MainView();
 		view.setMenuListener(new MenuListener());
 		view.add(sPane,BorderLayout.PAGE_END);
-		
+		view.setButtonListener(new ButtonListener());
 		try {
 			URL url = this.getClass().getResource(DATABASEXML);
 			ImportXmlController.readXml(new File(url.getFile()), DatabaseContentHandler.get());
@@ -117,5 +118,29 @@ public class GuiController implements IController
 		}
 		
 	}
+	class ButtonListener implements ActionListener
+	{
 
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			StatusSingleton stat = StatusSingleton.get();
+			switch(e.getActionCommand())
+			{
+				case "IMP":
+					ImportXmlController ico = new ImportXmlController(view);
+					int ret = ico.openDialog();
+					if(JFileChooser.APPROVE_OPTION == ret)
+					{
+						multicaster.setStatusMessage(new StatusMessageEvent(this, ""));
+						if(stat.isInputXmlLoaded())
+						{
+							view.removePanel();
+							UserInputController pco = new UserInputController();
+							addContent(pco.getView());
+						}
+					}
+					break;
+			}	
+		}
+	}
 }

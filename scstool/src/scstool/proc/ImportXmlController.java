@@ -29,7 +29,7 @@ public class ImportXmlController{
 	
 	}
 
-	public void openDialog() {
+	public int openDialog() {
 		ImportDialogView dia = new ImportDialogView();
 				int dialogResult = dia.showOpenDialog(parent);
 		switch (dialogResult) {
@@ -40,6 +40,8 @@ public class ImportXmlController{
 				readXml(selectedFile, contentHandler);
 				StatusSingleton.get().setInputXmlLoaded(true);
 				multicaster.setStatusMessage(new StatusMessageEvent(this, "XML wurde importiert"));
+				Repository.getInstance().extractData(contentHandler);
+				return dialogResult;
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -55,9 +57,7 @@ public class ImportXmlController{
 		default:
 			break;
 		}
-
-		Repository.getInstance().extractData(contentHandler);
-		
+		return dialogResult;
 	}
 
 	/**

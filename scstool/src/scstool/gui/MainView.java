@@ -23,7 +23,8 @@ public class MainView extends JFrame
 	
 	private static final long serialVersionUID = 1L;
 	private MainMenu menu;
-	JPanel panel = new JPanel();
+	private JPanel panel = new JPanel();
+	private JButton btnImport;
 	
 	public MainView()
 	{
@@ -41,7 +42,7 @@ public class MainView extends JFrame
 		setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		
 		this.menu = new MainMenu();
-		setJMenuBar(this.menu);
+	//	setJMenuBar(this.menu);
 		
 		//Icon / Bild
 		URL url;
@@ -75,8 +76,9 @@ public class MainView extends JFrame
 			txtpnDasProduktionstoolUntersttzt.setFont(new Font("Tahoma", Font.PLAIN, 16));
 			txtpnDasProduktionstoolUntersttzt.setText("Das Produktionstool unterstützt Sie, in Form eines Wizards, bei Ihrer Produktionsplanung.\r\nIn wenigen Schritten wird mit Hilfe Ihrer Eingaben ein fertiger XML-Produktionsplan erstellt.\r\n\r\nEs ermöglicht Ihnen mit Parametern zu spielen, um so Ihr gewünschtes Ziel zu erreichen.\r\n\r\nUm Ihre aktuellen Lagebestände, Fehlteile, Bestellungen und Warteschlangen einzulesen, drücken Sie bitte den Import-Button.");
 			
-			JButton btnImport = new JButton("Import");
+			btnImport = new JButton("Import");
 			btnImport.setBounds(875, 600, 101, 39);
+			btnImport.setActionCommand("IMP");
 			panel.add(btnImport);
 			btnImport.setIcon(new ImageIcon(MainView.class.getResource("/icon/ImportXMLFile-24.png")));
 			
@@ -122,4 +124,11 @@ public class MainView extends JFrame
 		this.remove(panel);
 
 	}
+	
+	public void setButtonListener(ActionListener l)
+	{
+		btnImport.addActionListener(l);
+	}
 }
+
+

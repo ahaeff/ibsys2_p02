@@ -329,6 +329,7 @@ public class TabbedPaneView extends JTabbedPane
 				checkSellWisch();
 			}
 			
+			
 			//beim Wechsel von Sicherheistbestand nach irgendwo
 			if(activeIndex == 1)
 			{	
