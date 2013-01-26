@@ -101,7 +101,13 @@ public class CapacityService {
 		Integer result = 0;
 		Repository repo = Repository.getInstance();
 		for (WaitingList wl : repo.getInWork()) {
-			result += wl.getTimeneed();
+			if (workplace.getId() == wl.getWorkplace().getId())
+				result += wl.getTimeneed();
+		}
+
+		for (WaitingList wl : repo.getWaiting()) {
+			if (workplace.isComponentMadeHere(wl.getMaterial()))
+				result += wl.getTimeneed();
 		}
 
 		return result;
@@ -237,7 +243,7 @@ public class CapacityService {
 				result[1] = 0;
 			}
 		}
-		
+
 		result[2] = capacity;
 		return result;
 	}
