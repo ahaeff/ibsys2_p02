@@ -234,12 +234,15 @@ public class CapacityTab extends JPanel
 		pane.add(new JLabel("Beschreibung"),c);
 		
 		c.gridx=2;
-		pane.add(new JLabel("Schichten"),c);
+		pane.add(new JLabel("Stunden"),c);
 		
 		c.gridx=3;
-		pane.add(new JLabel("Überstunden"),c);
+		pane.add(new JLabel("Schichten"),c);
 		
 		c.gridx=4;
+		pane.add(new JLabel("Überstunden"),c);
+		
+		c.gridx=5;
 		pane.add(new JLabel("Auslastung"),c);
 		
 		JTextField txt;
@@ -262,8 +265,18 @@ public class CapacityTab extends JPanel
 			txt.setMinimumSize(txt.getPreferredSize());
 			//txtfields.put(id + "_desc", txt);
 			pane.add(txt, c);
-			
+
 			c.gridx = 2;
+			txt = new JTextField();
+			txt.setText("0");
+			txt.setEditable(false);
+			txt.setPreferredSize(new Dimension(30, 20));
+			txt.setMinimumSize(txt.getPreferredSize());
+			txtfields.put(id + "_hours", txt);
+			pane.add(txt, c);
+
+			
+			c.gridx = 3;
 			txt = new JTextField();
 			txt.setText("0");
 			txt.setEditable(false);
@@ -271,9 +284,9 @@ public class CapacityTab extends JPanel
 			txt.setMinimumSize(txt.getPreferredSize());
 			txtfields.put(id + "_shift", txt);
 			pane.add(txt, c);
-			c.gridx = 2;
+
 			
-			c.gridx = 3;
+			c.gridx = 4;
 			txt = new JTextField();
 			txt.setText("0");
 			txt.setEditable(false);
@@ -282,7 +295,7 @@ public class CapacityTab extends JPanel
 			txtfields.put(id + "_overtime", txt);
 			pane.add(txt, c);
 			
-			c.gridx = 4;
+			c.gridx = 5;
 			txt = new JTextField();
 			txt.setText("0");
 			txt.setEditable(false);
@@ -314,6 +327,7 @@ public class CapacityTab extends JPanel
 		for(Map.Entry<Workplace, Integer[]> e : capa.entrySet())
 		{
 				String id = e.getKey().getId().toString();
+				txtfields.get(id+ "_hours").setText(e.getValue()[2].toString());
 				txtfields.get(id+"_shift").setText(e.getValue()[0].toString());
 				txtfields.get(id+ "_overtime").setText(e.getValue()[1].toString());
 				

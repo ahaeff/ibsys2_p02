@@ -14,21 +14,24 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
 import scstool.gui.ImportDialogView;
+import scstool.gui.StatusMessageEvent;
+import scstool.gui.StatusMessageEventMulticaster;
 import scstool.utils.Repository;
 
-public class ImportXmlController {
+public class ImportXmlController{
 	private InputContentHandler contentHandler;
-	private ImportDialogView view;
 	private JFrame parent;
-
+	private StatusMessageEventMulticaster multicaster;
+	
 	public ImportXmlController(JFrame j) {
 		this.parent = j;
+		multicaster = StatusMessageEventMulticaster.getInstance();
+	
 	}
 
 	public void openDialog() {
 		ImportDialogView dia = new ImportDialogView();
-
-		int dialogResult = dia.showOpenDialog(parent);
+				int dialogResult = dia.showOpenDialog(parent);
 		switch (dialogResult) {
 		case ImportDialogView.APPROVE_OPTION:
 			try {
@@ -36,6 +39,7 @@ public class ImportXmlController {
 				contentHandler = new InputContentHandler();
 				readXml(selectedFile, contentHandler);
 				StatusSingleton.get().setInputXmlLoaded(true);
+				multicaster.setStatusMessage(new StatusMessageEvent(this, "XML wurde importiert"));
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {

@@ -51,8 +51,6 @@ public class MainView extends JFrame
 		} catch (IOException e) {
 			throw new RuntimeException("Can't find Logo.");
 		}
-
-
 	}
 	
 	public void setMenuListener(ActionListener l)
