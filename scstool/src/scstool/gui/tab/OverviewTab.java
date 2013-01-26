@@ -220,11 +220,21 @@ public class OverviewTab extends JPanel
 		txt.setMinimumSize(txt.getPreferredSize());
 		txtfields.put("warehousestock", txt);
 		pane.add(txt,c);
+		
+
+		c.gridy = 2;
+		c.gridx = 0;
+		pane.add(new JLabel("Gewinn(ohne Leerzeitkosten)"),c);
+		
+		c.gridx=1;
+		txt = new JTextField();
+		txt.setEditable(false);
+		txt.setPreferredSize(new Dimension(75, 20));
+		txt.setMinimumSize(txt.getPreferredSize());
+		txtfields.put("profit", txt);
+		pane.add(txt,c);
 		return pane;
 	}
-	
-
-	
 	
 	/**
 	 * Gibt den Buttonlistener an das ButtonPanel weiter
@@ -240,11 +250,9 @@ public class OverviewTab extends JPanel
 		 WarehouseService service = new  WarehouseService();
 		 DecimalFormat df = new DecimalFormat( "###,##0.00 \u00A4" );
 		 
-		 String warehousestock = df.format(service.getfutureWarehouseStock());
+		 String warehousestock = df.format(service.getFutureWarehouseStock());
 		 txtfields.get("warehousestock").setText(warehousestock);
+		 String profit = df.format(service.getProfit());
+		 txtfields.get("profit").setText(profit);
 	}
-	
-		
-	
-	
 }

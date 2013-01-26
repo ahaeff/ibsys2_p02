@@ -340,7 +340,7 @@ public class Repository {
 
 	public Double getWarehouseStock() {
 		WarehouseService whs = new WarehouseService();
-		warehouseStock = whs.getfutureWarehouseStock();
+		warehouseStock = whs.getFutureWarehouseStock();
 		return warehouseStock;
 	}
 

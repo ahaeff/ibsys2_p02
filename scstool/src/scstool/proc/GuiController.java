@@ -16,6 +16,7 @@ import scstool.gui.MainMenu;
 import scstool.gui.MainView;
 import scstool.gui.StatusMessageEvent;
 import scstool.gui.StatusMessageEventMulticaster;
+import scstool.gui.TabbedPaneView;
 import scstool.gui.comp.StatusPane;
 import scstool.utils.IController;
 import scstool.utils.Repository;
@@ -26,8 +27,10 @@ public class GuiController implements IController
 	
 
 	private MainView view;
+	private TabbedPaneView tView;
 	private StatusPane sPane; 
 	private StatusMessageEventMulticaster multicaster;
+
 	
 	public GuiController()
 	{
@@ -51,7 +54,6 @@ public class GuiController implements IController
 		
 		//int data containers
 		Repository.getInstance();
-		StatusMessageEventMulticaster multicaster =StatusMessageEventMulticaster.getInstance();
 		multicaster.add(sPane);
 	
 	}
@@ -131,15 +133,24 @@ public class GuiController implements IController
 					int ret = ico.openDialog();
 					if(JFileChooser.APPROVE_OPTION == ret)
 					{
-						multicaster.setStatusMessage(new StatusMessageEvent(this, ""));
 						if(stat.isInputXmlLoaded())
 						{
 							view.removePanel();
 							UserInputController pco = new UserInputController(view);
-							addContent(pco.getView());
+							tView = pco.getView();
+							tView.addBackListener(this);
+							addContent(tView);
 						}
 					}
 					break;
+				case "START":
+					view.remove(tView);
+					view.addPanel();
+					view.revalidate();
+					view.repaint();
+					multicaster.setStatusMessage(new StatusMessageEvent(this, ""));
+					break;
+					
 			}	
 		}
 	}

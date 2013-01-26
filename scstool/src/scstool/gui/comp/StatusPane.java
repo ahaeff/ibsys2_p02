@@ -1,12 +1,10 @@
 package scstool.gui.comp;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -23,16 +21,13 @@ public class StatusPane extends JPanel implements MessageListenerIF
 	private int width = -1;
 	private int height = 30;
 
-
 	private JLabel message;
 	
 	public StatusPane()
 	{
-		init();
-			
+		init();		
 	}
-	
-	
+		
 	private void init()
 	{
 		this.setPreferredSize(new Dimension(width, height));
@@ -41,7 +36,6 @@ public class StatusPane extends JPanel implements MessageListenerIF
 		Border border = BorderFactory.createMatteBorder(1,0,0,0,Color.gray);
 		this.setLayout(new GridBagLayout());
 	
-		
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
 		c.insets = new Insets(5, 15, 5, 5);
@@ -49,7 +43,7 @@ public class StatusPane extends JPanel implements MessageListenerIF
 	    c.weightx= 1;
 	    c.weighty= 1;
 	    
-		this.message = new JLabel("init");	
+		this.message = new JLabel();	
 		this.add(message, c);
 		this.setBorder(border);
 	}
@@ -59,11 +53,9 @@ public class StatusPane extends JPanel implements MessageListenerIF
 		this.message.setText(m);
 	}
 
-
 	@Override
 	public void setStatusMessage(StatusMessageEvent e) 
 	{
 		setMessage(e.getMsg());
-		
 	}
 }

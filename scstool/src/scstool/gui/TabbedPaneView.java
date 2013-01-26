@@ -1,5 +1,6 @@
 package scstool.gui;
 
+import java.awt.Desktop.Action;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,7 +20,6 @@ import javax.swing.event.ChangeListener;
 
 import scstool.gui.comp.NTextField;
 import scstool.gui.tab.CapacityTab;
-import scstool.gui.tab.LayoutExampleTab;
 import scstool.gui.tab.OrderTab;
 import scstool.gui.tab.OverviewTab;
 import scstool.gui.tab.ProductionTab;
@@ -73,17 +73,17 @@ public class TabbedPaneView extends JTabbedPane {
 
 	private int activeIndex = 0;
 
-	// TODO nach ende des Layouting loeschen
-	// Beispiel Tab
-	private LayoutExampleTab expTab;
-
+	private StatusMessageEventMulticaster multicaster;
+	
+	private ActionListener backListener;
+	
 	public TabbedPaneView(JFrame j) {
 		parent = j;
 		init();
 	}
 
 	private void init() {
-
+		multicaster = StatusMessageEventMulticaster.getInstance();
 		setTabPlacement(JTabbedPane.TOP);
 		setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 		addChangeListener(new TabListener());
@@ -125,12 +125,12 @@ public class TabbedPaneView extends JTabbedPane {
 		tab07 = new OverviewTab(1);
 		tab07.addButtonListener(new ButtonListener());
 		add("Übersicht", tab07);
-
-		expTab = new LayoutExampleTab(1);
-		// add("Layout Spielerei",expTab);
-
 	}
-
+	public void addBackListener(ActionListener l)
+	{
+		tab01.addButtonListener(l);
+	}
+	
 	private void checkSellWisch() {
 		Repository repo = Repository.getInstance();
 		StatusSingleton stat = StatusSingleton.get();
@@ -308,7 +308,7 @@ public class TabbedPaneView extends JTabbedPane {
 			//beim Wechsel von Sicherheistbestand nach irgendwo
 			if(activeIndex == 1)
 			{	
-
+				multicaster.setStatusMessage(new StatusMessageEvent(this, ""));
 				checkSafetyStock();
 
 				DispositionService disServ = new DispositionService();
@@ -321,14 +321,24 @@ public class TabbedPaneView extends JTabbedPane {
 			}
 
 			if (activeIndex == 2) {
+				multicaster.setStatusMessage(new StatusMessageEvent(this, ""));
 				tab04.refresh();
 				tab05.refresh();
 				tab06.refresh();
 				tab07.refresh();
 				stat.setRiskOk(true);
 				setIconAt(2, getTitleDoneIcon(ICON03));
-			}
 
+			}
+			if (activeIndex == 4) {
+				multicaster.setStatusMessage(new StatusMessageEvent(this, ""));
+			}
+			if (activeIndex == 5) {
+				multicaster.setStatusMessage(new StatusMessageEvent(this, ""));
+			}
+			if (activeIndex == 6) {
+				multicaster.setStatusMessage(new StatusMessageEvent(this, ""));
+			}
 			activeIndex = getSelectedIndex();
 
 		}

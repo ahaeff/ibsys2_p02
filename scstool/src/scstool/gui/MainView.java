@@ -119,12 +119,16 @@ public class MainView extends JFrame
 	}
 	
 
+	public void addPanel()
+	{
+		getContentPane().add(panel);
+
+	}
 	public void removePanel()
 	{
 		this.remove(panel);
 
 	}
-	
 	public void setButtonListener(ActionListener l)
 	{
 		btnImport.addActionListener(l);
