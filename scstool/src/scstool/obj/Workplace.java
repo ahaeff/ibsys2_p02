@@ -110,5 +110,17 @@ public class Workplace {
 	public String toString() {
 		return "Workplace [id=" + id + ", workplan=" + workplan + ", Waitinglist=" + waitingList + "]";
 	}
+	
+	public boolean isComponentMadeHere(Material mat){
+		for(WorkPlan plan : workplan){
+			for(BillOfMaterial bom : plan.getBillOfMaterial()){
+				if(bom.getComponent().getId()==mat.getId()){
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
 
 }

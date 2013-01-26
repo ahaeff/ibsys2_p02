@@ -20,6 +20,7 @@ import scstool.gui.comp.CustLabel;
 import scstool.obj.Workplace;
 import scstool.proc.CapacityService;
 import scstool.proc.DatabaseContentHandler;
+import scstool.utils.Repository;
 
 /**
  * 
@@ -331,7 +332,7 @@ public class CapacityTab extends JPanel
 	public void refresh()
 	{
 		LinkedHashMap<Workplace, Integer[]> capa = service.capaciting();
-		
+		Repository.getInstance().setCapacity(capa);
 		for(Map.Entry<Workplace, Integer[]> e : capa.entrySet())
 		{
 				String id = e.getKey().getId().toString();

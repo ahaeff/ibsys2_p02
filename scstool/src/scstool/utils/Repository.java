@@ -2,6 +2,7 @@ package scstool.utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import scstool.obj.Material;
 import scstool.obj.Order;
 import scstool.obj.SellWish;
 import scstool.obj.WaitingList;
+import scstool.obj.Workplace;
 import scstool.proc.InputContentHandler;
 import scstool.proc.WarehouseService;
 
@@ -40,7 +42,7 @@ public class Repository {
 	private List<WaitingList> waiting;
 	private Integer lastPeriod;
 	private List<Order> orders;
-	//Lagerwert aller Materialien
+	// Lagerwert aller Materialien
 	private Double warehouseStock;
 
 	// Wert fuer Bestell Risiko
@@ -51,6 +53,8 @@ public class Repository {
 
 	// Disposition
 	private Map<Integer, Map<Integer, Disposition>> dispositon;
+
+	private LinkedHashMap<Workplace, Integer[]> capacity;
 
 	/**
 	 * private Constructor
@@ -164,6 +168,7 @@ public class Repository {
 		waiting = contentHandler.getAlleWL();
 
 		lastPeriod = contentHandler.getLastPeriod();
+
 	}
 
 	/**
@@ -202,7 +207,7 @@ public class Repository {
 	 */
 	public Integer getAmountOfMaterialInWork(Integer materialID) {
 		Integer result = 0;
-		
+
 		for (WaitingList wl : inWork) {
 			if (wl.getMaterial().getId().equals(materialID)) {
 				result = wl.getAmount();
@@ -339,6 +344,38 @@ public class Repository {
 
 	public void setWarehouseStock(Double warehouseStock) {
 		this.warehouseStock = warehouseStock;
+	}
+
+	private LinkedHashMap<Workplace, Integer[]> getCapacity() {
+		return capacity;
+	}
+
+	public void setCapacity(LinkedHashMap<Workplace, Integer[]> capa) {
+		capacity = capa;
+	}
+
+	public Double getTotalCapacity() {
+		Integer totalCapacity = 0;
+		Integer usedCapactiy = 0;
+
+		if (capacity != null) {
+			for (Integer[] entry : capacity.values()) {
+				usedCapactiy += entry[2];
+				
+				switch (entry[0]) {
+				case 1:
+					totalCapacity += 2400+(entry[1]*5);
+					break;
+				case 2:
+					totalCapacity += 4800+(entry[1]*5);
+					break;
+				case 3:
+					totalCapacity += 7200+(entry[1]*5);
+					break;
+				}
+			}
+		}
+		return (double) (usedCapactiy/totalCapacity);
 	}
 
 }
