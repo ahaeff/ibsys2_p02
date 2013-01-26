@@ -240,7 +240,7 @@ public class OverviewTab extends JPanel
 		 WarehouseService service = new  WarehouseService();
 		 DecimalFormat df = new DecimalFormat( "###,##0.00 \u00A4" );
 		 
-		 String warehousestock = df.format(service.getWarehouseStockAll());
+		 String warehousestock = df.format(service.getfutureWarehouseStock());
 		 txtfields.get("warehousestock").setText(warehousestock);
 	}
 	

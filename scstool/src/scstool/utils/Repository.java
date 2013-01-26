@@ -56,6 +56,8 @@ public class Repository {
 
 	private LinkedHashMap<Workplace, Integer[]> capacity;
 
+	private LinkedHashMap<Material,List<Integer>> needs;
+
 	/**
 	 * private Constructor
 	 */
@@ -338,7 +340,7 @@ public class Repository {
 
 	public Double getWarehouseStock() {
 		WarehouseService whs = new WarehouseService();
-		warehouseStock = whs.getWarehouseStockAll();
+		warehouseStock = whs.getfutureWarehouseStock();
 		return warehouseStock;
 	}
 
@@ -378,6 +380,14 @@ public class Repository {
 		Double usedCap = new Double(usedCapactiy);
 		Double totalCap = new Double(totalCapacity);
 		return usedCap/totalCap;
+	}
+
+	public int getNeeds(Material m, int i) {
+		return needs.get(m).get(i);
+	}
+
+	public void setUsage(LinkedHashMap<Material,List<Integer>> needs) {
+		this.needs = needs;
 	}
 
 }

@@ -123,9 +123,12 @@ public class ExportXmlController {
 			// Productionlist
 			writer.writeStartElement("productionlist");
 			for (Integer[] dataset : allProductions) {
-				writer.writeEmptyElement("production");
-				writer.writeAttribute("article", String.valueOf(dataset[0]));
-				writer.writeAttribute("quantity", String.valueOf(dataset[1]));
+				if (dataset[1] != 0) {
+					writer.writeEmptyElement("production");
+					writer.writeAttribute("article", String.valueOf(dataset[0]));
+					writer.writeAttribute("quantity",
+							String.valueOf(dataset[1]));
+				}
 			}
 			writer.writeEndElement();
 

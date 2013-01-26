@@ -97,9 +97,10 @@ public class PeriodDate {
 	 * @param risk
 	 * @return
 	 */
-	public PeriodDate add(PeriodDate toAdd, Double risk) {
-		int period = (int) ((this.period + toAdd.period)*(1+risk));
-		int day = (int) ((this.day + toAdd.day)*(1+risk));
+	public PeriodDate add(PeriodDate toAdd, Integer risk) {
+		Double r = (new Double(risk)/100)/2;
+		int period = (int) ((this.period + toAdd.period)*(1+r));
+		int day = (int) ((this.day + toAdd.day)*(1+r));
 		while (day > 5) {
 			if (day > 5) {
 				period++;

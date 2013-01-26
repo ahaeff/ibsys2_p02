@@ -32,14 +32,26 @@ public class CapacityService {
 	final static Integer SECOND_SHIFT_OVERTIME = 6000;
 	final static Integer THIRD_SHIFT = 7200;
 
-	private static final Double RISIKO = risk();
-
 	/**
 	 * @return
 	 */
-	private static double risk() {
+	private static double addRisk() {
+		Double riskPercente = new Double(Repository.getInstance().getRiskPercente()/4);
+		if(riskPercente < 5)
+			riskPercente = 5.0;
 		return new Double(
-				1 + (Repository.getInstance().getRiskPercente() / 100));
+				1 + (riskPercente / 100.0));
+	}
+	
+	/**
+	 * @return
+	 */
+	private static double removeRisk() {
+		Double riskPercente = new Double(Repository.getInstance().getRiskPercente()/4);
+		if(riskPercente < 5)
+			riskPercente = 5.0;
+		return new Double(
+				1 - (riskPercente / 100.0));
 	}
 
 	/**
@@ -87,7 +99,7 @@ public class CapacityService {
 			}
 		}
 
-		return result;
+		return (int) (new Double(result)*addRisk());
 	}
 
 	/**
@@ -218,7 +230,7 @@ public class CapacityService {
 				&& costsFirstShift < costsThirdShift) {
 			result[0] = 1;
 			if (capacity > FIRST_SHIFT) {
-				result[1] = (int) (((capacity - FIRST_SHIFT) / 5) * RISIKO);
+				result[1] = (int) ((capacity - FIRST_SHIFT) / 5);
 			} else {
 				result[1] = 0;
 			}
@@ -228,7 +240,7 @@ public class CapacityService {
 				&& costsSecondShift < costsFirstShift) {
 			result[0] = 2;
 			if (capacity > SECOND_SHIFT) {
-				result[1] = (int) (((capacity - SECOND_SHIFT) / 5) * RISIKO);
+				result[1] = (int) ((capacity - SECOND_SHIFT) / 5);
 			} else {
 				result[1] = 0;
 			}
@@ -238,13 +250,13 @@ public class CapacityService {
 				&& costsThirdShift < costsSecondShift) {
 			result[0] = 3;
 			if (capacity > THIRD_SHIFT) {
-				result[1] = (int) (((capacity - THIRD_SHIFT) / 5) * RISIKO);
+				result[1] = (int) ((capacity - THIRD_SHIFT) / 5);
 			} else {
 				result[1] = 0;
 			}
 		}
 
-		result[2] = capacity;
+		result[2] = (int) (new Double(capacity)*removeRisk());
 		return result;
 	}
 }

@@ -317,20 +317,16 @@ public class TabbedPaneView extends JTabbedPane {
 				disServ.QueueInput3();
 
 				disServ.prodProgramm();
-				tab04.refresh();
-				tab05.refresh();
-				tab06.refresh();
-				tab07.refresh();
 
 			}
 
 			if (activeIndex == 2) {
 				tab04.refresh();
+				tab05.refresh();
+				tab06.refresh();
+				tab07.refresh();
 				stat.setRiskOk(true);
 				setIconAt(2, getTitleDoneIcon(ICON03));
-			}
-			if (activeIndex == 3) {
-				// setIconAt(3, getTitleDoneIcon(ICON04));
 			}
 
 			activeIndex = getSelectedIndex();

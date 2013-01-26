@@ -59,6 +59,7 @@ public class OrderService {
 		super();
 		try {
 			needs = MatrixMultiplication();
+			Repository.getInstance().setUsage(needs);
 			averageNeeds = calculateAverageNeeds();
 			coverage = calculateCoverage();
 			timeMaterialCoverage = calculateTimeMaterialCoverage();
@@ -71,7 +72,7 @@ public class OrderService {
 	private LinkedHashMap<Material, List<Integer>> MatrixMultiplication() {
 		LinkedHashMap<Material, List<Integer>> result = new LinkedHashMap<>();
 		LinkedHashMap<Material, int[]> usage = fillUsage();
-
+		
 		int[][] forcast = extractForecasts();
 
 		for (Material mat : usage.keySet()) {
@@ -200,8 +201,7 @@ public class OrderService {
 
 	private Integer roundDeliveryPeriod(Material mat) {
 		Repository repo = Repository.getInstance();
-		PeriodDate date = mat.getDeliveryTime().add(mat.getDeliveryAberation(),
-				new Double(repo.getRiskPercente() / 100));
+		PeriodDate date = mat.getDeliveryTime().add(mat.getDeliveryAberation(),repo.getRiskPercente());
 
 		if (date.getDay() < 3) {
 			return date.getPeriod();

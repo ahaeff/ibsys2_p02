@@ -1,8 +1,10 @@
 package scstool.proc;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import java.util.Map;
+import java.util.concurrent.ArrayBlockingQueue;
 
 import scstool.obj.Disposition;
 import scstool.obj.Material;
@@ -169,10 +171,9 @@ public class DispositionService {
 
 		// product
 		Material mat = dbch.findMaterial(product);
-		
+
 		// componente
 		Material component = dbch.findMaterial(material);
-		
 
 		Disposition disposition = new Disposition();
 		Disposition preDisposition = repo.getDispoitionByMaterial(product,
@@ -185,10 +186,10 @@ public class DispositionService {
 		// Lagerbestand geplant
 		int safetyWarehousestock;
 		Integer warehouseStockPassedPeriod;
-		if(component.getUsedIn().equals(UsedIn.ALLE)){
-			safetyWarehousestock = repo.getStafetyStock(material)/3;
-			warehouseStockPassedPeriod = component.getAmount()/3;
-		} else{
+		if (component.getUsedIn().equals(UsedIn.ALLE)) {
+			safetyWarehousestock = repo.getStafetyStock(material) / 3;
+			warehouseStockPassedPeriod = component.getAmount() / 3;
+		} else {
 			safetyWarehousestock = repo.getStafetyStock(material);
 			warehouseStockPassedPeriod = component.getAmount();
 		}
@@ -209,7 +210,8 @@ public class DispositionService {
 	public void prodProgramm() {
 		Repository repo = Repository.getInstance();
 		List<Integer[]> p = repo.getProductionProgram();
-
+		p.clear();
+		List<Integer[]> productsLast = new ArrayList<>();
 		Map<Integer, Disposition> disp;
 
 		int mat16 = 0;
@@ -230,7 +232,11 @@ public class DispositionService {
 					break;
 				default:
 					Integer[] iarr = { e.getKey(), e.getValue().getOrders() };
-					p.add(iarr);
+					if (e.getKey() == 1 || e.getKey() == 2 || e.getKey() == 3) {
+						productsLast.add(iarr);
+					} else {
+						p.add(iarr);
+					}
 				}
 			}
 		}
@@ -240,6 +246,7 @@ public class DispositionService {
 		p.add(iarr);
 		iarr = new Integer[] { 26, mat26 };
 		p.add(iarr);
+		p.addAll(productsLast);
 
 		repo.setProductionProgram(p);
 	}

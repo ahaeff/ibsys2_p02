@@ -65,6 +65,7 @@ public class OrderRiskPane extends JPanel
 		this.rbnt02 = new JRadioButton("neutral");
 		this.rbnt02.setActionCommand("n");
 		this.rbnt02.setSelected(true);
+		Repository.getInstance().setRiskPercente(50);
 		this.rbnt02.addActionListener(new RadioButtonListener());
 		grp.add(this.rbnt02);
 		add(this.rbnt02,c);
