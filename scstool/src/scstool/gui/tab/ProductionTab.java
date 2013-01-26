@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
@@ -244,26 +245,56 @@ public class ProductionTab extends JPanel
 		c.weightx =1.0;
 	
 		c.gridy = 0;
-		c.gridx = 1;
+		c.gridx = 0;
+		c.gridwidth = 2;
 		pane.add(new  CustLabel("Kinderfahrrad"),c);
 
 		c.gridy = 0;
-		c.gridx = 3;
+		c.gridx = 2;
+		c.insets.left = 50;
 		pane.add(new  CustLabel("Damenfahrrad"),c);
 		
 		c.gridy = 0;
-		c.gridx = 5;
+		c.gridx = 4;
 		pane.add(new  CustLabel("Herrenfahrrad"),c);
 		
-		
+		c.gridwidth = 1;
 		c.gridy = 1;
 		c.gridx = 0;
-			
+		c.insets.left = 5;
+		pane.add(new JLabel("Mat."),c);
+		
+		c.gridy = 1;
+		c.gridx = 1;
+		pane.add(new JLabel("Menge"),c);
+		
+		c.gridy = 1;
+		c.gridx = 2;
+		c.insets.left = 50;
+		pane.add(new JLabel("Mat."),c);
+		
+		c.gridy = 1;
+		c.gridx = 3;
+		c.insets.left = 5;
+		pane.add(new JLabel("Menge"),c);
+		
+		c.gridy = 1;
+		c.gridx = 4;
+		c.insets.left = 50;
+		pane.add(new JLabel("Mat."),c);
+		
+		c.gridy = 1;
+		c.gridx = 5;
+		c.insets.left = 5;
+		pane.add(new JLabel("Menge"),c);
+		
+		c.gridy = 2;
+		c.gridx = 0;
 		JTextField txt;
 		
 		for(int i = 0; i<matnr.length;i++)
 		{
-			c.insets.left = 50;
+			
 			txt = new JTextField();
 			txt.setEditable(false);
 			txt.setText(matnr[i]);
@@ -279,7 +310,10 @@ public class ProductionTab extends JPanel
 			txtfields.put(matnr[i]+"_amount",txt);
 			pane.add(txt,c);
 			c.gridx++;
-			
+			if(c.gridx == 2 || c.gridx == 4)
+			{
+				c.insets.left = 50;
+			}
 			if(c.gridx==6)
 			{
 				c.gridx=0;
@@ -288,14 +322,14 @@ public class ProductionTab extends JPanel
 		}
 		
 		c.insets.top=20;
-		c.insets.left = 50;
 		c.gridwidth = 6;
-		Border border = BorderFactory.createMatteBorder(0,0,5,0,Color.gray);
+		Border border = BorderFactory.createMatteBorder(0,0,1,0,Color.gray);
 		JPanel line = new JPanel();
 		line.setBorder(border);
 		pane.add(line,c);
 		
 		c.gridy++;
+		c.gridx = 0;
 		c.insets.top=10;
 		
 		pane.add(new  CustLabel("Gemeinsam genutzte Teile:"),c);
@@ -306,7 +340,6 @@ public class ProductionTab extends JPanel
 		
 		for(int i = 0; i<matnr_all.length;i++)
 		{
-			c.insets.left = 50;
 			txt = new JTextField();
 			txt.setEditable(false);
 			txt.setText(matnr_all[i]);
@@ -322,7 +355,10 @@ public class ProductionTab extends JPanel
 			txtfields.put(matnr_all[i]+"_amount",txt);
 			pane.add(txt,c);
 			c.gridx++;
-			
+			if(c.gridx == 2 || c.gridx == 4)
+			{
+				c.insets.left = 50;
+			}
 			if(c.gridx==6)
 			{
 				c.gridx=0;

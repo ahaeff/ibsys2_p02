@@ -9,6 +9,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import scstool.gui.MainView;
+
 /**
  * Button Panel fuer ein Tab
  * 
@@ -37,7 +39,7 @@ public class ButtonPane extends JPanel
 	
 	private JButton bnt_right;
 	private JButton bnt_left;
-	
+	private JButton bnt_left01;
 	private JButton bnt_export;
 	
 	public ButtonPane(int var)
@@ -66,12 +68,16 @@ public class ButtonPane extends JPanel
 		icon = getButtonIcon(ICONPATH02);
 		bnt_left = new JButton("",icon);
 		bnt_left.setActionCommand("L");
+		bnt_left01 = new JButton("",icon);
+		bnt_left01.setActionCommand("START");
+		
 		
 		JPanel pane = new JPanel();
-		bnt_export = new JButton("Export XML");
+		bnt_export = new JButton("Export");
 		bnt_export.setPreferredSize(new Dimension(100, 50));
 		bnt_export.setMinimumSize(this.getPreferredSize());	
 		bnt_export.setActionCommand("EXP");
+		bnt_export.setIcon(new ImageIcon(ButtonPane.class.getResource("/icon/ImportXMLFile-24.png")));
 		pane.add(bnt_export);
 		switch(variant)
 		{
@@ -79,6 +85,7 @@ public class ButtonPane extends JPanel
 				add(bnt_left, BorderLayout.LINE_START);
 				break;
 			case 2:
+				add(bnt_left01, BorderLayout.LINE_START);
 				add(bnt_right, BorderLayout.LINE_END);
 				break;
 			case 3:
@@ -111,6 +118,7 @@ public class ButtonPane extends JPanel
 	{
 		bnt_right.addActionListener(l);
 		bnt_left.addActionListener(l);
+		bnt_left01.addActionListener(l);
 		bnt_export.addActionListener(l);
 	}
 	
