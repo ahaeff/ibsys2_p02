@@ -53,11 +53,11 @@ public class ExportXmlController {
 
 	public void openDialog() {
 		ExportXMLDialog dia = new ExportXMLDialog();
-		int dialogResult = dia.showOpenDialog(parent);
+		int dialogResult = dia.showSaveDialog(parent);
 		switch (dialogResult) {
 		case ImportDialogView.APPROVE_OPTION:
 			File selectedFile = dia.getSelectedFile();
-			export(selectedFile.getAbsolutePath());
+			export(selectedFile.getAbsolutePath() + ".xml");
 			multicaster.setStatusMessage(new StatusMessageEvent(this,
 					"XML wurde exportiert"));
 

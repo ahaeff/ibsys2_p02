@@ -70,7 +70,8 @@ public class ButtonPane extends JPanel
 		JPanel pane = new JPanel();
 		bnt_export = new JButton("Export XML");
 		bnt_export.setPreferredSize(new Dimension(100, 50));
-		bnt_export.setMinimumSize(this.getPreferredSize());		
+		bnt_export.setMinimumSize(this.getPreferredSize());	
+		bnt_export.setActionCommand("EXP");
 		pane.add(bnt_export);
 		switch(variant)
 		{
@@ -110,6 +111,7 @@ public class ButtonPane extends JPanel
 	{
 		bnt_right.addActionListener(l);
 		bnt_left.addActionListener(l);
+		bnt_export.addActionListener(l);
 	}
 	
 }

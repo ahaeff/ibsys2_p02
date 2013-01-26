@@ -109,7 +109,7 @@ public class GuiController implements IController
 					if(stat.isInputXmlLoaded())
 					{
 						view.removePanel();
-						UserInputController pco = new UserInputController();
+						UserInputController pco = new UserInputController(view);
 						addContent(pco.getView());
 					}
 					break;
