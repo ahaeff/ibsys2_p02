@@ -27,7 +27,7 @@ public class OrderService {
 	 * Liste der (K) Material Objekte
 	 */
 	private List<Material> purchaseGoods = dbch.getPurchaseGoods();
-	
+
 	/**
 	 * Liste des Bedarfs (Matrix-Ergebnisse)
 	 */
@@ -70,7 +70,7 @@ public class OrderService {
 	private LinkedHashMap<Material, List<Integer>> MatrixMultiplication() {
 		LinkedHashMap<Material, List<Integer>> result = new LinkedHashMap<>();
 		LinkedHashMap<Material, int[]> usage = fillUsage();
-		
+
 		int[][] forcast = extractForecasts();
 
 		for (Material mat : usage.keySet()) {
@@ -187,7 +187,7 @@ public class OrderService {
 		for (Material mat : coverage.keySet()) {
 			// Reichweitensicherung
 			Integer roundDeliveryPeriod = roundDeliveryPeriod(mat);
-			if (roundDeliveryPeriod == 0) { 
+			if (roundDeliveryPeriod == 0) {
 				roundDeliveryPeriod = 1;
 			}
 			Double time = averageNeeds.get(mat) * roundDeliveryPeriod;
@@ -199,7 +199,8 @@ public class OrderService {
 
 	private Integer roundDeliveryPeriod(Material mat) {
 		Repository repo = Repository.getInstance();
-		PeriodDate date = mat.getDeliveryTime().add(mat.getDeliveryAberation(), repo.getRiskPercente());
+		PeriodDate date = mat.getDeliveryTime().add(mat.getDeliveryAberation(),
+				repo.getRiskPercente());
 
 		if (date.getDay() < 3) {
 			return date.getPeriod();
@@ -207,10 +208,11 @@ public class OrderService {
 			return (date.getPeriod() + 1);
 		}
 	}
-	
+
 	private Integer roundDeliveryPeriodFloor(Material mat) {
 		Repository repo = Repository.getInstance();
-		PeriodDate date = mat.getDeliveryTime().add(mat.getDeliveryAberation(), repo.getRiskPercente());
+		PeriodDate date = mat.getDeliveryTime().add(mat.getDeliveryAberation(),
+				repo.getRiskPercente());
 
 		if (date.getDay() < 6) {
 			return date.getPeriod();
@@ -230,13 +232,17 @@ public class OrderService {
 			// Errechneter Bestand Planperiode
 			stockNextPeriods.add(amountThisPeriod - needs.get(mat).get(0));
 			// Errechneter Bestand Planperiode + 1
-			stockNextPeriods.add(stockNextPeriods.get(0)- needs.get(mat).get(1)+repo.getArrivalAmountOfMaterial(mat, 2));
+			stockNextPeriods.add(stockNextPeriods.get(0)
+					- needs.get(mat).get(1)
+					+ repo.getArrivalAmountOfMaterial(mat, 2));
 			// Errechneter Bestand Planperiode + 2
 			stockNextPeriods.add(stockNextPeriods.get(1)
-					- needs.get(mat).get(2)+repo.getArrivalAmountOfMaterial(mat, 3));
+					- needs.get(mat).get(2)
+					+ repo.getArrivalAmountOfMaterial(mat, 3));
 			// Errechneter Bestand Planperiode + 3
 			stockNextPeriods.add(stockNextPeriods.get(2)
-					- needs.get(mat).get(3)+repo.getArrivalAmountOfMaterial(mat, 4));
+					- needs.get(mat).get(3)
+					+ repo.getArrivalAmountOfMaterial(mat, 4));
 
 			stockNextPeriodsWithMat.put(mat, stockNextPeriods);
 		}
@@ -246,7 +252,8 @@ public class OrderService {
 
 	private boolean newOrderRequired(Material mat) {
 		Integer roundDeliveryPeriod = roundDeliveryPeriodFloor(mat);
-		if (timeMaterialCoverage.get(mat) < calculatedStock.get(mat).get(roundDeliveryPeriod)) {
+		if (timeMaterialCoverage.get(mat) < calculatedStock.get(mat).get(
+				roundDeliveryPeriod)) {
 			return false;
 		}
 		return true;
@@ -254,8 +261,12 @@ public class OrderService {
 
 	private Mode chooseOrderMode(Material mat) {
 		Integer roundDeliveryPeriod = roundDeliveryPeriod(mat);
-		if (calculatedStock.get(mat).get(roundDeliveryPeriod) < 0) {
-			return Mode.EIL;
+		try {
+			if (calculatedStock.get(mat).get(roundDeliveryPeriod) < 0) {
+				return Mode.EIL;
+			}
+		} catch (Exception e) {
+			// do nothing - just chill
 		}
 		return Mode.NORMAL;
 
@@ -264,7 +275,7 @@ public class OrderService {
 	private Order calculateOrderSize(Material mat) {
 		Integer resultAmount = null;
 		Mode resultMode = null;
-		
+
 		if (newOrderRequired(mat)) {
 			Mode mode = chooseOrderMode(mat);
 			Integer roundDeliveryPeriod = 0;
@@ -275,12 +286,14 @@ public class OrderService {
 				break;
 
 			case EIL:
-				roundDeliveryPeriod = (int) (mat.getDeliveryTime().half().getPeriod());
-				resultMode = Mode.EIL; 
+				roundDeliveryPeriod = (int) (mat.getDeliveryTime().half()
+						.getPeriod());
+				resultMode = Mode.EIL;
 				break;
 
 			}
-			resultAmount = (int) (timeMaterialCoverage.get(mat) - calculatedStock.get(mat).get(roundDeliveryPeriod));
+			resultAmount = (int) (timeMaterialCoverage.get(mat) - calculatedStock
+					.get(mat).get(roundDeliveryPeriod));
 		}
 		Order result = new Order();
 		result.setMaterial(mat);
