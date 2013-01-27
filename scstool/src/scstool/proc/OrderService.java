@@ -186,7 +186,7 @@ public class OrderService {
 
 		for (Material mat : coverage.keySet()) {
 			// Reichweitensicherung
-			Integer roundDeliveryPeriod = roundDeliveryPeriodFloor(mat);
+			Integer roundDeliveryPeriod = roundDeliveryPeriod(mat);
 			if (roundDeliveryPeriod == 0) { 
 				roundDeliveryPeriod = 1;
 			}
@@ -295,7 +295,7 @@ public class OrderService {
 		List<Order> result = new ArrayList<>();
 		for (Material mat : purchaseGoods) {
 			Order newOrder = calculateOrderSize(mat);
-			if (newOrder.getAmount() > 0) {
+			if (newOrder.getAmount() > 10) {
 				result.add(newOrder);
 			}
 		}
