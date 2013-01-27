@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 
 import javax.swing.JComponent;
@@ -46,9 +47,11 @@ public class GuiController implements IController
 		view.add(sPane,BorderLayout.PAGE_END);
 		view.setButtonListener(new ButtonListener());
 		try {
-			URL url = this.getClass().getResource(DATABASEXML);
-			ImportXmlController.readXml(new File(url.getFile()), DatabaseContentHandler.get());
+			InputStream s = this.getClass().getResourceAsStream(DATABASEXML);
+			ImportXmlController.readXml01(s, DatabaseContentHandler.get());
+		
 		} catch (SAXException | IOException e) {
+			System.out.println(e);
 			throw new RuntimeException("Can't find Database.xml.");
 		}
 		
