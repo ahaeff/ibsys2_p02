@@ -117,13 +117,13 @@ public class OrderService {
 		int safetyStock = Repository.getInstance().getStafetyStock(index);
 		result[0] = firstValue;
 		result[1] = sellwish.getN1()
-				- ((sellwish.getN1() / sellwish.getN()) * safetyStock)
-				+ safetyStock;
-		result[2] = sellwish.getN2()
 				- ((sellwish.getN2() / sellwish.getN1()) * safetyStock)
 				+ safetyStock;
-		result[3] = sellwish.getN3()
+		result[2] = sellwish.getN2()
 				- ((sellwish.getN3() / sellwish.getN2()) * safetyStock)
+				+ safetyStock;
+		result[3] = sellwish.getN3()
+				- ((sellwish.getN3() / sellwish.getN3()) * safetyStock)
 				+ safetyStock;
 		return result;
 	}
