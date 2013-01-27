@@ -28,8 +28,6 @@ public class OrderService {
 	 */
 	private List<Material> purchaseGoods = dbch.getPurchaseGoods();
 	
-	// TODO Wie werden einzelne Periden abgebildet
-
 	/**
 	 * Liste des Bedarfs (Matrix-Ergebnisse)
 	 */

@@ -229,7 +229,7 @@ public class CapacityTab extends JPanel {
 		pane.add(new JLabel("Überstunden"), c);
 
 		c.gridx = 5;
-		pane.add(new JLabel("Auslastung"), c);
+		pane.add(new JLabel("Normalkapazität"), c);
 
 		JTextField txt;
 		for (Workplace w : wp) {
