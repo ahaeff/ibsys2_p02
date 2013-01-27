@@ -286,7 +286,11 @@ public class Repository {
 	 */
 	public Integer getArrivalAmountOfMaterial(Material mat, Integer forPeriod) {
 		Integer result = 0;
-
+		
+		if(mat.getId()==25){
+			System.out.print("  ");
+			}
+			
 		for (Order order : futureArrivals) {
 			if (order.getMaterial().equals(mat)) {
 				if (order.getDeliveryDate().getPeriod() == lastPeriod

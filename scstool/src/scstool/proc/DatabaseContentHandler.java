@@ -84,8 +84,7 @@ public class DatabaseContentHandler implements ContentHandler {
 					.getValue("startamount")));
 			material.setName(atts.getValue("name"));
 			material.setPartType(atts.getValue("partType"));
-			material.setDeliveryTime(new PeriodDate(MyMath.parseDouble(atts
-					.getValue("deliveryTime"))));
+			material.setDeliveryTime(new PeriodDate(MyMath.parseDouble(atts.getValue("deliveryTime"))));
 			material.setDeliveryAberation(new PeriodDate(MyMath
 					.parseDouble(atts.getValue("deliveryAberation"))));
 			material.setOrderCosts(Integer.parseInt(atts.getValue("orderCosts")));

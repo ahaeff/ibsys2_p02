@@ -91,14 +91,7 @@ public class Order {
 	 * @return the deliveryDate
 	 */
 	public PeriodDate getDeliveryDate() {
-		return calculateDeliveryDate(Repository.getInstance().getRiskPercente());
-	}
-
-	/**
-	 * @return the deliveryDate
-	 */
-	public PeriodDate getDeliveryDate(Integer risk) {
-		return calculateDeliveryDate(risk);
+		return calculateDeliveryDate();
 	}
 
 	/**
@@ -240,13 +233,17 @@ public class Order {
 	 * 
 	 * @return der Lieferzeitpunkt als PeriodDate
 	 */
-	public PeriodDate calculateDeliveryDate(Integer risk) {
+	public PeriodDate calculateDeliveryDate() {
 		// ordered material
 		Material mat = this.material;
+		PeriodDate deliveryTime = null;
 		// materiallieferzeit + abweichung
-		PeriodDate deliveryTime = mat.getDeliveryTime().add(
-				mat.getDeliveryAberation(), risk);
-		return this.orderDate.add(deliveryTime);
+		if(this.mode.equals(Mode.NORMAL)){
+		 deliveryTime = mat.getDeliveryTime().add(mat.getDeliveryAberation());
+		} else if(this.mode.equals(Mode.EIL)){
+			deliveryTime = mat.getDeliveryTime().half();	
+		}
+		return orderDate.add(deliveryTime);
 	}
 
 }

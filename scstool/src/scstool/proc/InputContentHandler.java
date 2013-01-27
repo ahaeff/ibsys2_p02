@@ -160,8 +160,9 @@ public class InputContentHandler implements ContentHandler {
 							.findMaterial(
 									Integer.parseInt(atts.getValue("article"))));
 					order.setMode(Integer.parseInt(atts.getValue("mode")));
-					order.setOrderDate(new PeriodDate(Integer.parseInt(atts
-							.getValue("orderperiod")), 0));
+					Integer orderperiod = Integer.parseInt(atts
+							.getValue("orderperiod"));
+					order.setOrderDate(new PeriodDate(orderperiod, 0));
 
 					if (atts.getValue("time") != null) {
 						order.setFinished(true);

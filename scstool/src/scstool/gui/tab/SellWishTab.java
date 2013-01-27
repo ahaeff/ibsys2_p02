@@ -56,7 +56,7 @@ public class SellWishTab extends JPanel {
 		setLayout(new BorderLayout());
 		txtfields = new HashMap<NTextField, String>();
 		buildGui();
-		setTestData();
+		//setTestData();
 	}
 
 	/**
