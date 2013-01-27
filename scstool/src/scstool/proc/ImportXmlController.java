@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.swing.JFrame;
 
@@ -85,5 +86,19 @@ public class ImportXmlController{
 
 		// Parsen wird gestartet
 		xmlReader.parse(inputSource);
+	
+	}
+	public static void readXml01(InputStream s, ContentHandler contentHandler)
+			throws SAXException, FileNotFoundException, IOException {
+
+		// XMLReader erzeugen
+		XMLReader xmlReader = XMLReaderFactory.createXMLReader();
+
+		// ContentHandler wirdübergeben
+		xmlReader.setContentHandler(contentHandler);
+
+		xmlReader.parse(new InputSource(s));
+		// Parsen wird gestartet
+		//xmlReader.parse(inputSource);
 	}
 }

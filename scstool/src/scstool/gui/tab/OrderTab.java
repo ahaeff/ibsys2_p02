@@ -183,7 +183,7 @@ public class OrderTab extends JPanel {
 	 * @return
 	 */
 	private JPanel getContent() {
-		
+
 		JPanel pane = new JPanel();
 		pane.setLayout(new GridBagLayout());
 
@@ -229,18 +229,18 @@ public class OrderTab extends JPanel {
 				pane.add(txt, c);
 
 				Order order = findOrder(mat, orders);
-				
+
 				c.gridx = i + 1;
 				c.insets.left = 5;
 				txt = new JTextField();
-				txt.setText(order.getAmount().toString());
+				//txt.setText(order.getAmount().toString());
 				txt.setEditable(false);
 				txtfields.put(id + "_amount", txt);
 				pane.add(txt, c);
 
 				c.gridx = i + 2;
 				txt = new JTextField();
-				txt.setText(order.getMode().toString());
+				//txt.setText(order.getMode().toString());
 				txt.setEditable(false);
 				txt.setPreferredSize(new Dimension(75, 20));
 				txt.setMinimumSize(txt.getPreferredSize());
@@ -289,8 +289,10 @@ public class OrderTab extends JPanel {
 		for (Order o : orders) {
 			String id = o.getMaterial().getId().toString();
 			txtfields.get(id + "_amount").setText(o.getAmount().toString());
-			txtfields.get(id + "_mode").setText(o.getMode().toString());
-		}
+			if (o.getAmount() > 0) {
+				txtfields.get(id + "_mode").setText(o.getMode().toString());
 
+			}
+		}
 	}
 }

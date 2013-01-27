@@ -28,8 +28,6 @@ public class OrderService {
 	 */
 	private List<Material> purchaseGoods = dbch.getPurchaseGoods();
 	
-	// TODO Wie werden einzelne Periden abgebildet
-
 	/**
 	 * Liste des Bedarfs (Matrix-Ergebnisse)
 	 */
@@ -60,7 +58,6 @@ public class OrderService {
 		try {
 			needs = MatrixMultiplication();
 			Repository.getInstance().setUsage(needs);
-			Material m = DatabaseContentHandler.get().findMaterial(56);
 			averageNeeds = calculateAverageNeeds();
 			coverage = calculateCoverage();
 			timeMaterialCoverage = calculateTimeMaterialCoverage();

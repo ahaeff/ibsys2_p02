@@ -1,5 +1,6 @@
 package scstool.proc;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import scstool.obj.Material;
@@ -36,6 +37,7 @@ public class WarehouseService {
 	public Double getFutureWarehouseStock() {
 		DatabaseContentHandler dbch = DatabaseContentHandler.get();
 		List<Material> allesMaterial = dbch.getAllMaterial();
+		LinkedHashMap<Material, Double> futureWarehouse = new LinkedHashMap<>();
 		for (Material m : allesMaterial) {
 			int amount = 0;
 			if (PartTypes.PRODUCT.equals(m.getPartType())
@@ -51,10 +53,15 @@ public class WarehouseService {
 				// Bedarfsmenge
 				amount -= Repository.getInstance().getNeeds(m, 0);
 			}
+			double stockValue = 0.0;
 			if (amount > 0) {
-				warehouseStockAll = warehouseStockAll + (amount * m.getPrice());
+				stockValue = amount * m.getPrice();
+				warehouseStockAll = warehouseStockAll + stockValue;
 			}
+			futureWarehouse.put(m, stockValue);
+			
 		}
+		Repository.getInstance().setFutureWarehouse(futureWarehouse);
 		return warehouseStockAll;
 	}
 
@@ -79,6 +86,6 @@ public class WarehouseService {
 			ret = ret - stock * 0.006;
 		}
 
-		return ret;
+		return ret/2;
 	}
 }

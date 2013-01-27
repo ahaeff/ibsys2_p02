@@ -221,19 +221,35 @@ public class TabbedPaneView extends JTabbedPane {
 		public void focusLost(FocusEvent e) {
 			if (e.getSource() instanceof NTextField) {
 				NTextField txt = (NTextField) e.getSource();
-
+				Repository repo = Repository.getInstance();
+				int value;
+				
+				if (txt.getText().matches("[0-9]+")) {
+					value = Integer.parseInt(txt.getText());
+				} else {
+					value = 0;
+				}
+				
 				String key = tab01.getNTextFieldKey(txt);
 				String[] arr = key.split("_");
-
+				
 				int product = Integer.valueOf(arr[0]);
-				int periode = Integer.valueOf(arr[1]);
-
-				if (txt.getText().matches("[0-9]+")) {
-					int value = Integer.parseInt(txt.getText());
-					Repository.getInstance().setSellWish(product, periode,
-							value);
-				} else {
-					Repository.getInstance().setSellWish(product, periode, 0);
+				if("D".equals(arr[1]))
+				{
+					Integer[] direct = repo.getDirectbyProduct(product);
+					if( direct!= null)
+					{
+						direct[1] = value;
+					}
+					else
+					{
+						repo.addDirect(product, value);
+					}
+				}
+				else
+				{
+					int periode = Integer.valueOf(arr[1]);
+					Repository.getInstance().setSellWish(product, periode, value);
 				}
 			}
 		}

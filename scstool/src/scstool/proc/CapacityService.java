@@ -232,6 +232,10 @@ public class CapacityService {
 			} else {
 				result[1] = 0;
 			}
+			
+			if (Repository.getInstance().isOvertime()) {
+				
+			}
 		}
 
 		if (costsSecondShift < costsThirdShift

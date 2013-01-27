@@ -42,6 +42,10 @@ public class Repository {
 	private List<WaitingList> waiting;
 	private Integer lastPeriod;
 	private List<Order> orders;
+	
+	// Integer[0] ist das Material und Integer[1] für die Menge
+	private List<Integer[]> direct;
+	
 	// Lagerwert aller Materialien
 	private Double warehouseStock;
 
@@ -56,7 +60,9 @@ public class Repository {
 
 	private LinkedHashMap<Workplace, Integer[]> capacity;
 
-	private LinkedHashMap<Material,List<Integer>> needs;
+	private LinkedHashMap<Material, List<Integer>> needs;
+
+	private LinkedHashMap<Material, Double> futureWarehouse;
 
 	/**
 	 * private Constructor
@@ -383,15 +389,57 @@ public class Repository {
 		}
 		Double usedCap = new Double(usedCapactiy);
 		Double totalCap = new Double(totalCapacity);
-		return usedCap/totalCap;
+		return usedCap / totalCap;
 	}
 
 	public int getNeeds(Material m, int i) {
 		return needs.get(m).get(i);
 	}
 
-	public void setUsage(LinkedHashMap<Material,List<Integer>> needs) {
+	public void setUsage(LinkedHashMap<Material, List<Integer>> needs) {
 		this.needs = needs;
 	}
+	
+	public LinkedHashMap<Material, Double> getFutureWarehouse(){
+		return futureWarehouse;
+	}
 
+	public void setFutureWarehouse(
+			LinkedHashMap<Material, Double> futureWarehouse) {
+		this.futureWarehouse = futureWarehouse;
+	}
+
+	public List<Integer[]> getDirect() {
+		return direct;
+	}
+
+	public void setDirect(List<Integer[]> direct) {
+		this.direct = direct;
+	}
+
+	public void addDirect(int prod,int amount)
+	{
+		if(direct == null)
+		{
+			direct = new ArrayList<Integer[]>();
+		}
+		direct.add(new Integer[]{prod,amount});
+	}
+	public Integer[] getDirectbyProduct(Integer p)
+	{
+		if(direct == null)
+		{
+			return null;
+		}
+		
+		for(Integer[] i : direct)
+		{
+			if(p == i[0])
+			{
+				return i;
+			}
+		}
+		return null;
+		 
+	}
 }
