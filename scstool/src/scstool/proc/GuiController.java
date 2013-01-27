@@ -149,6 +149,8 @@ public class GuiController implements IController
 					view.revalidate();
 					view.repaint();
 					multicaster.setStatusMessage(new StatusMessageEvent(this, ""));
+					stat.resetAll();
+					
 					break;
 					
 			}	

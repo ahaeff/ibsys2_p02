@@ -109,7 +109,7 @@ public class TabbedPaneView extends JTabbedPane {
 		// Bestellungen
 		tab04 = new OrderTab(3);
 		tab04.addButtonListener(new ButtonListener());
-		add("Bestellungen", tab04);
+		addTab("Bestellungen", tab04);
 
 		// Kapazitaet
 		tab05 = new CapacityTab(3);
@@ -302,6 +302,14 @@ public class TabbedPaneView extends JTabbedPane {
 
 			if (activeIndex == 0) {
 				checkSellWisch();
+				if(!stat.isInputSet())
+				{
+					if(getSelectedIndex() >2)
+					{
+						setSelectedIndex(0);
+						multicaster.setStatusMessage(new StatusMessageEvent(this, "Benutzereingaben nicht vollständig"));
+					}
+				}
 			}
 			
 			
@@ -317,6 +325,15 @@ public class TabbedPaneView extends JTabbedPane {
 				disServ.QueueInput3();
 
 				disServ.prodProgramm();
+				
+				if(!stat.isInputSet())
+				{
+					if(getSelectedIndex() >2)
+					{
+						setSelectedIndex(1);
+						multicaster.setStatusMessage(new StatusMessageEvent(this, "Benutzereingaben nicht vollständig"));
+					}
+				}				
 
 			}
 
@@ -328,7 +345,14 @@ public class TabbedPaneView extends JTabbedPane {
 				tab07.refresh();
 				stat.setRiskOk(true);
 				setIconAt(2, getTitleDoneIcon(ICON03));
-
+				if(!stat.isInputSet())
+				{
+					if(getSelectedIndex() >2)
+					{
+						setSelectedIndex(2);
+						multicaster.setStatusMessage(new StatusMessageEvent(this, "Benutzereingaben nicht vollständig"));
+					}
+				}
 			}
 			if (activeIndex == 4) {
 				multicaster.setStatusMessage(new StatusMessageEvent(this, ""));

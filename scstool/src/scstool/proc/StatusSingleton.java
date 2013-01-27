@@ -3,6 +3,8 @@
  */
 package scstool.proc;
 
+import scstool.obj.SellWish;
+
 /**
  * @author reinhold
  *
@@ -13,7 +15,7 @@ public class StatusSingleton {
 	
 	private static StatusSingleton entity = null;
 	private boolean inputXmlLoaded = false;
-	private boolean sellwischOk = false;
+	private boolean sellwishOk = false;
 	private boolean safetyStockOk = false;
 	private boolean riskOk = false;
 	private StatusSingleton() {
@@ -46,11 +48,11 @@ public class StatusSingleton {
 	}
 
 	public boolean isSellwischOk() {
-		return sellwischOk;
+		return sellwishOk;
 	}
 
 	public void setSellwischOk(boolean sellwischOk) {
-		this.sellwischOk = sellwischOk;
+		this.sellwishOk = sellwischOk;
 	}
 
 	public boolean isSafetyStockOk() {
@@ -69,5 +71,27 @@ public class StatusSingleton {
 		this.riskOk = riskOk;
 	}
 	
-	
+	public boolean isInputSet()
+	{
+		if(!sellwishOk)
+		{
+			return false;
+		}
+		if(!safetyStockOk)
+		{
+			return false;
+		}
+		if(!riskOk)
+		{
+			return false;
+		}
+		return true;
+	}
+	public void resetAll()
+	{
+		inputXmlLoaded = false;
+		sellwishOk = false;
+		safetyStockOk = false;
+		riskOk = false;
+	}
 }
