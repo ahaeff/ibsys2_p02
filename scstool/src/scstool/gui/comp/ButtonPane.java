@@ -1,13 +1,18 @@
 package scstool.gui.comp;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 import scstool.gui.MainView;
 
@@ -73,12 +78,23 @@ public class ButtonPane extends JPanel
 		
 		
 		JPanel pane = new JPanel();
+		pane.setLayout(new GridBagLayout());
+		
+		GridBagConstraints c = new GridBagConstraints();
+		
+		c.insets = new Insets(0, 375, 0, 0);
+		c.fill = GridBagConstraints.NONE;
+		c.anchor = GridBagConstraints.WEST;
+		c.weightx =1.0;
+		
 		bnt_export = new JButton("Export");
 		bnt_export.setPreferredSize(new Dimension(100, 50));
 		bnt_export.setMinimumSize(this.getPreferredSize());	
 		bnt_export.setActionCommand("EXP");
 		bnt_export.setIcon(new ImageIcon(ButtonPane.class.getResource("/icon/ImportXMLFile-24.png")));
-		pane.add(bnt_export);
+			
+		pane.add(bnt_export,c);
+
 		switch(variant)
 		{
 			case 1:

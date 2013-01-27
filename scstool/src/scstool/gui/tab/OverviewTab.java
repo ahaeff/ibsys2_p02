@@ -1,5 +1,6 @@
 package scstool.gui.tab;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -12,12 +13,18 @@ import java.util.Map;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 
 
 import scstool.gui.comp.ButtonPane;
 import scstool.gui.comp.CustLabel;
+import scstool.gui.comp.OrderRiskPane;
+import scstool.obj.Material;
+import scstool.proc.DatabaseContentHandler;
 import scstool.proc.WarehouseService;
+import scstool.utils.Repository;
 
 /**
  * 
@@ -200,6 +207,41 @@ public class OverviewTab extends JPanel
 				
 		GridBagConstraints c = new GridBagConstraints();
 		
+		c.insets = new Insets(10, 5, 0, 5);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx =1.0;
+		c.gridy = 0;
+		c.gridx = 0;
+		c.fill = GridBagConstraints.NONE;
+		c.anchor = GridBagConstraints.NORTHWEST;
+		pane.add(getOverview(),c);
+		
+		c.gridy = 1;
+		c.gridx = 0;	
+		c.insets.top = 30;
+		pane.add(new CustLabel("Lagerbestand"),c);
+		
+		c.gridy = 2;
+		c.gridx = 0;
+		c.gridwidth = 2;
+		c.insets.top = 10;
+		JScrollPane sPane = new JScrollPane(getWarehouseStock(),
+											ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+											ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		sPane.setPreferredSize(new Dimension(750, 350));
+		//fix fuer einen BUG bezueglich der Breite/Hoehe in einem GribagLayout
+		sPane.setMinimumSize(this.getPreferredSize());
+		pane.add(sPane,c);			
+		return pane;
+	}
+	
+	private JPanel getOverview()
+	{
+		JPanel pane = new JPanel();
+		pane.setLayout(new GridBagLayout());
+				
+		GridBagConstraints c = new GridBagConstraints();
+		
 		JTextField txt;
 		
 		c.insets = new Insets(10, 5, 0, 5);
@@ -233,6 +275,120 @@ public class OverviewTab extends JPanel
 		txt.setMinimumSize(txt.getPreferredSize());
 		txtfields.put("profit", txt);
 		pane.add(txt,c);
+		
+		return pane;
+	}
+	
+	private JPanel getWarehouseStock()
+	{
+		Repository repo = Repository.getInstance();
+		DatabaseContentHandler dbch = DatabaseContentHandler.get();
+		JPanel pane = new JPanel();
+		pane.setLayout(new GridBagLayout());
+				
+		GridBagConstraints c = new GridBagConstraints();
+		
+		JTextField txt;
+		
+		c.insets = new Insets(10, 5, 0, 5);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx =1.0;
+		c.gridy = 0;
+		c.gridx = 0;
+		pane.add(new JLabel("Material"),c);
+		
+		c.gridx++;
+		pane.add(new JLabel("Menge"),c);
+	
+		c.gridx++;
+		pane.add(new JLabel("Startmenge"),c);
+		
+		c.gridx++;
+		pane.add(new JLabel("Preis"),c);
+		
+		c.gridx++;
+		pane.add(new JLabel("Lagerwert"),c);
+		
+		c.insets.left = 50;
+		c.gridx++;
+		pane.add(new JLabel("Material"),c);
+		
+		c.insets.left = 5;
+		c.gridx++;
+		pane.add(new JLabel("Menge"),c);
+	
+		c.gridx++;
+		pane.add(new JLabel("Startmenge"),c);
+		
+		c.gridx++;
+		pane.add(new JLabel("Preis"),c);
+		
+		c.gridx++;
+		pane.add(new JLabel("Lagerwert"),c);
+		
+		
+		c.gridx=0;
+		c.gridy++;
+		for(Material m : dbch.getAllMaterial())
+		{
+			
+			txt = new JTextField();
+			txt.setEditable(false);
+			txt.setPreferredSize(new Dimension(30, 20));
+			txt.setMinimumSize(txt.getPreferredSize());
+			txt.setText(m.getId().toString());
+			txtfields.put(m.getId()+"_id", txt);
+			pane.add(txt,c);
+			
+			c.gridx++;
+			c.insets.left = 5;
+			txt = new JTextField();
+			txt.setEditable(false);
+			txt.setPreferredSize(new Dimension(50, 20));
+			txt.setMinimumSize(txt.getPreferredSize());
+			txtfields.put(m.getId()+"_amount", txt);
+			pane.add(txt,c);
+			
+			c.gridx++;
+			txt = new JTextField();
+			txt.setEditable(false);
+			txt.setPreferredSize(new Dimension(50, 20));
+			txt.setMinimumSize(txt.getPreferredSize());
+			txtfields.put(m.getId()+"_startamount", txt);
+			pane.add(txt,c);
+			
+			c.gridx++;
+			txt = new JTextField();
+			txt.setEditable(false);
+			txt.setPreferredSize(new Dimension(50, 20));
+			txt.setMinimumSize(txt.getPreferredSize());
+			txtfields.put(m.getId()+"_price", txt);
+			pane.add(txt,c);
+			
+			c.gridx++;
+			txt = new JTextField();
+			txt.setEditable(false);
+			txt.setPreferredSize(new Dimension(75, 20));
+			txt.setMinimumSize(txt.getPreferredSize());
+			txtfields.put(m.getId()+"_stockvalue", txt);
+			pane.add(txt,c);
+				
+			if(c.gridx == 9)
+			{
+				c.gridx = 0;
+				c.gridy++;
+			}
+
+			if(c.gridx == 4)
+			{
+				c.insets.left = 50;
+				c.gridx++;
+			}
+			
+		}
+		
+		
+		
 		return pane;
 	}
 	
@@ -248,11 +404,22 @@ public class OverviewTab extends JPanel
 	public void refresh()
 	{
 		 WarehouseService service = new  WarehouseService();
+		 Repository repo = Repository.getInstance();
 		 DecimalFormat df = new DecimalFormat( "###,##0.00 \u00A4" );
 		 
 		 String warehousestock = df.format(service.getFutureWarehouseStock());
 		 txtfields.get("warehousestock").setText(warehousestock);
 		 String profit = df.format(service.getProfit());
 		 txtfields.get("profit").setText(profit);
+		 
+		 for(Map.Entry<Material, Double> e : repo.getFutureWarehouse().entrySet())
+		 {
+			 Material m = e.getKey();
+			 txtfields.get(m.getId() + "_amount").setText(m.getAmount().toString());
+			 txtfields.get(m.getId() + "_startamount").setText(m.getStartamount().toString());
+			 txtfields.get(m.getId() + "_price").setText(df.format(m.getPrice()));
+			 txtfields.get(m.getId() + "_stockvalue").setText(df.format(e.getValue()));
+		 }
+		 
 	}
 }
