@@ -221,10 +221,16 @@ public class OverviewTab extends JPanel
 		c.insets.top = 30;
 		pane.add(new CustLabel("Lagerbestand"),c);
 		
+		c.insets.top = 10;
+		c.gridwidth = 2;
 		c.gridy = 2;
 		c.gridx = 0;
+		pane.add(TitelLine(),c);
+		
+		c.gridy = 3;
+		c.gridx = 0;
 		c.gridwidth = 2;
-		c.insets.top = 10;
+		c.insets.top = 0;
 		JScrollPane sPane = new JScrollPane(getWarehouseStock(),
 											ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 											ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -278,7 +284,84 @@ public class OverviewTab extends JPanel
 		
 		return pane;
 	}
+	private JPanel TitelLine()
+	{
+		JPanel pane = new JPanel();
+		pane.setLayout(new GridBagLayout());
+				
+		GridBagConstraints c = new GridBagConstraints();
+		
+		JLabel lbl;
+		
+		
+		c.insets = new Insets(10, 10, 0, 5);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx =1.0;
+		c.gridy = 0;
+		c.gridx = 0;
+		lbl = new JLabel("Material");
+		lbl.setPreferredSize(new Dimension(38, 20));
+		lbl.setMinimumSize(lbl.getPreferredSize());
+		pane.add(lbl,c);
+		
+		c.insets.left = 5;
+		c.gridx++;
+		lbl = new JLabel("Menge");
+		lbl.setPreferredSize(new Dimension(57, 20));
+		lbl.setMinimumSize(lbl.getPreferredSize());
+		pane.add(lbl,c);
 	
+		c.gridx++;
+		lbl = new JLabel("Startmenge");
+		lbl.setPreferredSize(new Dimension(57, 20));
+		lbl.setMinimumSize(lbl.getPreferredSize());
+		pane.add(lbl,c);
+		
+		c.gridx++;
+		lbl = new JLabel("Preis");
+		lbl.setPreferredSize(new Dimension(57, 20));
+		lbl.setMinimumSize(lbl.getPreferredSize());
+		pane.add(lbl,c);
+		
+		c.gridx++;
+		lbl = new JLabel("Lagerwert");
+		lbl.setPreferredSize(new Dimension(76, 20));
+		lbl.setMinimumSize(lbl.getPreferredSize());
+		pane.add(lbl,c);
+		
+		c.insets.left = 55;
+		c.gridx++;
+		lbl = new JLabel("Material");
+		lbl.setPreferredSize(new Dimension(38, 20));
+		lbl.setMinimumSize(lbl.getPreferredSize());
+		pane.add(lbl,c);
+		
+		c.insets.left = 5;
+		c.gridx++;
+		lbl = new JLabel("Menge");
+		lbl.setPreferredSize(new Dimension(57, 20));
+		lbl.setMinimumSize(lbl.getPreferredSize());
+		pane.add(lbl,c);
+	
+		c.gridx++;
+		lbl = new JLabel("Startmenge");
+		lbl.setPreferredSize(new Dimension(57, 20));
+		lbl.setMinimumSize(lbl.getPreferredSize());
+		pane.add(lbl,c);;
+		
+		c.gridx++;
+		lbl = new JLabel("Preis");
+		lbl.setPreferredSize(new Dimension(57, 20));
+		lbl.setMinimumSize(lbl.getPreferredSize());
+		pane.add(lbl,c);
+		
+		c.gridx++;
+		lbl = new JLabel("Lagerwert");
+		lbl.setPreferredSize(new Dimension(73, 20));
+		lbl.setMinimumSize(lbl.getPreferredSize());
+		pane.add(lbl,c);
+		return pane;
+	}
 	private JPanel getWarehouseStock()
 	{
 		Repository repo = Repository.getInstance();
@@ -295,40 +378,40 @@ public class OverviewTab extends JPanel
 		c.weightx =1.0;
 		c.gridy = 0;
 		c.gridx = 0;
-		pane.add(new JLabel("Material"),c);
-		
-		c.gridx++;
-		pane.add(new JLabel("Menge"),c);
-	
-		c.gridx++;
-		pane.add(new JLabel("Startmenge"),c);
-		
-		c.gridx++;
-		pane.add(new JLabel("Preis"),c);
-		
-		c.gridx++;
-		pane.add(new JLabel("Lagerwert"),c);
-		
-		c.insets.left = 50;
-		c.gridx++;
-		pane.add(new JLabel("Material"),c);
-		
-		c.insets.left = 5;
-		c.gridx++;
-		pane.add(new JLabel("Menge"),c);
-	
-		c.gridx++;
-		pane.add(new JLabel("Startmenge"),c);
-		
-		c.gridx++;
-		pane.add(new JLabel("Preis"),c);
-		
-		c.gridx++;
-		pane.add(new JLabel("Lagerwert"),c);
-		
-		
-		c.gridx=0;
-		c.gridy++;
+//		pane.add(new JLabel("Material"),c);
+//		
+//		c.gridx++;
+//		pane.add(new JLabel("Menge"),c);
+//	
+//		c.gridx++;
+//		pane.add(new JLabel("Startmenge"),c);
+//		
+//		c.gridx++;
+//		pane.add(new JLabel("Preis"),c);
+//		
+//		c.gridx++;
+//		pane.add(new JLabel("Lagerwert"),c);
+//		
+//		c.insets.left = 50;
+//		c.gridx++;
+//		pane.add(new JLabel("Material"),c);
+//		
+//		c.insets.left = 5;
+//		c.gridx++;
+//		pane.add(new JLabel("Menge"),c);
+//	
+//		c.gridx++;
+//		pane.add(new JLabel("Startmenge"),c);
+//		
+//		c.gridx++;
+//		pane.add(new JLabel("Preis"),c);
+//		
+//		c.gridx++;
+//		pane.add(new JLabel("Lagerwert"),c);
+//		
+//		
+//		c.gridx=0;
+//		c.gridy++;
 		for(Material m : dbch.getAllMaterial())
 		{
 			

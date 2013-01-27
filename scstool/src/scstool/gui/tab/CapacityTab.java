@@ -231,6 +231,15 @@ public class CapacityTab extends JPanel {
 		c.gridx = 5;
 		pane.add(new JLabel("Normalkapazität"), c);
 
+		c.gridy++;
+		c.gridx = 2;
+		c.insets.top=0;
+		pane.add(new JLabel("(pro Periode)"), c);
+		
+		c.gridx = 4;
+		pane.add(new JLabel("(pro Tag)"), c);
+		
+		c.insets.top=10;
 		JTextField txt;
 		for (Workplace w : wp) {
 			c.gridy++;

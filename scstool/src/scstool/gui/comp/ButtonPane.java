@@ -88,7 +88,7 @@ public class ButtonPane extends JPanel
 		c.weightx =1.0;
 		
 		bnt_export = new JButton("Export");
-		bnt_export.setPreferredSize(new Dimension(100, 50));
+		bnt_export.setPreferredSize(new Dimension(100, 45));
 		bnt_export.setMinimumSize(this.getPreferredSize());	
 		bnt_export.setActionCommand("EXP");
 		bnt_export.setIcon(new ImageIcon(ButtonPane.class.getResource("/icon/ImportXMLFile-24.png")));
