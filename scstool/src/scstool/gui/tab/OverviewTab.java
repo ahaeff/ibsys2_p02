@@ -227,10 +227,10 @@ public class OverviewTab extends JPanel
 		c.insets.top = 10;
 		JScrollPane sPane = new JScrollPane(getWarehouseStock(),
 											ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-											ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+											ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		sPane.setPreferredSize(new Dimension(750, 350));
 		//fix fuer einen BUG bezueglich der Breite/Hoehe in einem GribagLayout
-		sPane.setMinimumSize(this.getPreferredSize());
+		sPane.setMinimumSize(sPane.getPreferredSize());
 		pane.add(sPane,c);			
 		return pane;
 	}
@@ -266,7 +266,7 @@ public class OverviewTab extends JPanel
 
 		c.gridy = 2;
 		c.gridx = 0;
-		pane.add(new JLabel("Gewinn(ohne Leerzeitkosten)"),c);
+		pane.add(new JLabel("Gewinn"),c);
 		
 		c.gridx=1;
 		txt = new JTextField();
@@ -386,9 +386,6 @@ public class OverviewTab extends JPanel
 			}
 			
 		}
-		
-		
-		
 		return pane;
 	}
 	

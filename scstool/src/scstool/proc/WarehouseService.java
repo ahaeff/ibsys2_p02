@@ -86,6 +86,6 @@ public class WarehouseService {
 			ret = ret - stock * 0.006;
 		}
 
-		return ret;
+		return ret/2;
 	}
 }
