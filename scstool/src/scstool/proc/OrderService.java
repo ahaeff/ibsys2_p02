@@ -60,6 +60,7 @@ public class OrderService {
 		try {
 			needs = MatrixMultiplication();
 			Repository.getInstance().setUsage(needs);
+			Material m = DatabaseContentHandler.get().findMaterial(56);
 			averageNeeds = calculateAverageNeeds();
 			coverage = calculateCoverage();
 			timeMaterialCoverage = calculateTimeMaterialCoverage();

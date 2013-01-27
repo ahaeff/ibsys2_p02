@@ -36,22 +36,22 @@ public class CapacityService {
 	 * @return
 	 */
 	private static double addRisk() {
-		Double riskPercente = new Double(Repository.getInstance().getRiskPercente()/4);
-		if(riskPercente < 5)
+		Double riskPercente = new Double(Repository.getInstance()
+				.getRiskPercente() / 4);
+		if (riskPercente < 5)
 			riskPercente = 5.0;
-		return new Double(
-				1 + (riskPercente / 100.0));
+		return new Double(1 + (riskPercente / 100.0));
 	}
-	
+
 	/**
 	 * @return
 	 */
 	private static double removeRisk() {
-		Double riskPercente = new Double(Repository.getInstance().getRiskPercente()/4);
-		if(riskPercente < 5)
+		Double riskPercente = new Double(Repository.getInstance()
+				.getRiskPercente() / 4);
+		if (riskPercente < 5)
 			riskPercente = 5.0;
-		return new Double(
-				1 - (riskPercente / 100.0));
+		return new Double(1 - (riskPercente / 100.0));
 	}
 
 	/**
@@ -99,7 +99,7 @@ public class CapacityService {
 			}
 		}
 
-		return (int) (new Double(result)*addRisk());
+		return (int) (new Double(result) * addRisk());
 	}
 
 	/**
@@ -167,10 +167,8 @@ public class CapacityService {
 					SECOND_SHIFT_SALARY);
 		}
 
-		if (capacity < THIRD_SHIFT) {
-			costsThirdShift = getCosts(workplace, capacity, THIRD_SHIFT,
-					THIRD_SHIFT_SALARY);
-		}
+		costsThirdShift = getCosts(workplace, capacity, THIRD_SHIFT,
+				THIRD_SHIFT_SALARY);
 
 		return chooseShift(capacity, costsFirstShift, costsSecondShift,
 				costsThirdShift);
@@ -249,14 +247,10 @@ public class CapacityService {
 		if (costsThirdShift < costsFirstShift
 				&& costsThirdShift < costsSecondShift) {
 			result[0] = 3;
-			if (capacity > THIRD_SHIFT) {
-				result[1] = (int) ((capacity - THIRD_SHIFT) / 5);
-			} else {
-				result[1] = 0;
-			}
+			result[1] = 0;
 		}
 
-		result[2] = (int) (new Double(capacity)*removeRisk());
+		result[2] = (int) (new Double(capacity) * removeRisk());
 		return result;
 	}
 }
