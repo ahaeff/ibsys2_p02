@@ -357,10 +357,9 @@ public class SellWishTab extends JPanel {
 		pane.add(new CustLabel("P1"), c);
 
 		
-		//TODO Direktverkauf einbinden!
 		c.gridx = 1;
 		txt = new NTextField();
-		//txtfields.put(txt, P1_PREFIX + DIRECT);
+		txtfields.put(txt, P1_PREFIX + DIRECT);
 		pane.add(txt, c);
 
 		// 8. Zeile
@@ -370,7 +369,7 @@ public class SellWishTab extends JPanel {
 
 		c.gridx = 1;
 		txt = new NTextField();
-		//txtfields.put(txt, P2_PREFIX + DIRECT);
+		txtfields.put(txt, P2_PREFIX + DIRECT);
 		pane.add(txt, c);
 
 		// 8. Zeile
@@ -380,7 +379,7 @@ public class SellWishTab extends JPanel {
 
 		c.gridx = 1;
 		txt = new NTextField();
-		//txtfields.put(txt, P3_PREFIX + DIRECT);
+		txtfields.put(txt, P3_PREFIX + DIRECT);
 		pane.add(txt, c);
 
 		return pane;
@@ -396,9 +395,9 @@ public class SellWishTab extends JPanel {
 			String key = e.getValue();
 
 			if ("D".equals(key.substring(2))) {
-				//e.getKey().setText(String.valueOf(value));
-				//int matnr = Integer.parseInt(key.substring(0, 1));
-
+				e.getKey().setText(String.valueOf(value));
+				int matnr = Integer.parseInt(key.substring(0, 1));
+				repo.addDirect(matnr, Integer.parseInt(e.getKey().getText()));
 			} else {
 				e.getKey().setText(String.valueOf(value));
 				int matnr = Integer.parseInt(key.substring(0, 1));
